@@ -1,0 +1,1150 @@
+<!DOCTYPE html><html lang="zh"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI时代传道人使用DeepSeek提升服侍效率方案</title>
+    <style>
+        :root {
+            --primary-color: #3a7bd5;
+            --secondary-color: #00d2ff;
+            --accent-color: #f9a825;
+            --text-color: #333;
+            --light-gray: #f5f7fa;
+            --white: #ffffff;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-gray);
+            padding: 0;
+            margin: 0;
+        }
+        
+        header {
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .intro p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: #555;
+        }
+        
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .solution-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .solution-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-illustration {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(140deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .card-description {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .benefits-list {
+            margin-bottom: 20px;
+        }
+        
+        .benefits-list li {
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 10px;
+            list-style: none;
+        }
+        
+        .benefits-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .implementation-tips {
+            background-color: rgba(58, 123, 213, 0.08);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .implementation-tips h4 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .deepseek-highlight {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        footer p {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+        
+        @media (max-width: 768px) {
+            .solutions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card-header {
+                height: 150px;
+            }
+        }
+        
+        .icon {
+            font-size: 64px;
+        }
+        
+        /* Canvas styling */
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Click indicator */
+        .click-indicator {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+        
+        /* 弹出模态框 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            max-width: 90%;
+            width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            color: var(--primary-color);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .prompt-container {
+            background-color: #f5f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #dde6ff;
+        }
+        
+        .prompt-text {
+            font-family: monospace;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+        
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: background-color 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background-color: #2c62b5;
+        }
+        
+        .copy-success {
+            color: green;
+            font-size: 14px;
+            margin-left: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .copy-success.show {
+            opacity: 1;
+        }
+        
+        .step-container {
+            margin-top: 20px;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .open-deepseek-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .open-deepseek-btn:hover {
+            background-color: #2c62b5;
+        }
+        
+        .usage-instructions {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #fff9e6;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .usage-title {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .usage-title:before {
+            content: "💡";
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-close" id="modalClose">×</div>
+            <h3 class="modal-title" id="modalTitle">经文分析与讲道准备</h3>
+            
+            <div class="prompt-container">
+                <div class="prompt-text" id="promptText">加载中...</div>
+            </div>
+            
+            <button class="copy-btn" id="copyBtn">复制提示词</button>
+            <span class="copy-success" id="copySuccess">✓ 复制成功!</span>
+            
+            <div class="step-container">
+                <h4>使用方法：</h4>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div>点击上方的"复制提示词"按钮，将预设提示词复制到剪贴板</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div>点击下方的"打开DeepSeek"按钮，系统将在新标签页打开DeepSeek官网</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div>在DeepSeek聊天界面中，将复制的提示词粘贴到对话框中，并根据需要调整方括号中的内容</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div>按下发送按钮，开始与DeepSeek对话</div>
+                </div>
+            </div>
+            
+            <button class="open-deepseek-btn" id="openDeepseekBtn">打开DeepSeek</button>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-bg" id="header-canvas"></div>
+        <div class="header-content">
+            <h1>AI时代传道人提升服侍效率方案</h1>
+            <p class="subtitle">运用DeepSeek模型辅助教会事工，创新服侍方式</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="intro">
+            <h2 class="section-title">科技赋能信仰服侍</h2>
+            <p>在信息爆炸的时代，传道人面临着多重挑战。<span class="deepseek-highlight">DeepSeek</span>作为先进的人工智能大模型，可以成为传道人的得力助手，辅助处理信息分析、内容创作和行政管理等工作，让您能更专注于灵性关怀和教导。以下五个方案具有高可行性，易于实施，并能带来立竿见影的效果。</p>
+        </div>
+        
+        <div class="usage-instructions">
+            <h3 class="usage-title">如何使用本页面</h3>
+            <p>点击下方任意方案卡片，系统将弹出详细的操作指南和预设提示词。您只需复制提示词，然后使用我们提供的链接打开DeepSeek，粘贴提示词并根据您的具体需求修改，即可快速开始AI辅助的教会服侍。</p>
+        </div>
+        
+        <div class="solutions-grid">
+            <div class="solution-card" id="card1" data-title="经文分析与讲道准备" data-prompt="我是一位传道人，需要帮助准备讲道。请协助我对以下经文进行分析，提供多角度的释经观点、历史文化背景，并生成讲道大纲：[这里输入您要分析的经文]。请包含：1. 经文主题和核心信息 2. 重要神学概念解析 3. 历史背景和文化上下文 4. 3-5个可能的讲道切入点 5. 符合经文主题的完整讲道大纲 6. 适用的例证和应用点建议">
+                <div class="card-header">
+                    <div class="card-illustration" id="illustration1"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">经文分析与讲道准备</h3>
+                    <p class="card-description">利用DeepSeek的强大文本理解和知识整合能力，辅助经文研究和讲道准备工作，提高备课效率。</p>
+                    <ul class="benefits-list">
+                        <li>快速分析经文主题、背景、神学要点</li>
+                        <li>生成多角度的讲道大纲和框架</li>
+                        <li>汇总相关圣经参考经文和释经资源</li>
+                        <li>提供历史和文化背景补充资料</li>
+                    </ul>
+                    <div class="implementation-tips">
+                        <h4>实施建议</h4>
+                        <p>将经文输入DeepSeek，要求其分析主题、上下文，并生成不同角度的讲解思路。结合圣经软件和DeepSeek的分析结果，创建个人化的讲道体系。每周固定使用AI辅助初步研经，然后自行深化内容。</p>
+                    </div>
+                    <div class="click-indicator">点击查看详情</div>
+                </div>
+            </div>
+            
+            <div class="solution-card" id="card2" data-title="自动化教会行政" data-prompt="我是一位教会传道人，需要帮助处理教会行政工作。请协助我：[选择以下一项或多项任务]
+1. 将这份会议录音/笔记整理为结构化会议纪要，提取关键决策和行动项目
+2. 为教会[活动名称]活动制定详细的策划方案，包括时间表、人员安排和资源需求
+3. 根据这些数据生成教会月度/季度/年度报告，分析关键指标和趋势
+4. 帮我优化这份教会事工计划表，提高效率并减少资源冲突
+5. 为教会财务数据进行分析，提供预算规划建议
+
+请在回答中提供清晰的结构和实用建议，以便我能够高效完成行政工作。">
+                <div class="card-header">
+                    <div class="card-illustration" id="illustration2"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">自动化教会行政</h3>
+                    <p class="card-description">通过DeepSeek处理日常行政事务，减轻传道人的管理压力，释放更多时间用于核心牧养工作。</p>
+                    <ul class="benefits-list">
+                        <li>会议记录整理与关键点提取</li>
+                        <li>活动策划与日程安排优化</li>
+                        <li>自动生成各类报告和文档</li>
+                        <li>财务数据分析与预算规划辅助</li>
+                    </ul>
+                    <div class="implementation-tips">
+                        <h4>实施建议</h4>
+                        <p>将会议录音转为文字后交由DeepSeek整理为会议纪要；制作标准模板，让AI按规范生成周报、月报；建立教会活动的标准操作流程，由AI提供策划思路和任务分解；使用电子表格结合DeepSeek进行财务数据分析。</p>
+                    </div>
+                    <div class="click-indicator">点击查看详情</div>
+                </div>
+            </div>
+            
+            <div class="solution-card" id="card3" data-title="个性化辅导资源库" data-prompt="我是一位教会传道人，需要为会友创建个性化的灵修和辅导资源。请协助我为以下群体/需求创建定制化的资源：
+
+目标群体：[选择一项：青少年、职场信徒、年长信徒、新信徒、婚姻家庭、面临挑战的信徒]
+
+需要创建的资源类型：[选择一项：
+1. 为期7天的灵修计划，包含每日经文、反思问题和应用点
+2. 小组讨论指南，包含破冰问题、核心讨论题和应用实践
+3. 主题式查经资料，深入探讨特定圣经主题
+4. 信仰生活辅导资源，帮助会友面对具体挑战
+5. 教导/培训资料，帮助提升特定属灵素质]
+
+主题/焦点：[输入具体主题，如「信心」、「面对压力」、「家庭关系」等]
+
+请提供完整、实用且符合圣经教导的内容，语言要适合目标群体的理解水平和生活处境。">
+                <div class="card-header">
+                    <div class="card-illustration" id="illustration3"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">个性化辅导资源库</h3>
+                    <p class="card-description">借助DeepSeek的自然语言处理能力，为不同群体创建个性化的灵修和辅导资源，提升牧养针对性。</p>
+                    <ul class="benefits-list">
+                        <li>根据不同信徒需求生成灵修材料</li>
+                        <li>为特定生活挑战提供圣经辅导资源</li>
+                        <li>创建主题式的查经和小组讨论指南</li>
+                        <li>设计针对不同年龄层的信仰教育内容</li>
+                    </ul>
+                    <div class="implementation-tips">
+                        <h4>实施建议</h4>
+                        <p>根据会友类型(如青少年、职场人士、年长者)建立基础模板，使用DeepSeek生成适合各群体的灵修材料；收集常见的信仰和生活问题，由AI协助创建应对资源库；为教会各部门制作独特的学习和讨论资料。</p>
+                    </div>
+                    <div class="click-indicator">点击查看详情</div>
+                </div>
+            </div>
+            
+            <div class="solution-card" id="card4" data-title="多语言服侍与翻译" data-prompt="我是一名教会传道人/宣教士，需要协助处理多语言翻译和跨文化沟通工作。请帮我完成以下任务：
+
+任务类型：[选择一项：
+1. 将以下中文教会资料翻译成[目标语言]，保持神学准确性和文化适应性
+2. 为我提供关于[目标文化/国家]的文化背景知识，包括禁忌、沟通习惯和信仰相关文化差异
+3. 帮我改写以下内容，使其更适合[目标文化/语言]的受众理解
+4. 为多语言教会环境提供双语/多语言资源制作建议]
+
+文本/内容：[粘贴需要翻译或改写的内容，或描述您需要了解的文化背景]
+
+特别要求：
+- 保持原文的神学准确性和核心信息
+- 考虑目标文化的习惯和表达方式
+- 使用适合教会/宣教场景的措辞和术语
+- 提供文化背景解释（如适用）
+
+请提供专业、准确且文化敏感的翻译/建议，帮助我有效开展跨文化事工。">
+                <div class="card-header">
+                    <div class="card-illustration" id="illustration4"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">多语言服侍与翻译</h3>
+                    <p class="card-description">利用DeepSeek的多语言能力，突破语言障碍，促进跨文化交流和宣教工作的展开。</p>
+                    <ul class="benefits-list">
+                        <li>讲道内容和教材的多语言翻译</li>
+                        <li>宣教资料的本地化适配</li>
+                        <li>跨文化沟通和理解促进</li>
+                        <li>多语言教会资源库建设</li>
+                    </ul>
+                    <div class="implementation-tips">
+                        <h4>实施建议</h4>
+                        <p>将教会核心材料通过DeepSeek翻译为目标语言，并请懂该语言的同工校对；制作多语言的欢迎包和介绍资料；建立翻译流程，定期更新多语言资源库；为宣教士提供目标文化的表达方式和禁忌指南。</p>
+                    </div>
+                    <div class="click-indicator">点击查看详情</div>
+                </div>
+            </div>
+            
+            <div class="solution-card" id="card5" data-title="媒体内容创作" data-prompt="我是一位教会传道人，需要创建高质量的数字媒体内容来拓展教会的线上影响力。请协助我：
+
+内容类型：[选择一项：
+1. 教会公众号/社交媒体文章
+2. 教会简报/电子期刊内容
+3. 福音/信仰相关的视频脚本
+4. 信仰类播客内容大纲
+5. 教会网站内容更新]
+
+主题：[输入具体主题，如「信心与行为」、「圣诞节的真正意义」等]
+
+目标受众：[描述目标受众，如「未信者」、「新信徒」、「全教会」、「年轻人」等]
+
+风格要求：
+- 贴近目标受众的语言风格和关注点
+- 保持神学准确性和合乎圣经
+- 包含引人思考的问题和实际应用
+- 适合在数字平台上传播和分享
+
+请提供完整的内容草稿，包括标题、正文和适当的小标题结构。内容应既有深度又容易理解，能吸引目标受众的兴趣并传递核心信息。">
+                <div class="card-header">
+                    <div class="card-illustration" id="illustration5"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">媒体内容创作</h3>
+                    <p class="card-description">借助DeepSeek辅助创建各类媒体内容，增强教会在数字平台的影响力，触及更广泛的人群。</p>
+                    <ul class="benefits-list">
+                        <li>公众号文章和社交媒体内容创作</li>
+                        <li>教会简报和电子刊物编辑</li>
+                        <li>网站内容和SEO优化建议</li>
+                        <li>信仰类视频脚本和播客内容策划</li>
+                    </ul>
+                    <div class="implementation-tips">
+                        <h4>实施建议</h4>
+                        <p>制定内容日历，使用DeepSeek为每周的主题生成初稿；建立教会品牌风格指南，确保AI创作符合教会特色；使用主题模板，让AI协助丰富内容细节；结合时事热点，由AI提供基督教视角的回应方案。</p>
+                    </div>
+                    <div class="click-indicator">点击查看详情</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 AI时代的教会服侍 | 技术支持信仰，信仰引导技术</p>
+        <p>本资源旨在为传道人提供AI应用思路，请在实际使用中保持属灵分辨力，将DeepSeek作为辅助工具而非替代属灵判断和带领。</p>
+    </footer>
+
+    <script>
+        // DeepSeek URL
+        const DEEPSEEK_URL = "https://chat.deepseek.com/";
+        
+        // 获取DOM元素
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        const modalTitle = document.getElementById('modalTitle');
+        const promptText = document.getElementById('promptText');
+        const copyBtn = document.getElementById('copyBtn');
+        const copySuccess = document.getElementById('copySuccess');
+        const openDeepseekBtn = document.getElementById('openDeepseekBtn');
+        
+        // 添加点击事件处理
+        function setupCardClickHandlers() {
+            const cards = document.querySelectorAll('.solution-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // 获取预设提示词和标题
+                    const prompt = this.getAttribute('data-prompt');
+                    const title = this.getAttribute('data-title');
+                    
+                    // 更新模态框内容
+                    modalTitle.textContent = title;
+                    promptText.textContent = prompt;
+                    
+                    // 显示模态框
+                    modalOverlay.classList.add('active');
+                });
+            });
+        }
+        
+        // 关闭模态框
+        modalClose.addEventListener('click', function() {
+            modalOverlay.classList.remove('active');
+        });
+        
+        // 点击模态框背景也关闭
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+            }
+        });
+        
+        // 复制提示词
+        copyBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(promptText.textContent).then(() => {
+                copySuccess.classList.add('show');
+                setTimeout(() => {
+                    copySuccess.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('无法复制到剪贴板: ', err);
+                alert('无法自动复制提示词。请手动选择文本并复制。');
+            });
+        });
+        
+        // 打开DeepSeek
+        openDeepseekBtn.addEventListener('click', function() {
+            window.open(DEEPSEEK_URL, '_blank');
+        });
+        
+        // 绘制各种Canvas图形的函数
+        function drawHeaderCanvas() {
+            const canvas = document.createElement('canvas');
+            const header = document.getElementById('header-canvas');
+            header.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = header.offsetWidth;
+            canvas.height = header.offsetHeight;
+            
+            // 绘制网格背景
+            ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+            ctx.lineWidth = 1;
+            
+            const gap = 40;
+            
+            for (let x = 0; x < canvas.width; x += gap) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            
+            for (let y = 0; y < canvas.height; y += gap) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+            
+            // 添加一些点和圆形
+            ctx.fillStyle = 'rgba(255,255,255,0.2)';
+            for (let i = 0; i < 50; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const radius = Math.random() * 3 + 1;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        function drawIllustration1() {
+            const container = document.getElementById('illustration1');
+            const canvas = document.createElement('canvas');
+            container.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            
+            // Bible and magnifying glass
+            // Bible
+            ctx.fillStyle = '#ffffff';
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 2;
+            
+            // Book
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 50, canvas.height/2 - 30);
+            ctx.lineTo(canvas.width/2 + 50, canvas.height/2 - 30);
+            ctx.lineTo(canvas.width/2 + 50, canvas.height/2 + 30);
+            ctx.lineTo(canvas.width/2 - 50, canvas.height/2 + 30);
+            ctx.closePath();
+            ctx.stroke();
+            
+            // Book pages
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2, canvas.height/2 - 30);
+            ctx.lineTo(canvas.width/2, canvas.height/2 + 30);
+            ctx.stroke();
+            
+            // Cross on book
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 25, canvas.height/2);
+            ctx.lineTo(canvas.width/2 - 15, canvas.height/2);
+            ctx.moveTo(canvas.width/2 - 20, canvas.height/2 - 5);
+            ctx.lineTo(canvas.width/2 - 20, canvas.height/2 + 5);
+            ctx.stroke();
+            
+            // Magnifying glass
+            ctx.beginPath();
+            ctx.arc(canvas.width/2 + 70, canvas.height/2 - 20, 20, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Handle
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 + 55, canvas.height/2 - 5);
+            ctx.lineTo(canvas.width/2 + 40, canvas.height/2 + 20);
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            
+            // AI symbol near the book
+            ctx.font = '15px Arial';
+            ctx.fillText('AI', canvas.width/2 + 20, canvas.height/2 + 10);
+            
+            // DeepSeek name in subtle text
+            ctx.font = '12px Arial';
+            ctx.fillStyle = 'rgba(255,255,255,0.7)';
+            ctx.fillText('DeepSeek', canvas.width/2 - 30, canvas.height/2 - 40);
+        }
+        
+        function drawIllustration2() {
+            const container = document.getElementById('illustration2');
+            const canvas = document.createElement('canvas');
+            container.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            
+            // Drawing administrative tools
+            ctx.strokeStyle = '#ffffff';
+            ctx.fillStyle = '#ffffff';
+            ctx.lineWidth = 2;
+            
+            // Calendar
+            ctx.beginPath();
+            ctx.rect(canvas.width/2 - 60, canvas.height/2 - 30, 60, 60);
+            ctx.stroke();
+            
+            // Calendar grid
+            for (let i = 0; i < 2; i++) {
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2 - 60, canvas.height/2 - 30 + 20 * (i+1));
+                ctx.lineTo(canvas.width/2, canvas.height/2 - 30 + 20 * (i+1));
+                ctx.stroke();
+            }
+            
+            for (let i = 0; i < 2; i++) {
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2 - 60 + 20 * (i+1), canvas.height/2 - 30);
+                ctx.lineTo(canvas.width/2 - 60 + 20 * (i+1), canvas.height/2 + 30);
+                ctx.stroke();
+            }
+            
+            // Document
+            ctx.beginPath();
+            ctx.rect(canvas.width/2 + 10, canvas.height/2 - 30, 50, 60);
+            ctx.stroke();
+            
+            // Document lines
+            for (let i = 0; i < 4; i++) {
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2 + 15, canvas.height/2 - 20 + 15 * i);
+                ctx.lineTo(canvas.width/2 + 55, canvas.height/2 - 20 + 15 * i);
+                ctx.stroke();
+            }
+            
+            // Gear (representing automation)
+            ctx.beginPath();
+            ctx.arc(canvas.width/2 - 20, canvas.height/2 - 50, 15, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Gear teeth
+            for (let i = 0; i < 8; i++) {
+                const angle = i * Math.PI / 4;
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2 - 20 + 15 * Math.cos(angle), canvas.height/2 - 50 + 15 * Math.sin(angle));
+                ctx.lineTo(canvas.width/2 - 20 + 22 * Math.cos(angle), canvas.height/2 - 50 + 22 * Math.sin(angle));
+                ctx.stroke();
+            }
+            
+            // DeepSeek label
+            ctx.font = '12px Arial';
+            ctx.fillStyle = 'rgba(255,255,255,0.7)';
+            ctx.fillText('DeepSeek', canvas.width/2 - 30, canvas.height/2 + 45);
+        }
+        
+        function drawIllustration3() {
+            const container = document.getElementById('illustration3');
+            const canvas = document.createElement('canvas');
+            container.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            
+            // Personal resource library
+            ctx.strokeStyle = '#ffffff';
+            ctx.fillStyle = '#ffffff';
+            ctx.lineWidth = 2;
+            
+            // Bookshelf
+            ctx.beginPath();
+            ctx.rect(canvas.width/2 - 60, canvas.height/2 - 40, 120, 80);
+            ctx.stroke();
+            
+            // Shelf dividers
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 60, canvas.height/2);
+            ctx.lineTo(canvas.width/2 + 60, canvas.height/2);
+            ctx.stroke();
+            
+            // Books on top shelf
+            for (let i = 0; i < 5; i++) {
+                ctx.beginPath();
+                ctx.rect(canvas.width/2 - 55 + i * 23, canvas.height/2 - 35, 18, 30);
+                ctx.stroke();
+            }
+            
+            // Books on bottom shelf
+            for (let i = 0; i < 4; i++) {
+                ctx.beginPath();
+                ctx.rect(canvas.width/2 - 50 + i * 25, canvas.height/2 + 5, 20, 30);
+                ctx.stroke();
+            }
+            
+            // Person silhouette
+            ctx.beginPath();
+            ctx.arc(canvas.width/2 - 80, canvas.height/2, 15, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Body
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 80, canvas.height/2 + 15);
+            ctx.lineTo(canvas.width/2 - 80, canvas.height/2 + 40);
+            ctx.stroke();
+            
+            // Arms
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 80, canvas.height/2 + 20);
+            ctx.lineTo(canvas.width/2 - 60, canvas.height/2 + 10);
+            ctx.stroke();
+            
+            // AI connection (dotted line from person to books)
+            ctx.setLineDash([2, 2]);
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 60, canvas.height/2 + 10);
+            ctx.lineTo(canvas.width/2 - 20, canvas.height/2 - 10);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            // DeepSeek label
+            ctx.font = '12px Arial';
+            ctx.fillStyle = 'rgba(255,255,255,0.7)';
+            ctx.fillText('DeepSeek', canvas.width/2 + 10, canvas.height/2 - 50);
+        }
+        
+        function drawIllustration4() {
+            const container = document.getElementById('illustration4');
+            const canvas = document.createElement('canvas');
+            container.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            
+            // Multi-language translation
+            ctx.strokeStyle = '#ffffff';
+            ctx.fillStyle = '#ffffff';
+            ctx.lineWidth = 2;
+            
+            // World map (simplified)
+            ctx.beginPath();
+            ctx.arc(canvas.width/2, canvas.height/2, 50, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Continents (very simplified)
+            ctx.beginPath();
+            ctx.arc(canvas.width/2 - 20, canvas.height/2 - 15, 15, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(canvas.width/2 + 15, canvas.height/2 - 5, 20, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(canvas.width/2 - 5, canvas.height/2 + 25, 12, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Language bubbles
+            ctx.fillStyle = 'rgba(255,255,255,0.2)';
+            ctx.strokeStyle = '#ffffff';
+            
+            // English
+            ctx.beginPath();
+            ctx.arc(canvas.width/2 - 80, canvas.height/2 - 40, 20, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '12px Arial';
+            ctx.fillText('En', canvas.width/2 - 87, canvas.height/2 - 35);
+            
+            // Chinese
+            ctx.fillStyle = 'rgba(255,255,255,0.2)';
+            ctx.beginPath();
+            ctx.arc(canvas.width/2 + 80, canvas.height/2 - 40, 20, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '12px Arial';
+            ctx.fillText('中', canvas.width/2 + 73, canvas.height/2 - 35);
+            
+            // Spanish
+            ctx.fillStyle = 'rgba(255,255,255,0.2)';
+            ctx.beginPath();
+            ctx.arc(canvas.width/2 + 70, canvas.height/2 + 40, 20, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '12px Arial';
+            ctx.fillText('Es', canvas.width/2 + 63, canvas.height/2 + 45);
+            
+            // Connection lines between languages
+            ctx.strokeStyle = '#ffffff';
+            ctx.setLineDash([2, 2]);
+            
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 60, canvas.height/2 - 40);
+            ctx.lineTo(canvas.width/2 + 60, canvas.height/2 - 40);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 + 80, canvas.height/2 - 20);
+            ctx.lineTo(canvas.width/2 + 70, canvas.height/2 + 20);
+            ctx.stroke();
+            
+            ctx.setLineDash([]);
+            
+            // DeepSeek in the middle
+            ctx.font = '10px Arial';
+            ctx.fillStyle = 'rgba(255,255,255,0.7)';
+            ctx.fillText('DeepSeek', canvas.width/2 - 25, canvas.height/2);
+        }
+        
+        function drawIllustration5() {
+            const container = document.getElementById('illustration5');
+            const canvas = document.createElement('canvas');
+            container.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            
+            // Media content creation
+            ctx.strokeStyle = '#ffffff';
+            ctx.fillStyle = '#ffffff';
+            ctx.lineWidth = 2;
+            
+            // Social media icons
+            // Smartphone / device
+            ctx.beginPath();
+            ctx.rect(canvas.width/2 - 30, canvas.height/2 - 40, 60, 80);
+            ctx.stroke();
+            
+            // Screen content
+            ctx.beginPath();
+            ctx.rect(canvas.width/2 - 25, canvas.height/2 - 35, 50, 70);
+            ctx.stroke();
+            
+            // Post layout on screen
+            ctx.beginPath();
+            ctx.rect(canvas.width/2 - 20, canvas.height/2 - 30, 40, 25);
+            ctx.stroke();
+            
+            // Text lines
+            for (let i = 0; i < 3; i++) {
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2 - 20, canvas.height/2 + 5 + i * 10);
+                ctx.lineTo(canvas.width/2 + 20, canvas.height/2 + 5 + i * 10);
+                ctx.stroke();
+            }
+            
+            // Content types coming out of device
+            // Video symbol
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 + 40, canvas.height/2 - 30);
+            ctx.lineTo(canvas.width/2 + 40, canvas.height/2 - 10);
+            ctx.lineTo(canvas.width/2 + 60, canvas.height/2 - 20);
+            ctx.closePath();
+            ctx.stroke();
+            
+            // Document/article
+            ctx.beginPath();
+            ctx.rect(canvas.width/2 + 40, canvas.height/2, 25, 30);
+            ctx.stroke();
+            
+            // Document lines
+            for (let i = 0; i < 3; i++) {
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2 + 45, canvas.height/2 + 5 + i * 7);
+                ctx.lineTo(canvas.width/2 + 60, canvas.height/2 + 5 + i * 7);
+                ctx.stroke();
+            }
+            
+            // AI content generation symbol
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 60, canvas.height/2 - 20);
+            ctx.lineTo(canvas.width/2 - 40, canvas.height/2 - 20);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 60, canvas.height/2);
+            ctx.lineTo(canvas.width/2 - 40, canvas.height/2);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 60, canvas.height/2 + 20);
+            ctx.lineTo(canvas.width/2 - 40, canvas.height/2 + 20);
+            ctx.stroke();
+            
+            // Connecting arrows
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 40, canvas.height/2 - 20);
+            ctx.lineTo(canvas.width/2 - 35, canvas.height/2 - 20);
+            ctx.lineTo(canvas.width/2 - 35, canvas.height/2 - 10);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 40, canvas.height/2);
+            ctx.lineTo(canvas.width/2 - 35, canvas.height/2);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 40, canvas.height/2 + 20);
+            ctx.lineTo(canvas.width/2 - 35, canvas.height/2 + 20);
+            ctx.lineTo(canvas.width/2 - 35, canvas.height/2 + 10);
+            ctx.stroke();
+            
+            // DeepSeek label
+            ctx.font = '12px Arial';
+            ctx.fillStyle = 'rgba(255,255,255,0.7)';
+            ctx.fillText('DeepSeek', canvas.width/2 - 70, canvas.height/2 - 40);
+        }
+        
+        // Call the drawing functions after window loads
+        window.onload = function() {
+            drawHeaderCanvas();
+            drawIllustration1();
+            drawIllustration2();
+            drawIllustration3();
+            drawIllustration4();
+            drawIllustration5();
+            setupCardClickHandlers(); // 设置卡片点击事件
+        };
+        
+        // Redraw on window resize for responsiveness
+        window.addEventListener('resize', function() {
+            drawHeaderCanvas();
+            drawIllustration1();
+            drawIllustration2();
+            drawIllustration3();
+            drawIllustration4();
+            drawIllustration5();
+        });
+    </script>
+
+
+</body></html>
