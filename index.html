@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="zh"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+<!DOCTYPE html>
+<html lang="zh">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI时代传道人使用DeepSeek提升服侍效率方案</title>
@@ -370,22 +372,55 @@
             flex-shrink: 0;
         }
         
-        .open-deepseek-btn {
+        /* 新增双按钮样式 */
+        .deepseek-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        .open-deepseek-app-btn, .open-deepseek-web-btn {
             display: block;
-            width: 100%;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
+            flex: 1;
             padding: 12px;
             border-radius: 5px;
             font-size: 16px;
-            margin-top: 20px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            border: none;
+            text-align: center;
         }
         
-        .open-deepseek-btn:hover {
+        .open-deepseek-app-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .open-deepseek-app-btn:hover {
             background-color: #2c62b5;
+        }
+        
+        .open-deepseek-web-btn {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+        
+        .open-deepseek-web-btn:hover {
+            background-color: #d0d0d0;
+        }
+        
+        /* 加载提示样式 */
+        #appLoadingIndicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            z-index: 9999;
         }
         
         .usage-instructions {
@@ -431,11 +466,11 @@
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <div>点击下方的"打开DeepSeek"按钮，系统将在新标签页打开DeepSeek官网</div>
+                    <div>点击下方的"打开DeepSeek软件"按钮尝试启动本地软件，或点击"打开DeepSeek网站"按钮访问官网</div>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <div>在DeepSeek聊天界面中，将复制的提示词粘贴到对话框中，并根据需要调整方括号中的内容</div>
+                    <div>在DeepSeek界面中，将复制的提示词粘贴到对话框中，并根据需要调整方括号中的内容</div>
                 </div>
                 <div class="step">
                     <div class="step-number">4</div>
@@ -443,7 +478,11 @@
                 </div>
             </div>
             
-            <button class="open-deepseek-btn" id="openDeepseekBtn">打开DeepSeek</button>
+            <!-- 替换原来的单一按钮为两个按钮 -->
+            <div class="deepseek-buttons">
+                <button class="open-deepseek-app-btn" id="openDeepseekAppBtn">打开DeepSeek软件</button>
+                <button class="open-deepseek-web-btn" id="openDeepseekWebBtn">打开DeepSeek网站</button>
+            </div>
         </div>
     </div>
 
@@ -463,7 +502,7 @@
         
         <div class="usage-instructions">
             <h3 class="usage-title">如何使用本页面</h3>
-            <p>点击下方任意方案卡片，系统将弹出详细的操作指南和预设提示词。您只需复制提示词，然后使用我们提供的链接打开DeepSeek，粘贴提示词并根据您的具体需求修改，即可快速开始AI辅助的教会服侍。</p>
+            <p>点击下方任意方案卡片，系统将弹出详细的操作指南和预设提示词。您只需复制提示词，然后使用我们提供的按钮打开DeepSeek软件或网站，粘贴提示词并根据您的具体需求修改，即可快速开始AI辅助的教会服侍。</p>
         </div>
         
         <div class="solutions-grid">
@@ -630,13 +669,14 @@
     </div>
     
     <footer>
-        <p>© 2025 AI时代的教会服侍 | 技术支持信仰，信仰引导技术</p>
+        <p>&copy; 2025 AI时代的教会服侍 | 技术支持信仰，信仰引导技术</p>
         <p>本资源旨在为传道人提供AI应用思路，请在实际使用中保持属灵分辨力，将DeepSeek作为辅助工具而非替代属灵判断和带领。</p>
     </footer>
 
     <script>
-        // DeepSeek URL
-        const DEEPSEEK_URL = "https://chat.deepseek.com/";
+        // DeepSeek 网站和应用 URL
+        const DEEPSEEK_WEB_URL = "https://chat.deepseek.com/";
+        const DEEPSEEK_APP_URL = "deepseek://";  // 假设的URL Scheme
         
         // 获取DOM元素
         const modalOverlay = document.getElementById('modalOverlay');
@@ -645,7 +685,8 @@
         const promptText = document.getElementById('promptText');
         const copyBtn = document.getElementById('copyBtn');
         const copySuccess = document.getElementById('copySuccess');
-        const openDeepseekBtn = document.getElementById('openDeepseekBtn');
+        const openDeepseekAppBtn = document.getElementById('openDeepseekAppBtn');
+        const openDeepseekWebBtn = document.getElementById('openDeepseekWebBtn');
         
         // 添加点击事件处理
         function setupCardClickHandlers() {
@@ -692,10 +733,71 @@
             });
         });
         
-        // 打开DeepSeek
-        openDeepseekBtn.addEventListener('click', function() {
-            window.open(DEEPSEEK_URL, '_blank');
+        // 尝试唤醒DeepSeek软件
+        openDeepseekAppBtn.addEventListener('click', function() {
+            openDeepSeekApp();
         });
+        
+        // 直接打开DeepSeek网站
+        openDeepseekWebBtn.addEventListener('click', function() {
+            window.open(DEEPSEEK_WEB_URL, '_blank');
+        });
+        
+        // 尝试唤醒DeepSeek软件的函数
+        function openDeepSeekApp() {
+            // 显示加载提示
+            const loadingEl = document.createElement('div');
+            loadingEl.id = 'appLoadingIndicator';
+            loadingEl.innerHTML = '尝试打开DeepSeek软件...';
+            document.body.appendChild(loadingEl);
+            
+            // 检测用户平台
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const isMac = /Mac/i.test(navigator.userAgent);
+            const isWindows = /Windows/i.test(navigator.userAgent);
+            
+            // 根据平台选择不同的URL Scheme
+            let deepseekScheme;
+            if (isMobile) {
+                if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                    deepseekScheme = DEEPSEEK_APP_URL; // iOS URL Scheme
+                } else {
+                    deepseekScheme = DEEPSEEK_APP_URL; // Android URL Scheme
+                }
+            } else if (isMac) {
+                deepseekScheme = DEEPSEEK_APP_URL; // Mac URL Scheme
+            } else if (isWindows) {
+                deepseekScheme = DEEPSEEK_APP_URL; // Windows URL Scheme
+            } else {
+                // 不支持的平台直接跳转网页
+                document.body.removeChild(loadingEl);
+                window.location.href = DEEPSEEK_WEB_URL;
+                return;
+            }
+            
+            // 记录当前时间，用于检测软件唤醒是否成功
+            const start = Date.now();
+            
+            // 创建一个隐藏的iframe用于尝试唤醒应用
+            const iframe = document.createElement("iframe");
+            iframe.style.display = "none";
+            iframe.src = deepseekScheme;
+            document.body.appendChild(iframe);
+            
+            // 设置超时检测，如果2秒后页面仍在当前页面，说明唤醒失败
+            setTimeout(function() {
+                document.body.removeChild(iframe);
+                document.body.removeChild(loadingEl);
+                
+                // 如果页面焦点没有变化（app未被唤醒）
+                if (Date.now() - start < 2200) {
+                    // 提示用户
+                    alert("打开DeepSeek软件失败，为您跳转到DeepSeek官方网站");
+                    // 跳转到DeepSeek网站
+                    window.open(DEEPSEEK_WEB_URL, '_blank');
+                }
+            }, 2000);
+        }
         
         // 绘制各种Canvas图形的函数
         function drawHeaderCanvas() {
@@ -1145,6 +1247,5 @@
             drawIllustration5();
         });
     </script>
-
-
-</body></html>
+</body>
+</html>
