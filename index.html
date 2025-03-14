@@ -471,6 +471,40 @@
             border-radius: 4px;
             background: #f9f9f9;
         }
+        
+        /* 直接打开按钮网格 */
+        .direct-open-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .direct-open-btn {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            color: var(--primary-color);
+            font-size: 14px;
+        }
+        
+        .direct-open-btn:hover {
+            background: #e9f0ff;
+        }
+        
+        /* 状态信息样式 */
+        .status-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            background: #f8f8f8;
+            font-size: 14px;
+            color: #666;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -512,13 +546,30 @@
                 <button class="open-deepseek-web-btn" id="openDeepseekWebBtn">打开DeepSeek网站</button>
             </div>
             
+            <!-- 状态信息区域 -->
+            <div class="status-message" id="statusMessage"></div>
+            
             <!-- 添加备用方案链接 -->
-            <div class="show-alt-schemes" id="showAltSchemes">打开失败？点击尝试其他方式</div>
+            <div class="show-alt-schemes" id="showAltSchemes">打开失败？请尝试直接点击下列方式</div>
             <div class="alt-schemes-container" id="altSchemesContainer">
-                <a href="intent://chat/#Intent;scheme=deepseek;package=com.deepseek.chat;end" class="alt-scheme-link">直接Intent唤醒（Android）</a>
-                <a href="com.deepseek.chat://" class="alt-scheme-link">包名唤醒</a>
-                <a href="deepseek://chat" class="alt-scheme-link">URL Scheme唤醒</a>
-                <a href="deepseek://" class="alt-scheme-link">基础URL唤醒</a>
+                <p style="margin-bottom:10px">点击下方按钮直接尝试打开DeepSeek应用：</p>
+                
+                <div class="direct-open-grid">
+                    <a href="intent://chat/#Intent;scheme=deepseek;package=com.deepseek.chat;end" class="direct-open-btn" id="intentDirectBtn">
+                        Android Intent打开
+                    </a>
+                    <a href="com.deepseek.chat://" class="direct-open-btn" id="packageDirectBtn">
+                        包名方式打开
+                    </a>
+                    <a href="deepseek://chat" class="direct-open-btn" id="schemeDirectBtn">
+                        URL Scheme打开
+                    </a>
+                    <a href="market://details?id=com.deepseek.chat" class="direct-open-btn" id="storeDirectBtn">
+                        打开应用商店
+                    </a>
+                </div>
+                
+                <p style="margin-top:15px; color:#666; font-size:13px">如果以上方式均不起作用，请尝试在应用商店搜索"DeepSeek"手动安装，或直接使用网页版。</p>
             </div>
         </div>
     </div>
@@ -714,21 +765,8 @@
         // DeepSeek 网站和应用 URL
         const DEEPSEEK_WEB_URL = "https://chat.deepseek.com/";
         
-        // DeepSeek包名（Android）和URL Schemes
-        const DEEPSEEK_PACKAGE = "com.deepseek.chat"; // Android包名
-        
-        // 多种可能的DeepSeek应用URL Schemes
-        const DEEPSEEK_SCHEMES = {
-            ios: [
-                "deepseek://",
-                "deepseek://chat"
-            ],
-            android: [
-                "intent://chat/#Intent;scheme=deepseek;package=com.deepseek.chat;end", // Android Intent方式（最可靠）
-                "com.deepseek.chat://", // 包名直接调用
-                "deepseek://chat" // 常规URL Scheme
-            ]
-        };
+        // DeepSeek包名（Android）
+        const DEEPSEEK_PACKAGE = "com.deepseek.chat";
         
         // 获取DOM元素
         const modalOverlay = document.getElementById('modalOverlay');
@@ -741,6 +779,24 @@
         const openDeepseekWebBtn = document.getElementById('openDeepseekWebBtn');
         const showAltSchemes = document.getElementById('showAltSchemes');
         const altSchemesContainer = document.getElementById('altSchemesContainer');
+        const statusMessage = document.getElementById('statusMessage');
+        
+        // 点击直接打开按钮事件
+        document.getElementById('intentDirectBtn').addEventListener('click', function() {
+            logStatus("尝试使用Android Intent方式打开应用...");
+        });
+        
+        document.getElementById('packageDirectBtn').addEventListener('click', function() {
+            logStatus("尝试使用包名方式打开应用...");
+        });
+        
+        document.getElementById('schemeDirectBtn').addEventListener('click', function() {
+            logStatus("尝试使用URL Scheme方式打开应用...");
+        });
+        
+        document.getElementById('storeDirectBtn').addEventListener('click', function() {
+            logStatus("正在跳转到应用商店...");
+        });
         
         // 显示/隐藏备用URL Schemes
         showAltSchemes.addEventListener('click', function() {
@@ -767,6 +823,10 @@
                     
                     // 显示模态框
                     modalOverlay.classList.add('active');
+                    
+                    // 重置状态消息和备用方案容器
+                    statusMessage.style.display = 'none';
+                    altSchemesContainer.style.display = 'none';
                 });
             });
         }
@@ -806,6 +866,13 @@
             window.open(DEEPSEEK_WEB_URL, '_blank');
         });
         
+        // 记录状态信息
+        function logStatus(message) {
+            statusMessage.textContent = message;
+            statusMessage.style.display = 'block';
+            console.log(message);
+        }
+        
         // 改进的尝试唤醒DeepSeek软件的函数
         function openDeepSeekApp() {
             // 检测用户平台
@@ -813,139 +880,124 @@
             const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
             const isMobile = isAndroid || isIOS;
             
+            // 显示加载提示
+            const loadingEl = document.createElement('div');
+            loadingEl.id = 'appLoadingIndicator';
+            loadingEl.innerHTML = '正在尝试打开DeepSeek...';
+            document.body.appendChild(loadingEl);
+            
             if (isMobile) {
-                // 移动设备上使用直接链接打开应用
                 if (isAndroid) {
-                    // Android设备使用Intent方式（最可靠）
-                    tryOpenAndroidApp();
+                    logStatus("检测到Android设备，尝试通过Intent方式打开应用");
+                    tryOpenAppWithMultipleSchemes();
                 } else if (isIOS) {
-                    // iOS设备使用URL Scheme
-                    tryOpenIOSApp();
+                    logStatus("检测到iOS设备，尝试通过URL Scheme打开应用");
+                    tryOpenAppWithMultipleSchemes();
                 }
             } else {
-                // 桌面设备使用iframe方法
+                logStatus("检测到桌面设备，尝试通过默认方式打开应用");
                 tryOpenDesktopApp();
+            }
+            
+            // 设置超时检测
+            setTimeout(function() {
+                if (document.getElementById('appLoadingIndicator')) {
+                    document.body.removeChild(loadingEl);
+                }
+                
+                // 自动显示备用选项
+                altSchemesContainer.style.display = 'block';
+                logStatus("自动打开失败，您可以尝试点击上方的备用方式");
+                
+            }, 3000);
+        }
+        
+        // 使用多种方案尝试打开应用
+        function tryOpenAppWithMultipleSchemes() {
+            const isAndroid = /Android/i.test(navigator.userAgent);
+            
+            // 记录尝试打开应用的时间
+            const startTime = Date.now();
+            
+            // 尝试移除任何现有的iframe
+            const existingIframe = document.getElementById('appLauncherFrame');
+            if (existingIframe) {
+                document.body.removeChild(existingIframe);
+            }
+            
+            // 创建一个新iframe
+            const iframe = document.createElement('iframe');
+            iframe.id = 'appLauncherFrame';
+            iframe.style.display = 'none';
+            
+            if (isAndroid) {
+                // Android：首先尝试Intent URL（最佳方式）
+                window.location.href = "intent://chat/#Intent;scheme=deepseek;package=com.deepseek.chat;end";
+                
+                // 监控页面可见性变化
+                document.addEventListener('visibilitychange', function handler() {
+                    if (document.hidden) {
+                        document.removeEventListener('visibilitychange', handler);
+                        logStatus("应用已成功打开");
+                    }
+                });
+                
+                // 如果3秒后还没成功，尝试使用商店链接
+                setTimeout(function() {
+                    if (!document.hidden && (Date.now() - startTime > 2500)) {
+                        logStatus("Intent方式失败，尝试使用Google Play商店链接");
+                        try {
+                            window.location.href = "market://details?id=com.deepseek.chat";
+                        } catch(e) {
+                            logStatus("无法使用应用商店链接，请尝试手动安装DeepSeek");
+                        }
+                    }
+                }, 2500);
+            } else {
+                // iOS：尝试使用URL Scheme
+                window.location.href = "deepseek://chat";
+                
+                document.addEventListener('visibilitychange', function handler() {
+                    if (document.hidden) {
+                        document.removeEventListener('visibilitychange', handler);
+                        logStatus("应用已成功打开");
+                    }
+                });
+                
+                // 如果3秒后还没成功，提示使用App Store
+                setTimeout(function() {
+                    if (!document.hidden && (Date.now() - startTime > 2500)) {
+                        logStatus("URL Scheme方式失败，请尝试在App Store中搜索安装DeepSeek");
+                    }
+                }, 2500);
             }
         }
         
-        // Android设备打开应用
-        function tryOpenAndroidApp() {
-            // 显示加载提示
-            const loadingEl = document.createElement('div');
-            loadingEl.id = 'appLoadingIndicator';
-            loadingEl.innerHTML = '正在打开DeepSeek软件...';
-            document.body.appendChild(loadingEl);
-            
-            // 记录尝试打开应用的时间
-            const startTime = Date.now();
-            
-            // 优先使用Intent方式（Android最可靠的方式）
-            window.location.href = DEEPSEEK_SCHEMES.android[0];
-            
-            // 设置一个计时器检查是否成功打开应用
-            setTimeout(function() {
-                // 移除加载提示
-                if (document.getElementById('appLoadingIndicator')) {
-                    document.body.removeChild(loadingEl);
-                }
-                
-                // 如果页面仍然可见（应用未被打开）
-                if (!document.hidden && (Date.now() - startTime < 2500)) {
-                    // 提示显示备用方式
-                    alert("尝试打开DeepSeek应用失败。您可以尝试点击'其他方式'按钮，或直接使用DeepSeek网站。");
-                    // 自动显示备用链接
-                    altSchemesContainer.style.display = 'block';
-                }
-            }, 2500);
-            
-            // 监听页面可见性变化，检测应用是否成功打开
-            document.addEventListener('visibilitychange', function handler() {
-                if (document.hidden) {
-                    // 页面隐藏，表示应用已打开，可以移除监听器
-                    document.removeEventListener('visibilitychange', handler);
-                    
-                    // 移除加载提示
-                    if (document.getElementById('appLoadingIndicator')) {
-                        document.body.removeChild(loadingEl);
-                    }
-                }
-            });
-        }
-        
-        // iOS设备打开应用
-        function tryOpenIOSApp() {
-            // 显示加载提示
-            const loadingEl = document.createElement('div');
-            loadingEl.id = 'appLoadingIndicator';
-            loadingEl.innerHTML = '正在打开DeepSeek软件...';
-            document.body.appendChild(loadingEl);
-            
-            // 记录尝试打开应用的时间
-            const startTime = Date.now();
-            
-            // 尝试使用第一个iOS URL Scheme打开应用
-            window.location.href = DEEPSEEK_SCHEMES.ios[0];
-            
-            // 设置一个计时器检查是否成功打开应用
-            setTimeout(function() {
-                // 移除加载提示
-                if (document.getElementById('appLoadingIndicator')) {
-                    document.body.removeChild(loadingEl);
-                }
-                
-                // 如果页面仍然可见（应用未被打开）
-                if (!document.hidden && (Date.now() - startTime < 2500)) {
-                    // 提示显示备用方式
-                    alert("尝试打开DeepSeek应用失败。您可以尝试点击'其他方式'按钮，或直接使用DeepSeek网站。");
-                    // 自动显示备用链接
-                    altSchemesContainer.style.display = 'block';
-                }
-            }, 2500);
-            
-            // 监听页面可见性变化，检测应用是否成功打开
-            document.addEventListener('visibilitychange', function handler() {
-                if (document.hidden) {
-                    // 页面隐藏，表示应用已打开，可以移除监听器
-                    document.removeEventListener('visibilitychange', handler);
-                    
-                    // 移除加载提示
-                    if (document.getElementById('appLoadingIndicator')) {
-                        document.body.removeChild(loadingEl);
-                    }
-                }
-            });
-        }
-        
-        // 桌面设备打开应用
+        // 桌面设备打开应用尝试
         function tryOpenDesktopApp() {
-            // 显示加载提示
-            const loadingEl = document.createElement('div');
-            loadingEl.id = 'appLoadingIndicator';
-            loadingEl.innerHTML = '尝试打开DeepSeek软件...';
-            document.body.appendChild(loadingEl);
-            
-            // 记录当前时间
-            const start = Date.now();
-            
             // 创建一个隐藏的iframe用于尝试唤醒应用
             const iframe = document.createElement("iframe");
             iframe.style.display = "none";
             iframe.src = "deepseek://";
             document.body.appendChild(iframe);
             
+            // 记录当前时间
+            const start = Date.now();
+            
             // 设置超时检测
             setTimeout(function() {
                 if (document.body.contains(iframe)) {
                     document.body.removeChild(iframe);
                 }
-                document.body.removeChild(loadingEl);
                 
                 // 如果页面焦点没有变化（app未被唤醒）
                 if (Date.now() - start < 2200) {
-                    // 提示用户
-                    alert("未检测到DeepSeek桌面应用，为您打开DeepSeek网站");
-                    // 跳转到DeepSeek网站
-                    window.open(DEEPSEEK_WEB_URL, '_blank');
+                    logStatus("未检测到桌面应用，将使用网页版DeepSeek");
+                    
+                    // 延迟2秒跳转到网站
+                    setTimeout(function() {
+                        window.open(DEEPSEEK_WEB_URL, '_blank');
+                    }, 1000);
                 }
             }, 2000);
         }
@@ -1386,6 +1438,9 @@
             drawIllustration4();
             drawIllustration5();
             setupCardClickHandlers(); // 设置卡片点击事件
+            
+            // 自动显示备用选项
+            altSchemesContainer.style.display = 'block';
         };
         
         // Redraw on window resize for responsiveness
