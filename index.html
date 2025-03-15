@@ -8,19 +8,28 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            // 初始化EmailJS - 使用更新的用户ID
             emailjs.init("wt-dk3EqnrpPzKk_q");
         })();
     </script>
+    <!-- 引入Google字体，提升整体美观度 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #3a7bd5;
+            --primary-dark: #2c62b5; 
             --secondary-color: #00d2ff;
             --accent-color: #f9a825;
             --text-color: #333;
+            --text-light: #666;
+            --text-lighter: #888;
             --light-gray: #f5f7fa;
+            --border-color: #e0e7ff;
             --white: #ffffff;
             --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --shadow-hover: 0 8px 25px rgba(0,0,0,0.15);
+            --gradient: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+            --card-gradient: linear-gradient(140deg, var(--primary-color), var(--secondary-color));
+            --transition: all 0.3s ease;
         }
         
         /* 基础样式 */
@@ -31,8 +40,8 @@
         }
         
         body {
-            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            line-height: 1.6;
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.7;
             color: var(--text-color);
             background-color: var(--light-gray);
             padding: 0;
@@ -40,18 +49,19 @@
         }
         
         header {
-            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+            background: var(--gradient);
             color: white;
-            padding: 60px 20px;
+            padding: 70px 20px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
         
         .header-content {
             position: relative;
             z-index: 2;
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
         }
         
@@ -61,61 +71,69 @@
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.1;
+            opacity: 0.12;
             z-index: 1;
         }
         
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            font-weight: 600;
+            font-size: 2.7rem;
+            margin-bottom: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 30px;
             font-weight: 300;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 50px 20px;
         }
         
         /* 卡片样式 */
         .intro {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
         
         .intro p {
             max-width: 800px;
             margin: 0 auto;
-            font-size: 1.1rem;
-            color: #555;
+            font-size: 1.15rem;
+            color: var(--text-light);
+            line-height: 1.8;
         }
         
         .solutions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            grid-gap: 30px;
-            margin: 30px 0;
+            grid-gap: 35px;
+            margin: 40px 0;
         }
         
         .solution-card {
             background: var(--white);
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: var(--transition);
             cursor: pointer;
             position: relative;
+            border: 1px solid rgba(230, 236, 245, 0.7);
         }
         
         .solution-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
         }
         
         .card-header {
@@ -130,34 +148,35 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(140deg, var(--primary-color), var(--secondary-color));
+            background: var(--card-gradient);
             color: white;
         }
         
         .card-content {
-            padding: 25px;
+            padding: 28px;
         }
         
         .card-title {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: var(--primary-color);
-            margin-bottom: 15px;
+            margin-bottom: 16px;
             font-weight: 600;
         }
         
         .card-description {
-            margin-bottom: 20px;
-            color: #555;
+            margin-bottom: 22px;
+            color: var(--text-light);
+            line-height: 1.7;
         }
         
         .benefits-list {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         
         .benefits-list li {
-            padding-left: 25px;
+            padding-left: 28px;
             position: relative;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             list-style: none;
         }
         
@@ -167,31 +186,41 @@
             left: 0;
             color: var(--primary-color);
             font-weight: bold;
+            font-size: 1.1rem;
         }
         
         .implementation-tips {
-            background-color: rgba(58, 123, 213, 0.08);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
+            background-color: rgba(58, 123, 213, 0.06);
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 18px;
+            border-left: 3px solid var(--primary-color);
         }
         
         .implementation-tips h4 {
-            font-size: 1rem;
+            font-size: 1.05rem;
             margin-bottom: 10px;
             color: var(--primary-color);
         }
         
         .click-indicator {
             position: absolute;
-            bottom: 15px;
-            right: 15px;
+            bottom: 18px;
+            right: 18px;
             background-color: var(--primary-color);
             color: white;
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             opacity: 0.9;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(58, 123, 213, 0.3);
+            transition: var(--transition);
+        }
+        
+        .solution-card:hover .click-indicator {
+            opacity: 1;
+            transform: scale(1.05);
         }
         
         /* 模态框样式 */
@@ -201,7 +230,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0,0,0,0.7);
+            background-color: rgba(0,0,0,0.75);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -209,6 +238,7 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
+            backdrop-filter: blur(3px);
         }
         
         .modal-overlay.active {
@@ -218,59 +248,78 @@
         
         .modal-content {
             background: white;
-            border-radius: 10px;
+            border-radius: 16px;
             max-width: 90%;
-            width: 600px;
-            max-height: 90vh;
+            width: 650px;
+            max-height: 92vh;
             overflow-y: auto;
-            padding: 30px;
+            padding: 35px;
             position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
         }
         
         .modal-close {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 24px;
+            top: 18px;
+            right: 18px;
+            font-size: 26px;
             cursor: pointer;
             color: #999;
             transition: color 0.3s ease;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.03);
         }
         
         .modal-close:hover {
             color: var(--primary-color);
+            background: rgba(0,0,0,0.06);
         }
         
         .modal-title {
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             color: var(--primary-color);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
+            margin-bottom: 22px;
+            padding-bottom: 14px;
             border-bottom: 1px solid #eee;
+            font-weight: 600;
         }
         
         .prompt-container {
             background-color: #f5f8ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
             border: 1px solid #dde6ff;
+            box-shadow: inset 0 2px 6px rgba(0,0,50,0.04);
         }
         
         .prompt-text {
-            font-family: monospace;
+            font-family: 'Roboto Mono', monospace;
             white-space: pre-wrap;
-            line-height: 1.5;
+            line-height: 1.6;
+            color: #444;
         }
         
         /* 辅助元素 */
         .section-title {
             text-align: center;
             margin-bottom: 40px;
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--primary-color);
             position: relative;
-            padding-bottom: 15px;
+            padding-bottom: 16px;
+            font-weight: 600;
         }
         
         .section-title:after {
@@ -282,6 +331,7 @@
             width: 80px;
             height: 3px;
             background: var(--accent-color);
+            border-radius: 2px;
         }
         
         .deepseek-highlight {
@@ -290,31 +340,34 @@
         }
         
         .usage-instructions {
-            margin: 30px 0;
-            padding: 20px;
+            margin: 35px 0;
+            padding: 24px;
             background-color: #fff9e6;
-            border-radius: 10px;
+            border-radius: 14px;
             border-left: 4px solid var(--accent-color);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
         }
         
         .usage-title {
             color: var(--accent-color);
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
+            font-size: 1.15rem;
         }
         
         .usage-title:before {
             content: "💡";
-            margin-right: 8px;
+            margin-right: 10px;
+            font-size: 1.2rem;
         }
         
         /* 反馈按钮 */
         .feedback-btn {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 25px;
+            right: 25px;
             background-color: var(--accent-color);
             color: white;
             border: none;
@@ -322,7 +375,7 @@
             width: 60px;
             height: 60px;
             font-size: 24px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             cursor: pointer;
             z-index: 99;
             display: flex;
@@ -333,7 +386,7 @@
         
         .feedback-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
         
         /* 其他按钮样式 */
@@ -341,104 +394,134 @@
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 10px 18px;
+            border-radius: 8px;
             cursor: pointer;
             margin: 10px 0;
             transition: background-color 0.3s ease;
+            font-weight: 500;
+            font-size: 1rem;
+            box-shadow: 0 2px 8px rgba(58, 123, 213, 0.25);
         }
         
         .copy-btn:hover, .submit-btn:hover, .qa-submit-btn:hover {
-            background-color: #2c62b5;
+            background-color: var(--primary-dark);
+            box-shadow: 0 4px 12px rgba(58, 123, 213, 0.35);
+        }
+        
+        .copy-success {
+            color: #2ecc71; 
+            font-size: 15px;
+            margin-left: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .copy-success.show {
+            opacity: 1;
         }
         
         .deepseek-buttons {
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
-            gap: 10px;
+            margin-top: 24px;
+            gap: 15px;
         }
         
         .open-deepseek-app-btn, .open-deepseek-web-btn {
             display: block;
             flex: 1;
-            padding: 12px;
-            border-radius: 5px;
-            font-size: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
             border: none;
             text-align: center;
+            font-weight: 500;
         }
         
         .open-deepseek-app-btn {
-            background-color: #e0e0e0;
-            color: #333;
+            background-color: #f0f0f0;
+            color: #444;
+            border: 1px solid #e0e0e0;
         }
         
         .open-deepseek-app-btn:hover {
-            background-color: #d0d0d0;
+            background-color: #e5e5e5;
+            border-color: #d5d5d5;
         }
         
         .open-deepseek-web-btn {
             background-color: var(--primary-color);
             color: white;
+            box-shadow: 0 3px 10px rgba(58, 123, 213, 0.25);
         }
         
         .open-deepseek-web-btn:hover {
-            background-color: #2c62b5;
+            background-color: var(--primary-dark);
+            box-shadow: 0 5px 15px rgba(58, 123, 213, 0.35);
+            transform: translateY(-2px);
         }
         
         /* 圣经问答助手样式 */
         .bible-qa-section {
             background-color: #f8f9ff;
-            padding: 40px 0;
-            margin: 40px 0;
-            border-top: 1px solid #e0e7ff;
-            border-bottom: 1px solid #e0e7ff;
+            padding: 55px 0;
+            margin: 60px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0,0,50,0.03);
         }
         
         .bible-qa-container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 0 20px;
         }
         
         .bible-qa-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 45px;
         }
         
         .bible-qa-title {
             color: var(--primary-color);
-            margin-bottom: 15px;
-            font-size: 2rem;
+            margin-bottom: 16px;
+            font-size: 2.2rem;
+            font-weight: 600;
         }
         
         .bible-qa-subtitle {
-            color: #666;
-            font-size: 1.1rem;
-            max-width: 600px;
+            color: var(--text-light);
+            font-size: 1.15rem;
+            max-width: 650px;
             margin: 0 auto;
+            line-height: 1.7;
         }
         
         .bible-qa-interface {
             display: flex;
             flex-direction: column;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border-radius: 18px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.07);
             overflow: hidden;
+            border: 1px solid rgba(230, 236, 245, 0.7);
         }
         
         .bible-qa-topics {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-bottom: 20px;
-            padding: 20px;
+            margin-bottom: 22px;
+            padding: 22px;
             background-color: #f0f4ff;
-            border-radius: 10px;
+            border-radius: 12px;
+            box-shadow: inset 0 2px 5px rgba(0,0,50,0.03);
         }
         
         .topic-btn {
@@ -446,63 +529,75 @@
             color: var(--primary-color);
             border: 1px solid var(--primary-color);
             border-radius: 20px;
-            padding: 8px 15px;
-            font-size: 0.9rem;
+            padding: 8px 16px;
+            font-size: 0.95rem;
             cursor: pointer;
             transition: all 0.2s ease;
+            font-weight: 500;
         }
         
         .topic-btn:hover, .topic-btn.active {
             background-color: var(--primary-color);
             color: white;
+            box-shadow: 0 3px 8px rgba(58, 123, 213, 0.2);
         }
         
         .search-container {
             display: flex;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
         
         .search-input {
             flex-grow: 1;
-            padding: 12px 15px;
+            padding: 14px 16px;
             border: 1px solid #ddd;
-            border-radius: 5px 0 0 5px;
-            font-size: 16px;
+            border-radius: 8px 0 0 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
         }
         
         .search-input:focus {
             outline: none;
             border-color: var(--primary-color);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03), 0 0 0 3px rgba(58, 123, 213, 0.1);
         }
         
         .search-btn {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 0 20px;
-            border-radius: 0 5px 5px 0;
+            padding: 0 24px;
+            border-radius: 0 8px 8px 0;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .search-btn:hover {
+            background-color: var(--primary-dark);
         }
         
         .bible-qa-main {
             display: flex;
-            min-height: 400px;
+            min-height: 450px;
         }
         
         .qa-list {
-            width: 300px;
-            border-right: 1px solid #eee;
+            width: 320px;
+            border-right: 1px solid rgba(230, 236, 245, 0.7);
             overflow-y: auto;
             padding: 0;
             margin: 0;
+            background-color: rgba(250, 251, 255, 0.7);
         }
         
         .qa-list-item {
-            padding: 15px 20px;
-            border-bottom: 1px solid #eee;
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(230, 236, 245, 0.7);
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: all 0.2s ease;
             list-style: none;
         }
         
@@ -510,49 +605,268 @@
             background-color: #f5f8ff;
         }
         
+        .qa-list-item.active {
+            border-left: 3px solid var(--primary-color);
+        }
+        
         .qa-list-item h4 {
-            font-size: 1rem;
-            margin-bottom: 5px;
+            font-size: 1.05rem;
+            margin-bottom: 6px;
             color: #333;
+            font-weight: 500;
         }
         
         .qa-list-item p {
             font-size: 0.85rem;
-            color: #777;
+            color: var(--text-lighter);
             margin: 0;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            line-height: 1.5;
         }
         
         .qa-content {
             flex-grow: 1;
-            padding: 30px;
+            padding: 35px;
             overflow-y: auto;
         }
         
         .qa-content-header {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             padding-bottom: 15px;
             border-bottom: 1px solid #eee;
         }
         
+        .qa-content-title {
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .qa-content-meta {
+            font-size: 0.9rem;
+            color: var(--text-lighter);
+            display: flex;
+            align-items: center;
+        }
+        
+        .qa-content-meta:before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #4caf50;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .qa-content-body {
+            line-height: 1.8;
+        }
+        
+        .qa-content-body p {
+            margin-bottom: 16px;
+            color: var(--text-color);
+        }
+        
+        .qa-content-body h4 {
+            margin: 28px 0 16px;
+            color: var(--primary-color);
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
         .bible-verse {
             background-color: #f5f8ff;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
+            padding: 18px;
+            margin: 18px 0;
+            border-radius: 10px;
             border-left: 3px solid var(--primary-color);
             font-style: italic;
+            color: #444;
+            box-shadow: 0 2px 8px rgba(0,0,50,0.04);
         }
         
         .verse-reference {
             display: block;
             text-align: right;
-            font-weight: bold;
-            margin-top: 5px;
+            font-weight: 600;
+            margin-top: 8px;
             font-style: normal;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .qa-welcome h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .qa-welcome p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .qa-welcome ul {
+            margin: 20px 0 30px 25px;
+        }
+        
+        .qa-welcome ul li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .qa-welcome ul li:before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+        }
+        
+        .notice-box {
+            background: #e9f0ff;
+            padding: 18px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .notice-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            font-size: 1.05rem;
+        }
+        
+        .notice-title:before {
+            content: "ℹ️";
+            margin-right: 8px;
+        }
+        
+        .qa-custom {
+            margin-top: 30px;
+            padding: 25px;
+            border-top: 1px solid rgba(230, 236, 245, 0.7);
+            background-color: rgba(250, 251, 255, 0.7);
+        }
+        
+        .qa-custom h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            resize: vertical;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03), 0 0 0 3px rgba(58, 123, 213, 0.1);
+        }
+        
+        .qa-submit-btn {
+            align-self: flex-end;
+            margin-top: 10px;
+            padding: 12px 24px;
+        }
+        
+        /* 步骤样式 */
+        .step-container {
+            margin-top: 25px;
+        }
+        
+        .step-container h4 {
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 18px;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(58, 123, 213, 0.2);
+        }
+        
+        .related-resources {
+            margin-top: 35px;
+            padding-top: 22px;
+            border-top: 1px dashed #ddd;
+        }
+        
+        .related-resources h4 {
+            margin-bottom: 15px;
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 1.15rem;
+        }
+        
+        .resource-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .resource-item {
+            background-color: #f0f7ff;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid rgba(58, 123, 213, 0.1);
+        }
+        
+        .resource-item:hover {
+            background-color: #e0ecff;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.06);
         }
         
         @media (max-width: 768px) {
@@ -561,11 +875,11 @@
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 2.1rem;
             }
             
             .subtitle {
-                font-size: 1rem;
+                font-size: 1.05rem;
             }
             
             .card-header {
@@ -584,7 +898,16 @@
             }
             
             .qa-content {
-                padding: 20px;
+                padding: 25px 20px;
+            }
+            
+            .modal-content {
+                padding: 25px 20px;
+            }
+            
+            .topic-btn {
+                font-size: 0.85rem;
+                padding: 6px 12px;
             }
         }
         
@@ -593,19 +916,39 @@
             to { transform: rotate(360deg); }
         }
         
+        /* 页脚样式 */
         footer {
-            background: #333;
+            background: #343a40;
             color: white;
-            padding: 30px 20px;
+            padding: 40px 20px;
             text-align: center;
-            margin-top: 50px;
+            margin-top: 60px;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
         }
         
         footer p {
-            max-width: 600px;
-            margin: 0 auto;
-            font-size: 0.9rem;
-            color: #aaa;
+            max-width: 650px;
+            margin: 0 auto 12px;
+            font-size: 0.95rem;
+            color: #bbb;
+            line-height: 1.7;
+        }
+        
+        /* 加载指示器 */
+        .qa-loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(58, 123, 213, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
         }
     </style>
 </head>
@@ -626,7 +969,7 @@
             </div>
             
             <button class="copy-btn" id="copyBtn">复制提示词</button>
-            <span class="copy-success" id="copySuccess">✓ 复制成功!</span>
+            <span class="copy-success" id="copySuccess"></span>
             
             <div class="step-container">
                 <h4>使用方法：</h4>
@@ -715,15 +1058,24 @@
                     <div class="qa-content" id="qaContent">
                         <!-- 问题内容区域 -->
                         <div class="qa-welcome" id="qaWelcome">
-                            <h3 style="color: var(--primary-color); margin-bottom: 20px;">欢迎使用牧者AI圣经问答助手</h3>
+                            <h3>欢迎使用牧者AI圣经问答助手</h3>
                             <p>这里收录了传道人和信徒常见的圣经和神学问题，并提供了经过神学审核的高质量回答。您可以：</p>
-                            <ul style="margin: 15px 0 25px 20px;">
+                            <ul>
                                 <li>从左侧列表选择问题</li>
                                 <li>使用上方搜索框查找特定问题</li>
                                 <li>点击主题标签筛选不同类别</li>
                                 <li>或在下方提交您自己的问题</li>
                             </ul>
                             <p>所有回答均基于圣经教导和正统神学观点，并经过神学背景的同工审核。</p>
+                            
+                            <div class="notice-box">
+                                <h4 class="notice-title">温馨提示</h4>
+                                <p>本工具旨在辅助您的圣经学习和牧养工作，不能替代个人的祷告和圣灵的带领。请在使用过程中保持属灵分辨力，将圣经作为最终权威。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="qa-loading" id="qaLoading" style="display: none;">
+                            <div class="spinner"></div>
                         </div>
                         
                         <div class="qa-result" id="qaResult" style="display: none">
@@ -1198,11 +1550,11 @@
                     <h4>抑郁的多元原因</h4>
                     <p>基督教理解应当认识到抑郁的多方面成因：</p>
                     
-                    <p><strong>1. 生物学因素</strong>：神经递质失衡、遗传倾向、身体疾病等</p>
-                    <p><strong>2. 心理因素</strong>：认知模式、童年经历、创伤等</p>
-                    <p><strong>3. 社会因素</strong>：关系问题、社会压力、生活变化等</p>
-                    <p><strong>4. 灵性因素</strong>：信仰危机、罪疚感、属灵争战等</p>
-                    <p><strong>5. 存在性因素</strong>：意义感缺失、生命目标不明确等</p>
+                    <p>1. <strong>生物学因素</strong>：神经递质失衡、遗传倾向、身体疾病等</p>
+                    <p>2. <strong>心理因素</strong>：认知模式、童年经历、创伤等</p>
+                    <p>3. <strong>社会因素</strong>：关系问题、社会压力、生活变化等</p>
+                    <p>4. <strong>灵性因素</strong>：信仰危机、罪疚感、属灵争战等</p>
+                    <p>5. <strong>存在性因素</strong>：意义感缺失、生命目标不明确等</p>
                 </div>
                 <div class="related-resources">
                     <h4>相关资源推荐</h4>
@@ -1267,6 +1619,7 @@
         const qaContent = document.getElementById('qaContent');
         const qaWelcome = document.getElementById('qaWelcome');
         const qaResult = document.getElementById('qaResult');
+        const qaLoading = document.getElementById('qaLoading');
         const qaSearchInput = document.getElementById('qaSearchInput');
         const qaSearchBtn = document.getElementById('qaSearchBtn');
         const topicBtns = document.querySelectorAll('.topic-btn');
@@ -1351,15 +1704,24 @@
                 `;
                 
                 listItem.addEventListener('click', () => {
-                    showQuestion(qa.id);
+                    // 显示加载状态
+                    qaWelcome.style.display = 'none';
+                    qaResult.style.display = 'none';
+                    qaLoading.style.display = 'flex';
                     
-                    // 移除其他项目的active类
-                    document.querySelectorAll('.qa-list-item').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    
-                    // 添加active类给当前项目
-                    listItem.classList.add('active');
+                    // 模拟加载延迟，增强体验
+                    setTimeout(() => {
+                        showQuestion(qa.id);
+                        qaLoading.style.display = 'none';
+                        
+                        // 移除其他项目的active类
+                        document.querySelectorAll('.qa-list-item').forEach(item => {
+                            item.classList.remove('active');
+                        });
+                        
+                        // 添加active类给当前项目
+                        listItem.classList.add('active');
+                    }, 600);
                 });
                 
                 qaList.appendChild(listItem);
@@ -1381,6 +1743,7 @@
             
             copyBtn.addEventListener('click', () => {
                 navigator.clipboard.writeText(promptText.textContent).then(() => {
+                    copySuccess.textContent = "✓ 复制成功!";
                     copySuccess.classList.add('show');
                     setTimeout(() => {
                         copySuccess.classList.remove('show');
@@ -1473,52 +1836,70 @@
             const searchTerm = qaSearchInput.value.trim().toLowerCase();
             if (!searchTerm) return;
             
-            const results = bibleQAData.filter(qa => 
-                qa.title.toLowerCase().includes(searchTerm) || 
-                qa.shortDesc.toLowerCase().includes(searchTerm)
-            );
+            // 显示加载状态
+            qaWelcome.style.display = 'none';
+            qaResult.style.display = 'none';
+            qaLoading.style.display = 'flex';
             
-            if (results.length > 0) {
-                // 更新列表
-                qaList.innerHTML = '';
-                results.forEach(qa => {
-                    const listItem = document.createElement('li');
-                    listItem.className = 'qa-list-item';
-                    listItem.setAttribute('data-qa-id', qa.id);
-                    listItem.innerHTML = `
-                        <h4>${qa.title}</h4>
-                        <p>${qa.shortDesc}</p>
-                    `;
-                    
-                    listItem.addEventListener('click', () => {
-                        showQuestion(qa.id);
-                        document.querySelectorAll('.qa-list-item').forEach(item => {
-                            item.classList.remove('active');
+            setTimeout(() => {
+                const results = bibleQAData.filter(qa => 
+                    qa.title.toLowerCase().includes(searchTerm) || 
+                    qa.shortDesc.toLowerCase().includes(searchTerm)
+                );
+                
+                qaLoading.style.display = 'none';
+                
+                if (results.length > 0) {
+                    // 更新列表
+                    qaList.innerHTML = '';
+                    results.forEach(qa => {
+                        const listItem = document.createElement('li');
+                        listItem.className = 'qa-list-item';
+                        listItem.setAttribute('data-qa-id', qa.id);
+                        listItem.innerHTML = `
+                            <h4>${qa.title}</h4>
+                            <p>${qa.shortDesc}</p>
+                        `;
+                        
+                        listItem.addEventListener('click', () => {
+                            showQuestion(qa.id);
+                            document.querySelectorAll('.qa-list-item').forEach(item => {
+                                item.classList.remove('active');
+                            });
+                            listItem.classList.add('active');
                         });
-                        listItem.classList.add('active');
+                        
+                        qaList.appendChild(listItem);
                     });
                     
-                    qaList.appendChild(listItem);
-                });
-                
-                // 显示第一个结果
-                showQuestion(results[0].id);
-                qaList.firstChild.classList.add('active');
-            } else {
-                alert('未找到相关问题，请尝试其他关键词或在下方提交您的问题。');
-            }
+                    // 显示第一个结果
+                    showQuestion(results[0].id);
+                    qaList.firstChild.classList.add('active');
+                } else {
+                    qaWelcome.style.display = 'block';
+                    alert('未找到相关问题，请尝试其他关键词或在下方提交您的问题。');
+                }
+            }, 800);
         }
         
         // 提交自定义问题
         function submitCustomQuestion(question) {
-            // 这里可以实现与DeepSeek API的集成，但目前暂时使用模拟回复
+            // 显示加载状态
+            qaWelcome.style.display = 'none';
+            qaResult.style.display = 'none';
+            qaLoading.style.display = 'flex';
             
-            // 重定向到DeepSeek网站，并预填问题
-            const deepseekUrl = `https://chat.deepseek.com/?q=${encodeURIComponent(promptTemplates[7].replace('[这里输入您的问题]', question))}`;
-            window.open(deepseekUrl, '_blank');
-            
-            // 清空输入框
-            document.getElementById('customQuestion').value = '';
+            setTimeout(() => {
+                // 重定向到DeepSeek网站，并预填问题
+                const deepseekPrompt = promptTemplates[7].replace('[这里输入您的问题]', question);
+                const deepseekUrl = `https://chat.deepseek.com/`;
+                window.open(deepseekUrl, '_blank');
+                
+                // 清空输入框并恢复界面状态
+                document.getElementById('customQuestion').value = '';
+                qaLoading.style.display = 'none';
+                qaWelcome.style.display = 'block';
+            }, 1000);
         }
         
         // 绘制头部背景Canvas
