@@ -1765,6 +1765,62 @@
         
         // 设置事件监听器
         function setupEventListeners() {
+            // 反馈按钮事件 - 修复这部分
+            feedbackBtn.addEventListener('click', () => {
+            feedbackOverlay.classList.add('active');
+                });
+
+            // 反馈关闭按钮
+feedbackClose.addEventListener('click', () => {
+    feedbackOverlay.classList.remove('active');
+          });
+
+       // 点击背景关闭反馈表单
+feedbackOverlay.addEventListener('click', (e) => {
+    if (e.target === feedbackOverlay) {
+        feedbackOverlay.classList.remove('active');
+    }
+});
+
+// 提交反馈表单
+feedbackForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // 显示发送中状态
+    sendingIndicator.style.display = 'block';
+    
+    // 获取表单数据
+    const formData = {
+        name: document.getElementById('user_name').value,
+        email: document.getElementById('user_email').value || '未提供',
+        message: document.getElementById('message').value,
+        time: new Date().toLocaleString()
+    };
+    
+    // 使用EmailJS发送
+    emailjs.send('service_ieun53f', 'template_7m1014z', formData)
+        .then(function(response) {
+            console.log('发送成功:', response);
+            sendingIndicator.style.display = 'none';
+            feedbackForm.style.display = 'none';
+            feedbackSuccess.style.display = 'block';
+            
+            // 5秒后自动关闭反馈表单
+            setTimeout(() => {
+                feedbackOverlay.classList.remove('active');
+                // 重置表单状态以便下次使用
+                setTimeout(() => {
+                    feedbackForm.style.display = 'flex';
+                    feedbackSuccess.style.display = 'none';
+                    feedbackForm.reset();
+                }, 500);
+            }, 5000);
+        }, function(error) {
+            console.error('发送失败:', error);
+            sendingIndicator.style.display = 'none';
+            alert('发送失败，请稍后再试。错误: ' + error.text);
+        });
+});
             // 模态框相关
             modalClose.addEventListener('click', () => {
                 modalOverlay.classList.remove('active');
@@ -1843,63 +1899,6 @@
                     submitCustomQuestion(question);
                 }
             });
-            
-            // 反馈按钮事件 - 修复这部分
-            feedbackBtn.addEventListener('click', () => {
-            feedbackOverlay.classList.add('active');
-                });
-
-            // 反馈关闭按钮
-feedbackClose.addEventListener('click', () => {
-    feedbackOverlay.classList.remove('active');
-          });
-
-       // 点击背景关闭反馈表单
-feedbackOverlay.addEventListener('click', (e) => {
-    if (e.target === feedbackOverlay) {
-        feedbackOverlay.classList.remove('active');
-    }
-});
-
-// 提交反馈表单
-feedbackForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // 显示发送中状态
-    sendingIndicator.style.display = 'block';
-    
-    // 获取表单数据
-    const formData = {
-        name: document.getElementById('user_name').value,
-        email: document.getElementById('user_email').value || '未提供',
-        message: document.getElementById('message').value,
-        time: new Date().toLocaleString()
-    };
-    
-    // 使用EmailJS发送
-    emailjs.send('service_ieun53f', 'template_7m1014z', formData)
-        .then(function(response) {
-            console.log('发送成功:', response);
-            sendingIndicator.style.display = 'none';
-            feedbackForm.style.display = 'none';
-            feedbackSuccess.style.display = 'block';
-            
-            // 5秒后自动关闭反馈表单
-            setTimeout(() => {
-                feedbackOverlay.classList.remove('active');
-                // 重置表单状态以便下次使用
-                setTimeout(() => {
-                    feedbackForm.style.display = 'flex';
-                    feedbackSuccess.style.display = 'none';
-                    feedbackForm.reset();
-                }, 500);
-            }, 5000);
-        }, function(error) {
-            console.error('发送失败:', error);
-            sendingIndicator.style.display = 'none';
-            alert('发送失败，请稍后再试。错误: ' + error.text);
-        });
-});
         }
         
         // 处理卡片点击
