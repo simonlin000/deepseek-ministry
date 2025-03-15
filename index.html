@@ -8,7 +8,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            // 初始化EmailJS
+            // 初始化EmailJS - 使用更新的用户ID
             emailjs.init("wt-dk3EqnrpPzKk_q");
         })();
     </script>
@@ -1260,7 +1260,7 @@
             }
         });
         
-        // 使用EmailJS发送反馈
+        // 使用EmailJS发送反馈 - 更新了服务ID
         feedbackForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -1275,8 +1275,8 @@
                 time: new Date().toLocaleString()
             };
             
-            // 使用EmailJS发送
-            emailjs.send('service_inlaiw9', 'template_7m1014z', formData)
+            // 使用EmailJS发送 - 使用新的服务ID
+            emailjs.send('service_ieun53f', 'template_7m1014z', formData)
                 .then(function(response) {
                     console.log('发送成功:', response);
                     sendingIndicator.style.display = 'none';
