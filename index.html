@@ -1765,7 +1765,32 @@
         
         // 设置事件监听器
         function setupEventListeners() {
-            // 反馈按钮事件 - 修复这部分
+           
+            // 模态框相关
+            modalClose.addEventListener('click', () => {
+                modalOverlay.classList.remove('active');
+            });
+            
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    modalOverlay.classList.remove('active');
+                }
+            });
+            
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(promptText.textContent).then(() => {
+                    copySuccess.textContent = "✓ 复制成功!";
+                    copySuccess.classList.add('show');
+                    setTimeout(() => {
+                        copySuccess.classList.remove('show');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('无法复制到剪贴板: ', err);
+                    alert('无法自动复制提示词。请手动选择文本并复制。');
+                });
+            });
+            
+             // 反馈按钮事件 - 修复这部分
             feedbackBtn.addEventListener('click', () => {
             feedbackOverlay.classList.add('active');
                 });
@@ -1821,29 +1846,6 @@ feedbackForm.addEventListener('submit', (e) => {
             alert('发送失败，请稍后再试。错误: ' + error.text);
         });
 });
-            // 模态框相关
-            modalClose.addEventListener('click', () => {
-                modalOverlay.classList.remove('active');
-            });
-            
-            modalOverlay.addEventListener('click', (e) => {
-                if (e.target === modalOverlay) {
-                    modalOverlay.classList.remove('active');
-                }
-            });
-            
-            copyBtn.addEventListener('click', () => {
-                navigator.clipboard.writeText(promptText.textContent).then(() => {
-                    copySuccess.textContent = "✓ 复制成功!";
-                    copySuccess.classList.add('show');
-                    setTimeout(() => {
-                        copySuccess.classList.remove('show');
-                    }, 2000);
-                }).catch(err => {
-                    console.error('无法复制到剪贴板: ', err);
-                    alert('无法自动复制提示词。请手动选择文本并复制。');
-                });
-            });
             
             // DeepSeek按钮
             openDeepseekWebBtn.addEventListener('click', () => {
