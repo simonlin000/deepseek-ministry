@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI时代传道人使用DeepSeek提升服侍效率方案</title>
+    <title>牧者智囊 - 传道人AI辅助工具平台</title>
     <style>
         :root {
             --primary-color: #3a7bd5;
@@ -481,6 +481,200 @@
             content: "ℹ️";
             margin-right: 8px;
         }
+        
+        /* 反馈表单样式 */
+        .feedback-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 99;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feedback-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        
+        .feedback-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .feedback-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .feedback-content {
+            background: white;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .feedback-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s ease;
+        }
+        
+        .feedback-close:hover {
+            color: var(--primary-color);
+        }
+        
+        .feedback-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            align-self: flex-end;
+        }
+        
+        .submit-btn:hover {
+            background-color: #2c62b5;
+        }
+        
+        .feedback-success {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .feedback-success h3 {
+            color: #2ecc71;
+            margin-bottom: 10px;
+        }
+        
+        /* 帮助提示框样式 */
+        .help-info {
+            background-color: #f0f7ff;
+            border-left: 4px solid #3a7bd5;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .help-info h4 {
+            color: #3a7bd5;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .help-info h4:before {
+            content: "❓";
+            margin-right: 8px;
+        }
+        
+        .help-info p {
+            margin-bottom: 10px;
+        }
+        
+        .help-info table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 0.85rem;
+        }
+        
+        .help-info th, .help-info td {
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        
+        .help-info th {
+            background-color: #f1f5ff;
+        }
+        
+        .help-toggle {
+            color: #3a7bd5;
+            text-decoration: underline;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 5px;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -497,6 +691,45 @@
             <div class="prompt-container">
                 <div class="prompt-text" id="promptText">加载中...</div>
             </div>
+            
+            <div id="lectionary-help" class="help-info" style="display: none;">
+                <h4>如何确定本周的教会节期</h4>
+                <p>如果您不确定当前主日的节期，可以参考以下信息：</p>
+                <table>
+                    <tr>
+                        <th>时间范围</th>
+                        <th>教会年历节期</th>
+                    </tr>
+                    <tr>
+                        <td>将临期/预苦期（圣诞节前4个主日）</td>
+                        <td>第1/2/3/4主日将临期</td>
+                    </tr>
+                    <tr>
+                        <td>圣诞节期（12月25日起）</td>
+                        <td>圣诞节、圣诞节后第1/2主日</td>
+                    </tr>
+                    <tr>
+                        <td>顯現期（1月6日起）</td>
+                        <td>顯現節、顯現節后第1/2/3/4/5/6/7/8主日</td>
+                    </tr>
+                    <tr>
+                        <td>大斋期（复活节前40天）</td>
+                        <td>大斋期第1/2/3/4/5主日、棕树主日</td>
+                    </tr>
+                    <tr>
+                        <td>复活节期</td>
+                        <td>复活节、复活节后第2/3/4/5/6/7主日</td>
+                    </tr>
+                    <tr>
+                        <td>五旬节后</td>
+                        <td>圣灵降临节、三一主日、三一后第1/2...主日</td>
+                    </tr>
+                </table>
+                <p>您也可以直接询问DeepSeek："今天是2025年3月15日，按照教会年历现在是什么节期？请根据修订标准本经课系统回答。"</p>
+                <p>或者访问<a href="https://lectionary.library.vanderbilt.edu/" target="_blank">Vanderbilt Divinity Library</a>查询当前节期。</p>
+            </div>
+            
+            <div id="lectionary-help-toggle" class="help-toggle" style="display: none;">显示教会年历节期指南</div>
             
             <button class="copy-btn" id="copyBtn">复制提示词</button>
             <span class="copy-success" id="copySuccess">✓ 复制成功!</span>
@@ -530,7 +763,41 @@
             <div class="store-link-container">
                 <p>如果您想在手机上使用DeepSeek App，请从应用商店安装：</p>
                 <a href="market://details?id=com.deepseek.chat" class="store-link" id="androidStoreLink">Android版下载</a> |
-                <a href="https://apps.apple.com/search/deepseek" class="store-link" id="iosStoreLink">iOS版下载</a>
+                <a href="https://apps.apple.com/cn/app/id6478565713" class="store-link" id="iosStoreLink">iOS版下载</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 反馈表单 -->
+    <button class="feedback-btn" id="feedbackBtn">💬</button>
+    
+    <div class="feedback-overlay" id="feedbackOverlay">
+        <div class="feedback-content">
+            <div class="feedback-close" id="feedbackClose">×</div>
+            <h3 class="feedback-title">提供您的建议与反馈</h3>
+            
+            <form id="feedbackForm" class="feedback-form">
+                <div class="form-group">
+                    <label for="name">您的称呼</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">电子邮箱（选填）</label>
+                    <input type="email" id="email" name="email" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="feedback">您的建议或问题</label>
+                    <textarea id="feedback" name="feedback" class="form-control" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">提交反馈</button>
+            </form>
+            
+            <div class="feedback-success" id="feedbackSuccess">
+                <h3>感谢您的反馈！</h3>
+                <p>我们已收到您的建议，将尽快进行处理和回复。</p>
             </div>
         </div>
     </div>
@@ -538,15 +805,15 @@
     <header>
         <div class="header-bg" id="header-canvas"></div>
         <div class="header-content">
-            <h1>AI时代传道人提升服侍效率方案</h1>
-            <p class="subtitle">运用DeepSeek模型辅助教会事工，创新服侍方式</p>
+            <h1>牧者智囊 - 传道人AI辅助工具平台</h1>
+            <p class="subtitle">运用DeepSeek模型辅助教会事工，提升牧养效率与深度</p>
         </div>
     </header>
     
     <div class="container">
         <div class="intro">
             <h2 class="section-title">科技赋能信仰服侍</h2>
-            <p>在信息爆炸的时代，传道人面临着多重挑战。<span class="deepseek-highlight">DeepSeek</span>作为先进的人工智能大模型，可以成为传道人的得力助手，辅助处理信息分析、内容创作和行政管理等工作，让您能更专注于灵性关怀和教导。以下五个方案具有高可行性，易于实施，并能带来立竿见影的效果。</p>
+            <p>在信息爆炸的时代，传道人面临着多重挑战。<span class="deepseek-highlight">DeepSeek</span>作为先进的人工智能大模型，可以成为传道人的得力助手，辅助处理信息分析、内容创作和行政管理等工作，让您能更专注于灵性关怀和教导。以下方案具有高可行性，易于实施，并能带来立竿见影的效果。</p>
         </div>
         
         <div class="usage-instructions">
@@ -571,6 +838,50 @@
                     <div class="implementation-tips">
                         <h4>实施建议</h4>
                         <p>将经文输入DeepSeek，要求其分析主题、上下文，并生成不同角度的讲解思路。结合圣经软件和DeepSeek的分析结果，创建个人化的讲道体系。每周固定使用AI辅助初步研经，然后自行深化内容。</p>
+                    </div>
+                    <div class="click-indicator">点击查看详情</div>
+                </div>
+            </div>
+            
+            <div class="solution-card" id="card6" data-title="三代经课讲道预备" data-prompt="我是一位使用和合本圣经的传道人，需要基于三代经课系统进行讲道预备。请协助我：
+
+经课系统：[选择一项：修订标准本(RCL)、天主教经课(Roman Catholic Lectionary)、通用经课(Common Lectionary)]
+
+当前时期/节期：[请指明：如"复活节后第三主日"、"大斋期第二主日"、"圣诞节"等，如果不确定，可以直接输入当前日期，如"2025年3月15日"]
+
+需求类型：[选择一项：
+1. 提供本周经课中所有经文的和合本经文引用和概览，并分析共同主题
+2. 分析指定经文与当前节期的神学关联，使用和合本的表述和术语
+3. 比较不同经课系统对同一主日/节期的经文选择差异，提供和合本参考
+4. 为未来4-6周的讲道系列提供基于经课的规划建议，考虑和合本经文特点]
+
+特别考量：[可选，如"适合小组查经"、"需要关注社会公义主题"、"与青少年事工结合"等]
+
+请提供：
+1. 选定经课系统中相关经文的完整列表，使用和合本的章节标识和表述
+2. 经文之间的主题联系和神学重点，注意使用符合和合本语境的神学术语
+3. 符合新教传统的释经要点和应用方向，特别考虑和合本读者群体的理解习惯
+4. 若引用经文原文，请使用和合本的表述，并在必要时说明与其他译本的重要差异
+5. 针对我需求的具体建议和参考资源，优先推荐基于和合本的材料
+
+注意：如果我不确定当前的教会节期，请先帮我确定今天或本周主日对应的节期，然后再提供相应的经课经文和分析。
+
+感谢您的协助！">
+                <div class="card-header">
+                    <div class="card-illustration" id="illustration6"></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">三代经课讲道预备</h3>
+                    <p class="card-description">基于三代经课系统选择经文，辅助传道人进行系统性讲道预备，专为使用和合本圣经的教会环境优化。</p>
+                    <ul class="benefits-list">
+                        <li>获取特定节期的完整和合本经课经文</li>
+                        <li>分析经文间的主题联系，使用和合本术语</li>
+                        <li>理解经文与教会年历的神学关联</li>
+                        <li>基于和合本经文特点规划连续性讲道</li>
+                    </ul>
+                    <div class="implementation-tips">
+                        <h4>实施建议</h4>
+                        <p>建立整年的三代经课日历，每周提前使用DeepSeek分析即将到来的主日经课；将经课分析与教会季节和节期主题结合；开发基于和合本经文的小组讨论材料，形成从主日讲台到小组的一体化牧养体系。</p>
                     </div>
                     <div class="click-indicator">点击查看详情</div>
                 </div>
@@ -718,7 +1029,7 @@
     </div>
     
     <footer>
-        <p>&copy; 2025 AI时代的教会服侍 | 技术支持信仰，信仰引导技术</p>
+        <p>&copy; 2025 牧者智囊 | 技术支持信仰，信仰引导技术</p>
         <p>本资源旨在为传道人提供AI应用思路，请在实际使用中保持属灵分辨力，将DeepSeek作为辅助工具而非替代属灵判断和带领。</p>
     </footer>
 
@@ -737,6 +1048,17 @@
         const openDeepseekWebBtn = document.getElementById('openDeepseekWebBtn');
         const androidStoreLink = document.getElementById('androidStoreLink');
         const iosStoreLink = document.getElementById('iosStoreLink');
+        
+        // 教会年历节期帮助
+        const lectionaryHelp = document.getElementById('lectionary-help');
+        const lectionaryHelpToggle = document.getElementById('lectionary-help-toggle');
+        
+        // 反馈相关元素
+        const feedbackBtn = document.getElementById('feedbackBtn');
+        const feedbackOverlay = document.getElementById('feedbackOverlay');
+        const feedbackClose = document.getElementById('feedbackClose');
+        const feedbackForm = document.getElementById('feedbackForm');
+        const feedbackSuccess = document.getElementById('feedbackSuccess');
         
         // 检测设备类型并更新应用商店链接
         function updateStoreLinks() {
@@ -772,9 +1094,30 @@
                     modalTitle.textContent = title;
                     promptText.textContent = prompt;
                     
+                    // 根据类型显示不同的辅助内容
+                    if (title === "三代经课讲道预备") {
+                        lectionaryHelpToggle.style.display = 'block';
+                    } else {
+                        lectionaryHelpToggle.style.display = 'none';
+                        lectionaryHelp.style.display = 'none';
+                    }
+                    
                     // 显示模态框
                     modalOverlay.classList.add('active');
                 });
+            });
+        }
+        
+        // 节期指南切换显示
+        if (lectionaryHelpToggle) {
+            lectionaryHelpToggle.addEventListener('click', function() {
+                if (lectionaryHelp.style.display === 'none') {
+                    lectionaryHelp.style.display = 'block';
+                    this.textContent = '隐藏教会年历节期指南';
+                } else {
+                    lectionaryHelp.style.display = 'none';
+                    this.textContent = '显示教会年历节期指南';
+                }
             });
         }
         
@@ -838,6 +1181,94 @@
         // 直接打开DeepSeek网站
         openDeepseekWebBtn.addEventListener('click', function() {
             window.open(DEEPSEEK_WEB_URL, '_blank');
+        });
+        
+        // 反馈表单相关功能
+        // 打开反馈表单
+        feedbackBtn.addEventListener('click', function() {
+            feedbackOverlay.classList.add('active');
+            // 重置表单状态
+            feedbackForm.reset();
+            feedbackForm.style.display = 'flex';
+            feedbackSuccess.style.display = 'none';
+        });
+        
+        // 关闭反馈表单
+        feedbackClose.addEventListener('click', function() {
+            feedbackOverlay.classList.remove('active');
+        });
+        
+        // 点击背景关闭反馈表单
+        feedbackOverlay.addEventListener('click', function(e) {
+            if (e.target === feedbackOverlay) {
+                feedbackOverlay.classList.remove('active');
+            }
+        });
+        
+        // 提交反馈表单
+        feedbackForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 获取表单数据
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value || '未提供';
+            const feedbackContent = document.getElementById('feedback').value;
+            
+            // 准备发送到服务器的数据
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('email', email);
+            formData.append('feedback', feedbackContent);
+            
+            // 拼装电子邮件内容
+            const subject = `牧者智囊网站用户反馈：${name}`;
+            const body = `姓名：${name}\n\n电子邮箱：${email}\n\n反馈内容：\n${feedbackContent}\n\n发送时间：${new Date().toLocaleString()}`;
+            
+            // 使用Formspree服务发送表单数据到指定邮箱
+            fetch('https://formspree.io/f/2034969458@qq.com', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // 显示成功信息
+                    feedbackForm.style.display = 'none';
+                    feedbackSuccess.style.display = 'block';
+                    
+                    // 5秒后自动关闭反馈表单
+                    setTimeout(() => {
+                        feedbackOverlay.classList.remove('active');
+                    }, 5000);
+                    
+                    // 尝试使用mailto方案作为备份（如果fetch请求失败）
+                    const mailtoLink = `mailto:2034969458@qq.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                    
+                    // 创建一个隐藏的链接并点击，作为备用方案
+                    const emailLink = document.createElement('a');
+                    emailLink.href = mailtoLink;
+                    emailLink.style.display = 'none';
+                    document.body.appendChild(emailLink);
+                    emailLink.click();
+                    document.body.removeChild(emailLink);
+                    
+                } else {
+                    throw new Error('表单提交失败');
+                }
+            })
+            .catch(error => {
+                console.error('错误:', error);
+                
+                // 如果API请求失败，直接使用mailto作为备选
+                const mailtoLink = `mailto:2034969458@qq.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                window.location.href = mailtoLink;
+                
+                // 仍然显示成功信息，因为至少尝试了用户默认邮件客户端
+                feedbackForm.style.display = 'none';
+                feedbackSuccess.style.display = 'block';
+            });
         });
         
         // 绘制各种Canvas图形的函数
@@ -1267,6 +1698,109 @@
             ctx.fillText('DeepSeek', canvas.width/2 - 70, canvas.height/2 - 40);
         }
         
+        function drawIllustration6() {
+            const container = document.getElementById('illustration6');
+            const canvas = document.createElement('canvas');
+            container.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            
+            // 绘制三代经课图示
+            ctx.strokeStyle = '#ffffff';
+            ctx.fillStyle = '#ffffff';
+            ctx.lineWidth = 2;
+            
+            // 中央圆形 - 代表教会年历
+            ctx.beginPath();
+            ctx.arc(canvas.width/2, canvas.height/2, 40, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // 教会年历分区
+            for (let i = 0; i < 6; i++) {
+                const angle = i * Math.PI / 3;
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2, canvas.height/2);
+                ctx.lineTo(canvas.width/2 + 40 * Math.cos(angle), canvas.height/2 + 40 * Math.sin(angle));
+                ctx.stroke();
+            }
+            
+            // 三本书 - 代表三代经课
+            // 第一本书
+            ctx.beginPath();
+            ctx.rect(canvas.width/2 - 80, canvas.height/2 - 30, 30, 40);
+            ctx.stroke();
+            // 书页
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 65, canvas.height/2 - 30);
+            ctx.lineTo(canvas.width/2 - 65, canvas.height/2 + 10);
+            ctx.stroke();
+            
+            // 第二本书
+            ctx.beginPath();
+            ctx.rect(canvas.width/2 + 50, canvas.height/2 - 30, 30, 40);
+            ctx.stroke();
+            // 书页
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 + 65, canvas.height/2 - 30);
+            ctx.lineTo(canvas.width/2 + 65, canvas.height/2 + 10);
+            ctx.stroke();
+            
+            // 第三本书
+            ctx.beginPath();
+            ctx.rect(canvas.width/2 - 15, canvas.height/2 - 80, 30, 40);
+            ctx.stroke();
+            // 书页
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2, canvas.height/2 - 80);
+            ctx.lineTo(canvas.width/2, canvas.height/2 - 40);
+            ctx.stroke();
+            
+            // 连接线
+            ctx.setLineDash([2, 2]);
+            
+            // 第一本书到圆心
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 50, canvas.height/2 - 10);
+            ctx.lineTo(canvas.width/2 - 25, canvas.height/2);
+            ctx.stroke();
+            
+            // 第二本书到圆心
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 + 50, canvas.height/2 - 10);
+            ctx.lineTo(canvas.width/2 + 25, canvas.height/2);
+            ctx.stroke();
+            
+            // 第三本书到圆心
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2, canvas.height/2 - 40);
+            ctx.lineTo(canvas.width/2, canvas.height/2 - 25);
+            ctx.stroke();
+            
+            ctx.setLineDash([]);
+            
+            // 十字架标志
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2, canvas.height/2 - 15);
+            ctx.lineTo(canvas.width/2, canvas.height/2 + 15);
+            ctx.moveTo(canvas.width/2 - 10, canvas.height/2);
+            ctx.lineTo(canvas.width/2 + 10, canvas.height/2);
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.lineWidth = 2;
+            
+            // 和合本标识
+            ctx.font = '14px Arial';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('和合本', canvas.width/2 - 25, canvas.height/2 + 45);
+            
+            // DeepSeek 标签
+            ctx.font = '12px Arial';
+            ctx.fillStyle = 'rgba(255,255,255,0.7)';
+            ctx.fillText('DeepSeek', canvas.width/2 - 25, canvas.height/2 + 65);
+        }
+        
         // Call the drawing functions after window loads
         window.onload = function() {
             drawHeaderCanvas();
@@ -1275,6 +1809,7 @@
             drawIllustration3();
             drawIllustration4();
             drawIllustration5();
+            drawIllustration6();
             setupCardClickHandlers(); // 设置卡片点击事件
             updateStoreLinks(); // 更新应用商店链接
         };
@@ -1287,6 +1822,7 @@
             drawIllustration3();
             drawIllustration4();
             drawIllustration5();
+            drawIllustration6();
         });
     </script>
 </body>
