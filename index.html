@@ -776,7 +776,12 @@
             <div class="feedback-close" id="feedbackClose">×</div>
             <h3 class="feedback-title">提供您的建议与反馈</h3>
             
-            <form id="feedbackForm" class="feedback-form">
+            <form id="feedbackForm" class="feedback-form" action="https://formsubmit.co/2034969458@qq.com" method="POST">
+                <!-- FormSubmit配置 -->
+                <input type="hidden" name="_subject" value="牧者智囊网站用户反馈">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://yoursite.com/thanks.html">
+                
                 <div class="form-group">
                     <label for="name">您的称呼</label>
                     <input type="text" id="name" name="name" class="form-control" required>
@@ -788,8 +793,8 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="feedback">您的建议或问题</label>
-                    <textarea id="feedback" name="feedback" class="form-control" required></textarea>
+                    <label for="message">您的建议或问题</label>
+                    <textarea id="message" name="message" class="form-control" required></textarea>
                 </div>
                 
                 <button type="submit" class="submit-btn">提交反馈</button>
@@ -822,7 +827,7 @@
         </div>
         
         <div class="solutions-grid">
-            <div class="solution-card" id="card1" data-title="经文分析与讲道准备" data-prompt="我是一位传道人，需要帮助准备讲道。请协助我对以下经文进行分析，提供多角度的释经观点、历史文化背景，并生成讲道大纲：[这里输入您要分析的经文]。请包含：1. 经文主题和核心信息 2. 重要神学概念解析 3. 历史背景和文化上下文 4. 3-5个可能的讲道切入点 5. 符合经文主题的完整讲道大纲 6. 适用的例证和应用点建议">
+            <div class="solution-card" id="card1" data-card-id="1">
                 <div class="card-header">
                     <div class="card-illustration" id="illustration1"></div>
                 </div>
@@ -843,30 +848,7 @@
                 </div>
             </div>
             
-            <div class="solution-card" id="card6" data-title="三代经课讲道预备" data-prompt="我是一位使用和合本圣经的传道人，需要基于三代经课系统进行讲道预备。请协助我：
-
-经课系统：[选择一项：修订标准本(RCL)、天主教经课(Roman Catholic Lectionary)、通用经课(Common Lectionary)]
-
-当前时期/节期：[请指明：如"复活节后第三主日"、"大斋期第二主日"、"圣诞节"等，如果不确定，可以直接输入当前日期，如"2025年3月15日"]
-
-需求类型：[选择一项：
-1. 提供本周经课中所有经文的和合本经文引用和概览，并分析共同主题
-2. 分析指定经文与当前节期的神学关联，使用和合本的表述和术语
-3. 比较不同经课系统对同一主日/节期的经文选择差异，提供和合本参考
-4. 为未来4-6周的讲道系列提供基于经课的规划建议，考虑和合本经文特点]
-
-特别考量：[可选，如"适合小组查经"、"需要关注社会公义主题"、"与青少年事工结合"等]
-
-请提供：
-1. 选定经课系统中相关经文的完整列表，使用和合本的章节标识和表述
-2. 经文之间的主题联系和神学重点，注意使用符合和合本语境的神学术语
-3. 符合新教传统的释经要点和应用方向，特别考虑和合本读者群体的理解习惯
-4. 若引用经文原文，请使用和合本的表述，并在必要时说明与其他译本的重要差异
-5. 针对我需求的具体建议和参考资源，优先推荐基于和合本的材料
-
-注意：如果我不确定当前的教会节期，请先帮我确定今天或本周主日对应的节期，然后再提供相应的经课经文和分析。
-
-感谢您的协助！">
+            <div class="solution-card" id="card6" data-card-id="6">
                 <div class="card-header">
                     <div class="card-illustration" id="illustration6"></div>
                 </div>
@@ -887,14 +869,7 @@
                 </div>
             </div>
             
-            <div class="solution-card" id="card2" data-title="自动化教会行政" data-prompt="我是一位教会传道人，需要帮助处理教会行政工作。请协助我：[选择以下一项或多项任务]
-1. 将这份会议录音/笔记整理为结构化会议纪要，提取关键决策和行动项目
-2. 为教会[活动名称]活动制定详细的策划方案，包括时间表、人员安排和资源需求
-3. 根据这些数据生成教会月度/季度/年度报告，分析关键指标和趋势
-4. 帮我优化这份教会事工计划表，提高效率并减少资源冲突
-5. 为教会财务数据进行分析，提供预算规划建议
-
-请在回答中提供清晰的结构和实用建议，以便我能够高效完成行政工作。">
+            <div class="solution-card" id="card2" data-card-id="2">
                 <div class="card-header">
                     <div class="card-illustration" id="illustration2"></div>
                 </div>
@@ -915,20 +890,7 @@
                 </div>
             </div>
             
-            <div class="solution-card" id="card3" data-title="个性化辅导资源库" data-prompt="我是一位教会传道人，需要为会友创建个性化的灵修和辅导资源。请协助我为以下群体/需求创建定制化的资源：
-
-目标群体：[选择一项：青少年、职场信徒、年长信徒、新信徒、婚姻家庭、面临挑战的信徒]
-
-需要创建的资源类型：[选择一项：
-1. 为期7天的灵修计划，包含每日经文、反思问题和应用点
-2. 小组讨论指南，包含破冰问题、核心讨论题和应用实践
-3. 主题式查经资料，深入探讨特定圣经主题
-4. 信仰生活辅导资源，帮助会友面对具体挑战
-5. 教导/培训资料，帮助提升特定属灵素质]
-
-主题/焦点：[输入具体主题，如「信心」、「面对压力」、「家庭关系」等]
-
-请提供完整、实用且符合圣经教导的内容，语言要适合目标群体的理解水平和生活处境。">
+            <div class="solution-card" id="card3" data-card-id="3">
                 <div class="card-header">
                     <div class="card-illustration" id="illustration3"></div>
                 </div>
@@ -949,23 +911,7 @@
                 </div>
             </div>
             
-            <div class="solution-card" id="card4" data-title="多语言服侍与翻译" data-prompt="我是一名教会传道人/宣教士，需要协助处理多语言翻译和跨文化沟通工作。请帮我完成以下任务：
-
-任务类型：[选择一项：
-1. 将以下中文教会资料翻译成[目标语言]，保持神学准确性和文化适应性
-2. 为我提供关于[目标文化/国家]的文化背景知识，包括禁忌、沟通习惯和信仰相关文化差异
-3. 帮我改写以下内容，使其更适合[目标文化/语言]的受众理解
-4. 为多语言教会环境提供双语/多语言资源制作建议]
-
-文本/内容：[粘贴需要翻译或改写的内容，或描述您需要了解的文化背景]
-
-特别要求：
-- 保持原文的神学准确性和核心信息
-- 考虑目标文化的习惯和表达方式
-- 使用适合教会/宣教场景的措辞和术语
-- 提供文化背景解释（如适用）
-
-请提供专业、准确且文化敏感的翻译/建议，帮助我有效开展跨文化事工。">
+            <div class="solution-card" id="card4" data-card-id="4">
                 <div class="card-header">
                     <div class="card-illustration" id="illustration4"></div>
                 </div>
@@ -986,26 +932,7 @@
                 </div>
             </div>
             
-            <div class="solution-card" id="card5" data-title="媒体内容创作" data-prompt="我是一位教会传道人，需要创建高质量的数字媒体内容来拓展教会的线上影响力。请协助我：
-
-内容类型：[选择一项：
-1. 教会公众号/社交媒体文章
-2. 教会简报/电子期刊内容
-3. 福音/信仰相关的视频脚本
-4. 信仰类播客内容大纲
-5. 教会网站内容更新]
-
-主题：[输入具体主题，如「信心与行为」、「圣诞节的真正意义」等]
-
-目标受众：[描述目标受众，如「未信者」、「新信徒」、「全教会」、「年轻人」等]
-
-风格要求：
-- 贴近目标受众的语言风格和关注点
-- 保持神学准确性和合乎圣经
-- 包含引人思考的问题和实际应用
-- 适合在数字平台上传播和分享
-
-请提供完整的内容草稿，包括标题、正文和适当的小标题结构。内容应既有深度又容易理解，能吸引目标受众的兴趣并传递核心信息。">
+            <div class="solution-card" id="card5" data-card-id="5">
                 <div class="card-header">
                     <div class="card-illustration" id="illustration5"></div>
                 </div>
@@ -1034,6 +961,99 @@
     </footer>
 
     <script>
+        // 存储提示词的对象
+        const promptTemplates = {
+            1: `我是一位传道人，需要帮助准备讲道。请协助我对以下经文进行分析，提供多角度的释经观点、历史文化背景，并生成讲道大纲：[这里输入您要分析的经文]。请包含：1. 经文主题和核心信息 2. 重要神学概念解析 3. 历史背景和文化上下文 4. 3-5个可能的讲道切入点 5. 符合经文主题的完整讲道大纲 6. 适用的例证和应用点建议`,
+            
+            2: `我是一位教会传道人，需要帮助处理教会行政工作。请协助我：[选择以下一项或多项任务]
+1. 将这份会议录音/笔记整理为结构化会议纪要，提取关键决策和行动项目
+2. 为教会[活动名称]活动制定详细的策划方案，包括时间表、人员安排和资源需求
+3. 根据这些数据生成教会月度/季度/年度报告，分析关键指标和趋势
+4. 帮我优化这份教会事工计划表，提高效率并减少资源冲突
+5. 为教会财务数据进行分析，提供预算规划建议
+
+请在回答中提供清晰的结构和实用建议，以便我能够高效完成行政工作。`,
+            
+            3: `我是一位教会传道人，需要为会友创建个性化的灵修和辅导资源。请协助我为以下群体/需求创建定制化的资源：
+
+目标群体：[选择一项：青少年、职场信徒、年长信徒、新信徒、婚姻家庭、面临挑战的信徒]
+
+需要创建的资源类型：[选择一项：
+1. 为期7天的灵修计划，包含每日经文、反思问题和应用点
+2. 小组讨论指南，包含破冰问题、核心讨论题和应用实践
+3. 主题式查经资料，深入探讨特定圣经主题
+4. 信仰生活辅导资源，帮助会友面对具体挑战
+5. 教导/培训资料，帮助提升特定属灵素质]
+
+主题/焦点：[输入具体主题，如「信心」、「面对压力」、「家庭关系」等]
+
+请提供完整、实用且符合圣经教导的内容，语言要适合目标群体的理解水平和生活处境。`,
+            
+            4: `我是一名教会传道人/宣教士，需要协助处理多语言翻译和跨文化沟通工作。请帮我完成以下任务：
+
+任务类型：[选择一项：
+1. 将以下中文教会资料翻译成[目标语言]，保持神学准确性和文化适应性
+2. 为我提供关于[目标文化/国家]的文化背景知识，包括禁忌、沟通习惯和信仰相关文化差异
+3. 帮我改写以下内容，使其更适合[目标文化/语言]的受众理解
+4. 为多语言教会环境提供双语/多语言资源制作建议]
+
+文本/内容：[粘贴需要翻译或改写的内容，或描述您需要了解的文化背景]
+
+特别要求：
+- 保持原文的神学准确性和核心信息
+- 考虑目标文化的习惯和表达方式
+- 使用适合教会/宣教场景的措辞和术语
+- 提供文化背景解释（如适用）
+
+请提供专业、准确且文化敏感的翻译/建议，帮助我有效开展跨文化事工。`,
+            
+            5: `我是一位教会传道人，需要创建高质量的数字媒体内容来拓展教会的线上影响力。请协助我：
+
+内容类型：[选择一项：
+1. 教会公众号/社交媒体文章
+2. 教会简报/电子期刊内容
+3. 福音/信仰相关的视频脚本
+4. 信仰类播客内容大纲
+5. 教会网站内容更新]
+
+主题：[输入具体主题，如「信心与行为」、「圣诞节的真正意义」等]
+
+目标受众：[描述目标受众，如「未信者」、「新信徒」、「全教会」、「年轻人」等]
+
+风格要求：
+- 贴近目标受众的语言风格和关注点
+- 保持神学准确性和合乎圣经
+- 包含引人思考的问题和实际应用
+- 适合在数字平台上传播和分享
+
+请提供完整的内容草稿，包括标题、正文和适当的小标题结构。内容应既有深度又容易理解，能吸引目标受众的兴趣并传递核心信息。`,
+            
+            6: `我是一位使用和合本圣经的传道人，需要基于三代经课系统进行讲道预备。请协助我：
+
+经课系统：[选择一项：修订标准本(RCL)、天主教经课(Roman Catholic Lectionary)、通用经课(Common Lectionary)]
+
+当前时期/节期：[请指明：如"复活节后第三主日"、"大斋期第二主日"、"圣诞节"等，如果不确定，可以直接输入当前日期，如"2025年3月15日"]
+
+需求类型：[选择一项：
+1. 提供本周经课中所有经文的和合本经文引用和概览，并分析共同主题
+2. 分析指定经文与当前节期的神学关联，使用和合本的表述和术语
+3. 比较不同经课系统对同一主日/节期的经文选择差异，提供和合本参考
+4. 为未来4-6周的讲道系列提供基于经课的规划建议，考虑和合本经文特点]
+
+特别考量：[可选，如"适合小组查经"、"需要关注社会公义主题"、"与青少年事工结合"等]
+
+请提供：
+1. 选定经课系统中相关经文的完整列表，使用和合本的章节标识和表述
+2. 经文之间的主题联系和神学重点，注意使用符合和合本语境的神学术语
+3. 符合新教传统的释经要点和应用方向，特别考虑和合本读者群体的理解习惯
+4. 若引用经文原文，请使用和合本的表述，并在必要时说明与其他译本的重要差异
+5. 针对我需求的具体建议和参考资源，优先推荐基于和合本的材料
+
+注意：如果我不确定当前的教会节期，请先帮我确定今天或本周主日对应的节期，然后再提供相应的经课经文和分析。
+
+感谢您的协助！`
+        };
+
         // DeepSeek 网站和应用 URL
         const DEEPSEEK_WEB_URL = "https://chat.deepseek.com/";
         
@@ -1086,9 +1106,12 @@
             
             cards.forEach(card => {
                 card.addEventListener('click', function() {
-                    // 获取预设提示词和标题
-                    const prompt = this.getAttribute('data-prompt');
-                    const title = this.getAttribute('data-title');
+                    // 获取卡片ID和标题
+                    const cardId = this.getAttribute('data-card-id');
+                    const title = this.querySelector('.card-title').textContent;
+                    
+                    // 从模板获取提示词
+                    const prompt = promptTemplates[cardId];
                     
                     // 更新模态框内容
                     modalTitle.textContent = title;
@@ -1205,70 +1228,19 @@
             }
         });
         
-        // 提交反馈表单
+        // 提交反馈表单后的处理
         feedbackForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // 获取表单数据
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value || '未提供';
-            const feedbackContent = document.getElementById('feedback').value;
-            
-            // 准备发送到服务器的数据
-            const formData = new FormData();
-            formData.append('name', name);
-            formData.append('email', email);
-            formData.append('feedback', feedbackContent);
-            
-            // 拼装电子邮件内容
-            const subject = `牧者智囊网站用户反馈：${name}`;
-            const body = `姓名：${name}\n\n电子邮箱：${email}\n\n反馈内容：\n${feedbackContent}\n\n发送时间：${new Date().toLocaleString()}`;
-            
-            // 使用Formspree服务发送表单数据到指定邮箱
-            fetch('https://formspree.io/f/2034969458@qq.com', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    // 显示成功信息
-                    feedbackForm.style.display = 'none';
-                    feedbackSuccess.style.display = 'block';
-                    
-                    // 5秒后自动关闭反馈表单
-                    setTimeout(() => {
-                        feedbackOverlay.classList.remove('active');
-                    }, 5000);
-                    
-                    // 尝试使用mailto方案作为备份（如果fetch请求失败）
-                    const mailtoLink = `mailto:2034969458@qq.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                    
-                    // 创建一个隐藏的链接并点击，作为备用方案
-                    const emailLink = document.createElement('a');
-                    emailLink.href = mailtoLink;
-                    emailLink.style.display = 'none';
-                    document.body.appendChild(emailLink);
-                    emailLink.click();
-                    document.body.removeChild(emailLink);
-                    
-                } else {
-                    throw new Error('表单提交失败');
-                }
-            })
-            .catch(error => {
-                console.error('错误:', error);
-                
-                // 如果API请求失败，直接使用mailto作为备选
-                const mailtoLink = `mailto:2034969458@qq.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                window.location.href = mailtoLink;
-                
-                // 仍然显示成功信息，因为至少尝试了用户默认邮件客户端
+            // 表单会正常提交，不需要阻止默认行为
+            // 仅显示成功消息
+            setTimeout(function() {
                 feedbackForm.style.display = 'none';
                 feedbackSuccess.style.display = 'block';
-            });
+                
+                // 5秒后自动关闭反馈表单
+                setTimeout(() => {
+                    feedbackOverlay.classList.remove('active');
+                }, 5000);
+            }, 1000);
         });
         
         // 绘制各种Canvas图形的函数
