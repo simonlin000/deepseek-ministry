@@ -999,7 +999,41 @@
     </div>
     
     <!-- 反馈按钮 -->
-    <button class="feedback-btn" id="feedbackBtn">💬</button>
+    <button class="feedback-btn" id="feedbackBtn">💬</button
+                                                       <div class="feedback-overlay" id="feedbackOverlay">
+    <div class="feedback-content">
+        <div class="feedback-close" id="feedbackClose">×</div>
+        <h3 class="feedback-title">提供您的建议与反馈</h3>
+        
+        <form id="feedbackForm" class="feedback-form">
+            <div class="form-group">
+                <label for="user_name">您的称呼</label>
+                <input type="text" id="user_name" name="user_name" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="user_email">电子邮箱（选填）</label>
+                <input type="email" id="user_email" name="user_email" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="message">您的建议或问题</label>
+                <textarea id="message" name="message" class="form-control" required></textarea>
+            </div>
+            
+            <div class="sending-indicator" id="sendingIndicator">
+                <span class="spinner"></span> 正在发送...
+            </div>
+            
+            <button type="submit" class="submit-btn">提交反馈</button>
+        </form>
+        
+        <div class="feedback-success" id="feedbackSuccess">
+            <h3>感谢您的反馈！</h3>
+            <p>我们已收到您的建议，将尽快进行处理和回复。</p>
+        </div>
+    </div>
+</div>
     
     <!-- 页面主体 -->
     <header>
@@ -1808,6 +1842,62 @@
                     submitCustomQuestion(question);
                 }
             });
+            // 反馈按钮事件 - 修复这部分
+feedbackBtn.addEventListener('click', () => {
+    feedbackOverlay.classList.add('active');
+});
+
+// 反馈关闭按钮
+feedbackClose.addEventListener('click', () => {
+    feedbackOverlay.classList.remove('active');
+});
+
+// 点击背景关闭反馈表单
+feedbackOverlay.addEventListener('click', (e) => {
+    if (e.target === feedbackOverlay) {
+        feedbackOverlay.classList.remove('active');
+    }
+});
+
+// 提交反馈表单
+feedbackForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // 显示发送中状态
+    sendingIndicator.style.display = 'block';
+    
+    // 获取表单数据
+    const formData = {
+        name: document.getElementById('user_name').value,
+        email: document.getElementById('user_email').value || '未提供',
+        message: document.getElementById('message').value,
+        time: new Date().toLocaleString()
+    };
+    
+    // 使用EmailJS发送
+    emailjs.send('service_ieun53f', 'template_7m1014z', formData)
+        .then(function(response) {
+            console.log('发送成功:', response);
+            sendingIndicator.style.display = 'none';
+            feedbackForm.style.display = 'none';
+            feedbackSuccess.style.display = 'block';
+            
+            // 5秒后自动关闭反馈表单
+            setTimeout(() => {
+                feedbackOverlay.classList.remove('active');
+                // 重置表单状态以便下次使用
+                setTimeout(() => {
+                    feedbackForm.style.display = 'flex';
+                    feedbackSuccess.style.display = 'none';
+                    feedbackForm.reset();
+                }, 500);
+            }, 5000);
+        }, function(error) {
+            console.error('发送失败:', error);
+            sendingIndicator.style.display = 'none';
+            alert('发送失败，请稍后再试。错误: ' + error.text);
+        });
+});
         }
         
         // 处理卡片点击
