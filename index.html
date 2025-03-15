@@ -23,6 +23,7 @@
             --shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
+        /* 基础样式 */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -82,6 +83,7 @@
             padding: 40px 20px;
         }
         
+        /* 卡片样式 */
         .intro {
             text-align: center;
             margin-bottom: 50px;
@@ -180,75 +182,6 @@
             color: var(--primary-color);
         }
         
-        .deepseek-highlight {
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-        
-        footer {
-            background: #333;
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-            margin-top: 50px;
-        }
-        
-        footer p {
-            max-width: 600px;
-            margin: 0 auto;
-            font-size: 0.9rem;
-            color: #aaa;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            position: relative;
-            padding-bottom: 15px;
-        }
-        
-        .section-title:after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: var(--accent-color);
-        }
-        
-        @media (max-width: 768px) {
-            .solutions-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-            
-            .card-header {
-                height: 150px;
-            }
-        }
-        
-        .icon {
-            font-size: 64px;
-        }
-        
-        /* Canvas styling */
-        canvas {
-            width: 100%;
-            height: 100%;
-        }
-        
-        /* Click indicator */
         .click-indicator {
             position: absolute;
             bottom: 15px;
@@ -261,7 +194,7 @@
             opacity: 0.9;
         }
         
-        /* 弹出模态框 */
+        /* 模态框样式 */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -330,7 +263,81 @@
             line-height: 1.5;
         }
         
-        .copy-btn {
+        /* 辅助元素 */
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+        
+        .deepseek-highlight {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .usage-instructions {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #fff9e6;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .usage-title {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .usage-title:before {
+            content: "💡";
+            margin-right: 8px;
+        }
+        
+        /* 反馈按钮 */
+        .feedback-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 99;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feedback-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        
+        /* 其他按钮样式 */
+        .copy-btn, .submit-btn, .qa-submit-btn {
             background-color: var(--primary-color);
             color: white;
             border: none;
@@ -341,46 +348,10 @@
             transition: background-color 0.3s ease;
         }
         
-        .copy-btn:hover {
+        .copy-btn:hover, .submit-btn:hover, .qa-submit-btn:hover {
             background-color: #2c62b5;
         }
         
-        .copy-success {
-            color: green;
-            font-size: 14px;
-            margin-left: 10px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .copy-success.show {
-            opacity: 1;
-        }
-        
-        .step-container {
-            margin-top: 20px;
-        }
-        
-        .step {
-            display: flex;
-            margin-bottom: 15px;
-            align-items: flex-start;
-        }
-        
-        .step-number {
-            background-color: var(--primary-color);
-            color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 10px;
-            flex-shrink: 0;
-        }
-        
-        /* 新增双按钮样式 */
         .deepseek-buttons {
             display: flex;
             justify-content: space-between;
@@ -418,297 +389,228 @@
             background-color: #2c62b5;
         }
         
-        /* 加载提示样式 */
-        #appLoadingIndicator {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 5px;
-            z-index: 9999;
+        /* 圣经问答助手样式 */
+        .bible-qa-section {
+            background-color: #f8f9ff;
+            padding: 40px 0;
+            margin: 40px 0;
+            border-top: 1px solid #e0e7ff;
+            border-bottom: 1px solid #e0e7ff;
         }
         
-        .usage-instructions {
-            margin: 30px 0;
-            padding: 20px;
-            background-color: #fff9e6;
-            border-radius: 10px;
-            border-left: 4px solid var(--accent-color);
+        .bible-qa-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
-        .usage-title {
-            color: var(--accent-color);
-            font-weight: 600;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .usage-title:before {
-            content: "💡";
-            margin-right: 8px;
-        }
-        
-        .store-link-container {
-            margin-top: 20px;
+        .bible-qa-header {
             text-align: center;
-            font-size: 14px;
-            background: #f8f8f8;
-            padding: 15px;
-            border-radius: 8px;
+            margin-bottom: 40px;
         }
         
-        .store-link {
-            display: inline-block;
-            margin-top: 10px;
+        .bible-qa-title {
             color: var(--primary-color);
-            text-decoration: none;
-            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 2rem;
         }
         
-        .notice-box {
-            background: #e9f0ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            border-left: 4px solid var(--primary-color);
+        .bible-qa-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
-        .notice-title {
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .notice-title:before {
-            content: "ℹ️";
-            margin-right: 8px;
-        }
-        
-        /* 反馈表单样式 */
-        .feedback-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            font-size: 24px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            cursor: pointer;
-            z-index: 99;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-        
-        .feedback-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-        }
-        
-        .feedback-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0,0,0,0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1001;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        
-        .feedback-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        .feedback-content {
-            background: white;
-            border-radius: 10px;
-            max-width: 500px;
-            width: 90%;
-            padding: 30px;
-            position: relative;
-        }
-        
-        .feedback-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #999;
-            transition: color 0.3s ease;
-        }
-        
-        .feedback-close:hover {
-            color: var(--primary-color);
-        }
-        
-        .feedback-title {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .feedback-form {
+        .bible-qa-interface {
             display: flex;
             flex-direction: column;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
         }
         
-        .form-group {
+        .bible-qa-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f0f4ff;
+            border-radius: 10px;
+        }
+        
+        .topic-btn {
+            background-color: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .topic-btn:hover, .topic-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .search-container {
+            display: flex;
             margin-bottom: 20px;
         }
         
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #555;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 10px 15px;
+        .search-input {
+            flex-grow: 1;
+            padding: 12px 15px;
             border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: inherit;
+            border-radius: 5px 0 0 5px;
             font-size: 16px;
-            transition: border-color 0.3s;
         }
         
-        .form-control:focus {
-            border-color: var(--primary-color);
+        .search-input:focus {
             outline: none;
+            border-color: var(--primary-color);
         }
         
-        textarea.form-control {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        .submit-btn {
+        .search-btn {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            font-size: 16px;
+            padding: 0 20px;
+            border-radius: 0 5px 5px 0;
             cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 10px;
-            align-self: flex-end;
+            font-size: 16px;
         }
         
-        .submit-btn:hover {
-            background-color: #2c62b5;
+        .bible-qa-main {
+            display: flex;
+            min-height: 400px;
         }
         
-        .feedback-success {
-            display: none;
-            text-align: center;
-            padding: 20px 0;
+        .qa-list {
+            width: 300px;
+            border-right: 1px solid #eee;
+            overflow-y: auto;
+            padding: 0;
+            margin: 0;
         }
         
-        .feedback-success h3 {
-            color: #2ecc71;
-            margin-bottom: 10px;
+        .qa-list-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            list-style: none;
         }
         
-        /* 新增发送状态指示器 */
-        .sending-indicator {
-            display: none;
-            text-align: center;
-            margin-top: 15px;
+        .qa-list-item:hover, .qa-list-item.active {
+            background-color: #f5f8ff;
         }
         
-        .sending-indicator .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(58, 123, 213, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--primary-color);
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
-            vertical-align: middle;
+        .qa-list-item h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: #333;
         }
         
+        .qa-list-item p {
+            font-size: 0.85rem;
+            color: #777;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .qa-content {
+            flex-grow: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        
+        .qa-content-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .bible-verse {
+            background-color: #f5f8ff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 3px solid var(--primary-color);
+            font-style: italic;
+        }
+        
+        .verse-reference {
+            display: block;
+            text-align: right;
+            font-weight: bold;
+            margin-top: 5px;
+            font-style: normal;
+        }
+        
+        @media (max-width: 768px) {
+            .solutions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card-header {
+                height: 150px;
+            }
+            
+            .bible-qa-main {
+                flex-direction: column;
+            }
+            
+            .qa-list {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                max-height: 300px;
+            }
+            
+            .qa-content {
+                padding: 20px;
+            }
+        }
+        
+        /* 动画 */
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
         
-        /* 帮助提示框样式 */
-        .help-info {
-            background-color: #f0f7ff;
-            border-left: 4px solid #3a7bd5;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
+        footer {
+            background: #333;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        footer p {
+            max-width: 600px;
+            margin: 0 auto;
             font-size: 0.9rem;
-        }
-        
-        .help-info h4 {
-            color: #3a7bd5;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .help-info h4:before {
-            content: "❓";
-            margin-right: 8px;
-        }
-        
-        .help-info p {
-            margin-bottom: 10px;
-        }
-        
-        .help-info table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 10px 0;
-            font-size: 0.85rem;
-        }
-        
-        .help-info th, .help-info td {
-            padding: 6px 8px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        
-        .help-info th {
-            background-color: #f1f5ff;
-        }
-        
-        .help-toggle {
-            color: #3a7bd5;
-            text-decoration: underline;
-            cursor: pointer;
-            display: inline-block;
-            margin-top: 5px;
-            font-size: 0.9rem;
+            color: #aaa;
         }
     </style>
 </head>
 <body>
+    <!-- 模态框 -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
             <div class="modal-close" id="modalClose">×</div>
@@ -722,45 +624,6 @@
             <div class="prompt-container">
                 <div class="prompt-text" id="promptText">加载中...</div>
             </div>
-            
-            <div id="lectionary-help" class="help-info" style="display: none;">
-                <h4>如何确定本周的教会节期</h4>
-                <p>如果您不确定当前主日的节期，可以参考以下信息：</p>
-                <table>
-                    <tr>
-                        <th>时间范围</th>
-                        <th>教会年历节期</th>
-                    </tr>
-                    <tr>
-                        <td>将临期/预苦期（圣诞节前4个主日）</td>
-                        <td>第1/2/3/4主日将临期</td>
-                    </tr>
-                    <tr>
-                        <td>圣诞节期（12月25日起）</td>
-                        <td>圣诞节、圣诞节后第1/2主日</td>
-                    </tr>
-                    <tr>
-                        <td>顯現期（1月6日起）</td>
-                        <td>顯現節、顯現節后第1/2/3/4/5/6/7/8主日</td>
-                    </tr>
-                    <tr>
-                        <td>大斋期（复活节前40天）</td>
-                        <td>大斋期第1/2/3/4/5主日、棕树主日</td>
-                    </tr>
-                    <tr>
-                        <td>复活节期</td>
-                        <td>复活节、复活节后第2/3/4/5/6/7主日</td>
-                    </tr>
-                    <tr>
-                        <td>五旬节后</td>
-                        <td>圣灵降临节、三一主日、三一后第1/2...主日</td>
-                    </tr>
-                </table>
-                <p>您也可以直接询问DeepSeek："今天是2025年3月15日，按照教会年历现在是什么节期？请根据修订标准本经课系统回答。"</p>
-                <p>或者访问<a href="https://lectionary.library.vanderbilt.edu/" target="_blank">Vanderbilt Divinity Library</a>查询当前节期。</p>
-            </div>
-            
-            <div id="lectionary-help-toggle" class="help-toggle" style="display: none;">显示教会年历节期指南</div>
             
             <button class="copy-btn" id="copyBtn">复制提示词</button>
             <span class="copy-success" id="copySuccess">✓ 复制成功!</span>
@@ -785,58 +648,17 @@
                 </div>
             </div>
             
-            <!-- 按钮：调整顺序和样式，突出网页版 -->
             <div class="deepseek-buttons">
                 <button class="open-deepseek-web-btn" id="openDeepseekWebBtn">打开DeepSeek网站</button>
                 <button class="open-deepseek-app-btn" id="openDeepseekAppBtn">尝试打开App</button>
             </div>
-            
-            <div class="store-link-container">
-                <p>如果您想在手机上使用DeepSeek App，请从应用商店安装：</p>
-                <a href="market://details?id=com.deepseek.chat" class="store-link" id="androidStoreLink">Android版下载</a> |
-                <a href="https://apps.apple.com/cn/app/id6478565713" class="store-link" id="iosStoreLink">iOS版下载</a>
-            </div>
         </div>
     </div>
     
-    <!-- 反馈表单 -->
+    <!-- 反馈按钮 -->
     <button class="feedback-btn" id="feedbackBtn">💬</button>
     
-    <div class="feedback-overlay" id="feedbackOverlay">
-        <div class="feedback-content">
-            <div class="feedback-close" id="feedbackClose">×</div>
-            <h3 class="feedback-title">提供您的建议与反馈</h3>
-            
-            <form id="feedbackForm" class="feedback-form">
-                <div class="form-group">
-                    <label for="user_name">您的称呼</label>
-                    <input type="text" id="user_name" name="user_name" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="user_email">电子邮箱（选填）</label>
-                    <input type="email" id="user_email" name="user_email" class="form-control">
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">您的建议或问题</label>
-                    <textarea id="message" name="message" class="form-control" required></textarea>
-                </div>
-                
-                <div class="sending-indicator" id="sendingIndicator">
-                    <span class="spinner"></span> 正在发送...
-                </div>
-                
-                <button type="submit" class="submit-btn">提交反馈</button>
-            </form>
-            
-            <div class="feedback-success" id="feedbackSuccess">
-                <h3>感谢您的反馈！</h3>
-                <p>我们已收到您的建议，将尽快进行处理和回复。</p>
-            </div>
-        </div>
-    </div>
-
+    <!-- 页面主体 -->
     <header>
         <div class="header-bg" id="header-canvas"></div>
         <div class="header-content">
@@ -856,134 +678,73 @@
             <p>点击下方任意方案卡片，系统将弹出详细的操作指南和预设提示词。您只需复制提示词，然后使用我们提供的按钮打开DeepSeek网站，粘贴提示词并根据您的具体需求修改，即可快速开始AI辅助的教会服侍。</p>
         </div>
         
-        <div class="solutions-grid">
-            <div class="solution-card" id="card1" data-card-id="1">
-                <div class="card-header">
-                    <div class="card-illustration" id="illustration1"></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">经文分析与讲道准备</h3>
-                    <p class="card-description">利用DeepSeek的强大文本理解和知识整合能力，辅助经文研究和讲道准备工作，提高备课效率。</p>
-                    <ul class="benefits-list">
-                        <li>快速分析经文主题、背景、神学要点</li>
-                        <li>生成多角度的讲道大纲和框架</li>
-                        <li>汇总相关圣经参考经文和释经资源</li>
-                        <li>提供历史和文化背景补充资料</li>
-                    </ul>
-                    <div class="implementation-tips">
-                        <h4>实施建议</h4>
-                        <p>将经文输入DeepSeek，要求其分析主题、上下文，并生成不同角度的讲解思路。结合圣经软件和DeepSeek的分析结果，创建个人化的讲道体系。每周固定使用AI辅助初步研经，然后自行深化内容。</p>
-                    </div>
-                    <div class="click-indicator">点击查看详情</div>
-                </div>
+        <div class="solutions-grid" id="solutionsGrid">
+            <!-- 方案卡片将通过JavaScript动态添加 -->
+        </div>
+    </div>
+    
+    <!-- 圣经问答助手部分 -->
+    <section class="bible-qa-section">
+        <div class="bible-qa-container">
+            <div class="bible-qa-header">
+                <h2 class="bible-qa-title">牧者AI圣经问答助手</h2>
+                <p class="bible-qa-subtitle">即时解答圣经与神学问题，助力您的信仰服侍与属灵成长</p>
             </div>
             
-            <div class="solution-card" id="card6" data-card-id="6">
-                <div class="card-header">
-                    <div class="card-illustration" id="illustration6"></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">三代经课讲道预备</h3>
-                    <p class="card-description">基于三代经课系统选择经文，辅助传道人进行系统性讲道预备，专为使用和合本圣经的教会环境优化。</p>
-                    <ul class="benefits-list">
-                        <li>获取特定节期的完整和合本经课经文</li>
-                        <li>分析经文间的主题联系，使用和合本术语</li>
-                        <li>理解经文与教会年历的神学关联</li>
-                        <li>基于和合本经文特点规划连续性讲道</li>
-                    </ul>
-                    <div class="implementation-tips">
-                        <h4>实施建议</h4>
-                        <p>建立整年的三代经课日历，每周提前使用DeepSeek分析即将到来的主日经课；将经课分析与教会季节和节期主题结合；开发基于和合本经文的小组讨论材料，形成从主日讲台到小组的一体化牧养体系。</p>
-                    </div>
-                    <div class="click-indicator">点击查看详情</div>
-                </div>
+            <div class="search-container">
+                <input type="text" class="search-input" id="qaSearchInput" placeholder="输入您的圣经或神学问题...">
+                <button class="search-btn" id="qaSearchBtn">搜索</button>
             </div>
             
-            <div class="solution-card" id="card2" data-card-id="2">
-                <div class="card-header">
-                    <div class="card-illustration" id="illustration2"></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">自动化教会行政</h3>
-                    <p class="card-description">通过DeepSeek处理日常行政事务，减轻传道人的管理压力，释放更多时间用于核心牧养工作。</p>
-                    <ul class="benefits-list">
-                        <li>会议记录整理与关键点提取</li>
-                        <li>活动策划与日程安排优化</li>
-                        <li>自动生成各类报告和文档</li>
-                        <li>财务数据分析与预算规划辅助</li>
-                    </ul>
-                    <div class="implementation-tips">
-                        <h4>实施建议</h4>
-                        <p>将会议录音转为文字后交由DeepSeek整理为会议纪要；制作标准模板，让AI按规范生成周报、月报；建立教会活动的标准操作流程，由AI提供策划思路和任务分解；使用电子表格结合DeepSeek进行财务数据分析。</p>
-                    </div>
-                    <div class="click-indicator">点击查看详情</div>
-                </div>
+            <div class="bible-qa-topics">
+                <button class="topic-btn active" data-topic="all">全部问题</button>
+                <button class="topic-btn" data-topic="theology">神学教义</button>
+                <button class="topic-btn" data-topic="interpretation">释经学</button>
+                <button class="topic-btn" data-topic="history">教会历史</button>
+                <button class="topic-btn" data-topic="ethics">基督教伦理</button>
+                <button class="topic-btn" data-topic="practical">实践牧养</button>
+                <button class="topic-btn" data-topic="difficult">难解经文</button>
             </div>
             
-            <div class="solution-card" id="card3" data-card-id="3">
-                <div class="card-header">
-                    <div class="card-illustration" id="illustration3"></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">个性化辅导资源库</h3>
-                    <p class="card-description">借助DeepSeek的自然语言处理能力，为不同群体创建个性化的灵修和辅导资源，提升牧养针对性。</p>
-                    <ul class="benefits-list">
-                        <li>根据不同信徒需求生成灵修材料</li>
-                        <li>为特定生活挑战提供圣经辅导资源</li>
-                        <li>创建主题式的查经和小组讨论指南</li>
-                        <li>设计针对不同年龄层的信仰教育内容</li>
+            <div class="bible-qa-interface">
+                <div class="bible-qa-main">
+                    <ul class="qa-list" id="qaList">
+                        <!-- 问题列表动态生成 -->
                     </ul>
-                    <div class="implementation-tips">
-                        <h4>实施建议</h4>
-                        <p>根据会友类型(如青少年、职场人士、年长者)建立基础模板，使用DeepSeek生成适合各群体的灵修材料；收集常见的信仰和生活问题，由AI协助创建应对资源库；为教会各部门制作独特的学习和讨论资料。</p>
+                    
+                    <div class="qa-content" id="qaContent">
+                        <!-- 问题内容区域 -->
+                        <div class="qa-welcome" id="qaWelcome">
+                            <h3 style="color: var(--primary-color); margin-bottom: 20px;">欢迎使用牧者AI圣经问答助手</h3>
+                            <p>这里收录了传道人和信徒常见的圣经和神学问题，并提供了经过神学审核的高质量回答。您可以：</p>
+                            <ul style="margin: 15px 0 25px 20px;">
+                                <li>从左侧列表选择问题</li>
+                                <li>使用上方搜索框查找特定问题</li>
+                                <li>点击主题标签筛选不同类别</li>
+                                <li>或在下方提交您自己的问题</li>
+                            </ul>
+                            <p>所有回答均基于圣经教导和正统神学观点，并经过神学背景的同工审核。</p>
+                        </div>
+                        
+                        <div class="qa-result" id="qaResult" style="display: none">
+                            <!-- 问题答案区域 -->
+                        </div>
                     </div>
-                    <div class="click-indicator">点击查看详情</div>
                 </div>
-            </div>
-            
-            <div class="solution-card" id="card4" data-card-id="4">
-                <div class="card-header">
-                    <div class="card-illustration" id="illustration4"></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">多语言服侍与翻译</h3>
-                    <p class="card-description">利用DeepSeek的多语言能力，突破语言障碍，促进跨文化交流和宣教工作的展开。</p>
-                    <ul class="benefits-list">
-                        <li>讲道内容和教材的多语言翻译</li>
-                        <li>宣教资料的本地化适配</li>
-                        <li>跨文化沟通和理解促进</li>
-                        <li>多语言教会资源库建设</li>
-                    </ul>
-                    <div class="implementation-tips">
-                        <h4>实施建议</h4>
-                        <p>将教会核心材料通过DeepSeek翻译为目标语言，并请懂该语言的同工校对；制作多语言的欢迎包和介绍资料；建立翻译流程，定期更新多语言资源库；为宣教士提供目标文化的表达方式和禁忌指南。</p>
-                    </div>
-                    <div class="click-indicator">点击查看详情</div>
-                </div>
-            </div>
-            
-            <div class="solution-card" id="card5" data-card-id="5">
-                <div class="card-header">
-                    <div class="card-illustration" id="illustration5"></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">媒体内容创作</h3>
-                    <p class="card-description">借助DeepSeek辅助创建各类媒体内容，增强教会在数字平台的影响力，触及更广泛的人群。</p>
-                    <ul class="benefits-list">
-                        <li>公众号文章和社交媒体内容创作</li>
-                        <li>教会简报和电子刊物编辑</li>
-                        <li>网站内容和SEO优化建议</li>
-                        <li>信仰类视频脚本和播客内容策划</li>
-                    </ul>
-                    <div class="implementation-tips">
-                        <h4>实施建议</h4>
-                        <p>制定内容日历，使用DeepSeek为每周的主题生成初稿；建立教会品牌风格指南，确保AI创作符合教会特色；使用主题模板，让AI协助丰富内容细节；结合时事热点，由AI提供基督教视角的回应方案。</p>
-                    </div>
-                    <div class="click-indicator">点击查看详情</div>
+                
+                <div class="qa-custom">
+                    <h3>没有找到您想要的答案？</h3>
+                    <form class="qa-custom-form" id="qaCustomForm">
+                        <div class="form-group">
+                            <label for="customQuestion">提交您的圣经或神学问题</label>
+                            <textarea id="customQuestion" class="form-control" rows="4" placeholder="例如：约翰福音3:16如何理解？或者：基督教对生命伦理有什么教导？"></textarea>
+                        </div>
+                        <button type="submit" class="qa-submit-btn">提交问题</button>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     
     <footer>
         <p>&copy; 2025 牧者智囊 | 技术支持信仰，信仰引导技术</p>
@@ -991,7 +752,7 @@
     </footer>
 
     <script>
-        // 存储提示词的对象
+        // 提示词模板数据
         const promptTemplates = {
             1: `我是一位传道人，需要帮助准备讲道。请协助我对以下经文进行分析，提供多角度的释经观点、历史文化背景，并生成讲道大纲：[这里输入您要分析的经文]。请包含：1. 经文主题和核心信息 2. 重要神学概念解析 3. 历史背景和文化上下文 4. 3-5个可能的讲道切入点 5. 符合经文主题的完整讲道大纲 6. 适用的例证和应用点建议`,
             
@@ -1079,228 +840,694 @@
 4. 若引用经文原文，请使用和合本的表述，并在必要时说明与其他译本的重要差异
 5. 针对我需求的具体建议和参考资源，优先推荐基于和合本的材料
 
-注意：如果我不确定当前的教会节期，请先帮我确定今天或本周主日对应的节期，然后再提供相应的经课经文和分析。
+注意：如果我不确定当前的教会节期，请先帮我确定今天或本周主日对应的节期，然后再提供相应的经课经文和分析。`,
 
-感谢您的协助！`
+            7: `我是一位传道人/信徒，需要您帮助解答以下圣经或神学问题：[这里输入您的问题]
+
+请提供：
+1. 对问题的全面解答，包括不同神学传统的观点（如适用）
+2. 相关圣经经文引用（优先使用和合本表述）
+3. 关键神学概念的解释
+4. 如涉及原文，请提供希伯来文/希腊文分析
+5. 问题在教会历史中的讨论脉络（如适用）
+6. 实际应用建议
+
+回答要神学上准确、解经上合理、表述上清晰，适合我作为传道人/信徒理解并用于教导或个人成长。`
         };
 
-        // DeepSeek 网站和应用 URL
-        const DEEPSEEK_WEB_URL = "https://chat.deepseek.com/";
-        
-        // 获取DOM元素
+        // 方案卡片数据
+        const solutionCards = [
+            {
+                id: 1,
+                title: "经文分析与讲道准备",
+                description: "利用DeepSeek的强大文本理解和知识整合能力，辅助经文研究和讲道准备工作，提高备课效率。",
+                benefits: [
+                    "快速分析经文主题、背景、神学要点",
+                    "生成多角度的讲道大纲和框架",
+                    "汇总相关圣经参考经文和释经资源",
+                    "提供历史和文化背景补充资料"
+                ],
+                tips: "将经文输入DeepSeek，要求其分析主题、上下文，并生成不同角度的讲解思路。结合圣经软件和DeepSeek的分析结果，创建个人化的讲道体系。每周固定使用AI辅助初步研经，然后自行深化内容。"
+            },
+            {
+                id: 6,
+                title: "三代经课讲道预备",
+                description: "基于三代经课系统选择经文，辅助传道人进行系统性讲道预备，专为使用和合本圣经的教会环境优化。",
+                benefits: [
+                    "获取特定节期的完整和合本经课经文",
+                    "分析经文间的主题联系，使用和合本术语",
+                    "理解经文与教会年历的神学关联",
+                    "基于和合本经文特点规划连续性讲道"
+                ],
+                tips: "建立整年的三代经课日历，每周提前使用DeepSeek分析即将到来的主日经课；将经课分析与教会季节和节期主题结合；开发基于和合本经文的小组讨论材料，形成从主日讲台到小组的一体化牧养体系。"
+            },
+            {
+                id: 2,
+                title: "自动化教会行政",
+                description: "通过DeepSeek处理日常行政事务，减轻传道人的管理压力，释放更多时间用于核心牧养工作。",
+                benefits: [
+                    "会议记录整理与关键点提取",
+                    "活动策划与日程安排优化",
+                    "自动生成各类报告和文档",
+                    "财务数据分析与预算规划辅助"
+                ],
+                tips: "将会议录音转为文字后交由DeepSeek整理为会议纪要；制作标准模板，让AI按规范生成周报、月报；建立教会活动的标准操作流程，由AI提供策划思路和任务分解；使用电子表格结合DeepSeek进行财务数据分析。"
+            },
+            {
+                id: 3,
+                title: "个性化辅导资源库",
+                description: "借助DeepSeek的自然语言处理能力，为不同群体创建个性化的灵修和辅导资源，提升牧养针对性。",
+                benefits: [
+                    "根据不同信徒需求生成灵修材料",
+                    "为特定生活挑战提供圣经辅导资源",
+                    "创建主题式的查经和小组讨论指南",
+                    "设计针对不同年龄层的信仰教育内容"
+                ],
+                tips: "根据会友类型(如青少年、职场人士、年长者)建立基础模板，使用DeepSeek生成适合各群体的灵修材料；收集常见的信仰和生活问题，由AI协助创建应对资源库；为教会各部门制作独特的学习和讨论资料。"
+            },
+            {
+                id: 4,
+                title: "多语言服侍与翻译",
+                description: "利用DeepSeek的多语言能力，突破语言障碍，促进跨文化交流和宣教工作的展开。",
+                benefits: [
+                    "讲道内容和教材的多语言翻译",
+                    "宣教资料的本地化适配",
+                    "跨文化沟通和理解促进",
+                    "多语言教会资源库建设"
+                ],
+                tips: "将教会核心材料通过DeepSeek翻译为目标语言，并请懂该语言的同工校对；制作多语言的欢迎包和介绍资料；建立翻译流程，定期更新多语言资源库；为宣教士提供目标文化的表达方式和禁忌指南。"
+            },
+            {
+                id: 5,
+                title: "媒体内容创作",
+                description: "借助DeepSeek辅助创建各类媒体内容，增强教会在数字平台的影响力，触及更广泛的人群。",
+                benefits: [
+                    "公众号文章和社交媒体内容创作",
+                    "教会简报和电子刊物编辑",
+                    "网站内容和SEO优化建议",
+                    "信仰类视频脚本和播客内容策划"
+                ],
+                tips: "制定内容日历，使用DeepSeek为每周的主题生成初稿；建立教会品牌风格指南，确保AI创作符合教会特色；使用主题模板，让AI协助丰富内容细节；结合时事热点，由AI提供基督教视角的回应方案。"
+            },
+            {
+                id: 7,
+                title: "圣经问答助手",
+                description: "使用AI辅助解答常见神学问题与经文疑惑，为传道人和信徒提供即时的圣经知识支持。",
+                benefits: [
+                    "解答复杂的神学概念与教义问题",
+                    "分析经文难解之处与上下文关联",
+                    "提供各宗派传统的解经观点",
+                    "支持希腊文、希伯来文等原文分析"
+                ],
+                tips: "建立常见神学问题库，预先整理高质量答案；将问答结果与和合本经文引用相结合；针对查经小组常见问题提供参考答案；结合牧者的解经智慧和AI的信息处理能力，打造互补的教导体系。"
+            }
+        ];
+
+        // 圣经问答数据
+        const bibleQAData = [
+            {
+                id: 1,
+                title: "预定论与自由意志如何协调？",
+                topic: "theology",
+                shortDesc: "探讨神的主权与人类自由意志之间的关系...",
+                content: `<div class="qa-content-header">
+                    <h3 class="qa-content-title">预定论与自由意志如何协调？</h3>
+                    <div class="qa-content-meta">主题: 神学教义 | 审核: 已审核</div>
+                </div>
+                <div class="qa-content-body">
+                    <p>预定论与自由意志的协调是基督教神学中最深刻的议题之一，不同神学传统对此有不同的理解和解释。</p>
+                    
+                    <h4>不同神学传统的观点</h4>
+                    <p><strong>加尔文主义观点</strong>：强调神的绝对主权，认为神从创世前已预定一切，包括人的得救。人虽有意志自由，但受限于罪性，无法靠自己选择神。神使选民经历恩典，不可抗拒地引领他们归向祂。</p>
+                    
+                    <p><strong>阿民念主义观点</strong>：强调人的责任和选择自由，认为虽然神预先知道谁会信，但祂让人自由选择。神的预定建立在祂对人自由选择的预知上，而非强制性决定。</p>
+                    
+                    <p><strong>莫利纳主义</strong>：试图调和上述两种观点，提出"中间知识"的概念，即神不仅知道会发生什么，也知道在每种可能情况下人会做什么选择。祂的预定考虑到了这些可能的选择。</p>
+                    
+                    <div class="bible-verse">
+                        耶和华对他说："谁造人的口呢？谁使人口哑、耳聋、目明、眼瞎呢？岂不是我耶和华吗？"
+                        <span class="verse-reference">出埃及记 4:11 (和合本)</span>
+                    </div>
+                    
+                    <div class="bible-verse">
+                        就如神从创立世界以前，在基督里拣选了我们，使我们在他面前成为圣洁，无有瑕疵。
+                        <span class="verse-reference">以弗所书 1:4 (和合本)</span>
+                    </div>
+                    
+                    <h4>协调的神学尝试</h4>
+                    <p>实际上，圣经既肯定神的主权，也确认人的责任，这两方面真理似乎在人类逻辑中难以完全协调，但在神的智慧中和谐共存：</p>
+                    
+                    <p>1. <strong>奥秘性</strong>：承认这是超越人类理解的神圣奥秘，两个真理并行不悖。</p>
+                    
+                    <p>2. <strong>双重因果链</strong>：神的旨意和人类选择可被视为同一事件的两个不同维度的原因，如约瑟被卖到埃及，既有人的恶意，也有神的美意。</p>
+                    
+                    <h4>实际应用</h4>
+                    <p>这一教义的实际应用在于：</p>
+                    <p>1. 培养谦卑：我们得救完全是恩典，无可夸口</p>
+                    <p>2. 确信神的掌管：在混乱世界中坚信神掌权</p>
+                    <p>3. 承担责任：认真对待每个选择，因我们要为自己的行为负责</p>
+                    <p>4. 传福音的热忱：既信神预定，又尽责任传福音</p>
+                </div>
+                <div class="related-resources">
+                    <h4>相关资源推荐</h4>
+                    <div class="resource-list">
+                        <a href="#" class="resource-item">《基督教要义》- 加尔文</a>
+                        <a href="#" class="resource-item">《系统神学》- 韦恩·格鲁登</a>
+                        <a href="#" class="resource-item">《拣选与自由意志》- 巴刻</a>
+                    </div>
+                </div>`
+            },
+            {
+                id: 2,
+                title: "何谓'因信称义'？行为的角色是什么？",
+                topic: "theology",
+                shortDesc: "探讨信心与行为在救恩中的关系...",
+                content: `<div class="qa-content-header">
+                    <h3 class="qa-content-title">何谓'因信称义'？行为的角色是什么？</h3>
+                    <div class="qa-content-meta">主题: 神学教义 | 审核: 已审核</div>
+                </div>
+                <div class="qa-content-body">
+                    <p>因信称义是宗教改革的核心教义之一，探讨人如何在神面前被称为义人。这一教义与基督徒行为的关系常引起讨论。</p>
+                    
+                    <h4>因信称义的含义</h4>
+                    <p>"称义"在圣经中是法律术语，指神宣告罪人为义。这不是因人本身有义，而是基督的义通过信心归算给信徒。保罗在罗马书和加拉太书中强调，人称义不是靠行律法，乃是因信耶稣基督。</p>
+                    
+                    <div class="bible-verse">
+                        人称义是因着信，不在乎遵行律法。
+                        <span class="verse-reference">罗马书 3:28 (和合本)</span>
+                    </div>
+                    
+                    <h4>信心的本质</h4>
+                    <p>救恩中的信心不仅是头脑认知，也不仅是情感回应，而是对基督的全人信靠与委身。这包括：</p>
+                    <p>1. <strong>认知</strong>：了解并接受福音真理</p>
+                    <p>2. <strong>认同</strong>：认同这真理适用于自己</p>
+                    <p>3. <strong>信靠</strong>：将生命完全交托给基督</p>
+                    
+                    <h4>行为的角色</h4>
+                    <p>虽然我们因信称义，但圣经也明确表示行为在基督徒生活中至关重要：</p>
+                    
+                    <div class="bible-verse">
+                        这样，信心若没有行为就是死的。
+                        <span class="verse-reference">雅各书 2:17 (和合本)</span>
+                    </div>
+                    
+                    <p>行为在救恩中的角色可以理解为：</p>
+                    
+                    <p>1. <strong>行为不是称义的原因</strong>：我们不是因行善而得救</p>
+                    <p>2. <strong>行为是真信心的果子</strong>：真正的信心必然产生相应的行为</p>
+                    <p>3. <strong>行为是信心的证据</strong>：我们的行为显明我们信心的真实性</p>
+                </div>
+                <div class="related-resources">
+                    <h4>相关资源推荐</h4>
+                    <div class="resource-list">
+                        <a href="#" class="resource-item">《因信称义》- 约翰·派博</a>
+                        <a href="#" class="resource-item">《罗马书注释》- 道格拉斯·牧</a>
+                        <a href="#" class="resource-item">《因信得生》- 彭德修</a>
+                    </div>
+                </div>`
+            },
+            {
+                id: 3,
+                title: "如何解释约翰福音3:16？",
+                topic: "interpretation",
+                shortDesc: "深入分析这节著名经文的神学含义...",
+                content: `<div class="qa-content-header">
+                    <h3 class="qa-content-title">如何解释约翰福音3:16？</h3>
+                    <div class="qa-content-meta">主题: 释经学 | 审核: 已审核</div>
+                </div>
+                <div class="qa-content-body">
+                    <p>约翰福音3:16被誉为"小圣经"，是整本圣经中最广为人知的经文之一，浓缩了福音的核心信息。</p>
+                    
+                    <div class="bible-verse">
+                        神爱世人，甚至将他的独生子赐给他们，叫一切信他的，不至灭亡，反得永生。
+                        <span class="verse-reference">约翰福音 3:16 (和合本)</span>
+                    </div>
+                    
+                    <h4>原文分析</h4>
+                    <p>在希腊原文中，这节经文包含几个关键词：</p>
+                    <p>- "爱"（ἠγάπησεν, agapaō）：表示牺牲性、选择性的爱，不是情感冲动或欣赏</p>
+                    <p>- "世人"（κόσμον, kosmos）：指整个人类世界，特别是堕落的世界秩序</p>
+                    <p>- "独生子"（μονογενῆ, monogenēs）：意为"独特的"、"一类的"，强调基督的独特性</p>
+                    
+                    <h4>神学主题</h4>
+                    <p><strong>1. 神的爱</strong></p>
+                    <p>这节经文首先展示了神的爱的广度与深度。神爱的对象是"世人"——不仅指一部分人，而是整个堕落的人类。"甚至"（οὕτως, houtōs）一词强调这爱的程度之深——深到愿意付出自己独生子的地步。</p>
+                    
+                    <p><strong>2. 神的恩赐</strong></p>
+                    <p>"将他的独生子赐给"展示了救恩是神的恩赐，不是人赚取的。基督是父神最珍贵的恩赐，表明救恩的代价之高。</p>
+                    
+                    <p><strong>3. 人的回应</strong></p>
+                    <p>"叫一切信他的"指明了人对神恩赐的适当回应是信心。这信心不只是头脑认同，而是全人委身与信靠。</p>
+                </div>
+                <div class="related-resources">
+                    <h4>相关资源推荐</h4>
+                    <div class="resource-list">
+                        <a href="#" class="resource-item">《约翰福音注释》- D.A. Carson</a>
+                        <a href="#" class="resource-item">《认识真理》- J.I. 巴刻</a>
+                        <a href="#" class="resource-item">《约翰福音讲道集》- 提摩太·凯勒</a>
+                    </div>
+                </div>`
+            },
+            {
+                id: 4,
+                title: "基督教如何看待同性恋问题？",
+                topic: "ethics",
+                shortDesc: "从圣经和神学角度分析同性恋伦理议题...",
+                content: `<div class="qa-content-header">
+                    <h3 class="qa-content-title">基督教如何看待同性恋问题？</h3>
+                    <div class="qa-content-meta">主题: 基督教伦理 | 审核: 已审核</div>
+                </div>
+                <div class="qa-content-body">
+                    <p>同性恋问题是当代教会面临的复杂伦理议题。在回应这一问题时，基督徒需要同时持守圣经真理与基督的爱。</p>
+                    
+                    <h4>圣经教导</h4>
+                    <p>圣经中涉及同性性行为的经文主要有：</p>
+                    
+                    <div class="bible-verse">
+                        不可与男人同寝，像与女人同寝一样，这本是可憎恶的。
+                        <span class="verse-reference">利未记 18:22 (和合本)</span>
+                    </div>
+                    
+                    <div class="bible-verse">
+                        所以，神任凭他们放纵可羞耻的情欲。他们的女人把顺性的用处变为逆性的用处；男人也是如此，弃了女人顺性的用处，欲火攻心，彼此贪恋，男和男行可羞耻的事，就在自己身上受这妄为当得的报应。
+                        <span class="verse-reference">罗马书 1:26-27 (和合本)</span>
+                    </div>
+                    
+                    <h4>牧养智慧与实践</h4>
+                    <p>无论持何种立场，基督徒在回应同性恋议题时都应当：</p>
+                    
+                    <p>1. <strong>避免双重标准</strong>：不将同性恋罪视为比其他罪更严重</p>
+                    <p>2. <strong>拒绝仇恨与偏见</strong>：基督徒蒙召爱每一个人，包括有同性吸引的人</p>
+                    <p>3. <strong>提供团契与支持</strong>：教会应成为所有挣扎者的避难所</p>
+                    <p>4. <strong>持守恩典与真理平衡</strong>：像耶稣一样，满有恩典与真理（约1:14）</p>
+                </div>
+                <div class="related-resources">
+                    <h4>相关资源推荐</h4>
+                    <div class="resource-list">
+                        <a href="#" class="resource-item">《爱的勇气与真理》- 陈琴富</a>
+                        <a href="#" class="resource-item">《同性恋与基督信仰》- 麦伟恩</a>
+                        <a href="#" class="resource-item">《属神的性》- 赵崇明</a>
+                    </div>
+                </div>`
+            },
+            {
+                id: 5,
+                title: "旧约中的暴力与新约中的爱神如何和谐？",
+                topic: "difficult",
+                shortDesc: "探讨圣经中看似矛盾的神的形象...",
+                content: `<div class="qa-content-header">
+                    <h3 class="qa-content-title">旧约中的暴力与新约中的爱神如何和谐？</h3>
+                    <div class="qa-content-meta">主题: 难解经文 | 审核: 已审核</div>
+                </div>
+                <div class="qa-content-body">
+                    <p>圣经读者常感困惑的一个问题是：旧约中神似乎更注重审判和战争，而新约中的神则强调爱和怜悯。这种表面上的矛盾如何理解？</p>
+                    
+                    <h4>解释进路</h4>
+                    <p><strong>1. 神的属性一致性</strong></p>
+                    <p>首先，圣经清楚教导神是不变的（玛3:6；来13:8）。神在旧约和新约中都显明了祂爱的属性，也都显明了祂的公义：</p>
+                    
+                    <div class="bible-verse">
+                        耶和华在他面前宣告说："耶和华，耶和华，是有怜悯有恩典的神，不轻易发怒，并有丰盛的慈爱和诚实。"
+                        <span class="verse-reference">出埃及记 34:6 (和合本)</span>
+                    </div>
+                    
+                    <p><strong>2. 渐进启示的角度</strong></p>
+                    <p>神的启示是渐进的，祂按人类历史发展的阶段和人们领受能力的程度逐渐展开祂的计划。旧约为新约预备了基础，基督的到来是神启示的高峰。</p>
+                    
+                    <h4>旧约中的爱与怜悯</h4>
+                    <p>重要的是，旧约充满了神爱和怜悯的例子：</p>
+                    <p>- 亚当夏娃犯罪后，神为他们做衣服（创3:21）</p>
+                    <p>- 神拯救挪亚和他的家人（创6-9章）</p>
+                    <p>- 神对亚伯拉罕的呼召和应许（创12章）</p>
+                    <p>- 神对尼尼微城的怜悯（约拿书）</p>
+                </div>
+                <div class="related-resources">
+                    <h4>相关资源推荐</h4>
+                    <div class="resource-list">
+                        <a href="#" class="resource-item">《难解之经》- 保罗·科佩</a>
+                        <a href="#" class="resource-item">《认识神》- J.I. 巴刻</a>
+                        <a href="#" class="resource-item">《神的智慧》- 莱尔</a>
+                    </div>
+                </div>`
+            },
+            {
+                id: 6,
+                title: "基督徒如何理解和处理抑郁？",
+                topic: "practical",
+                shortDesc: "从信仰角度探讨抑郁症及其应对方法...",
+                content: `<div class="qa-content-header">
+                    <h3 class="qa-content-title">基督徒如何理解和处理抑郁？</h3>
+                    <div class="qa-content-meta">主题: 实践牧养 | 审核: 已审核</div>
+                </div>
+                <div class="qa-content-body">
+                    <p>抑郁是许多基督徒面临的现实挑战，常常伴随着对信仰的疑问：为何神允许此事发生？信心不足是否导致抑郁？</p>
+                    
+                    <h4>圣经中的抑郁</h4>
+                    <p>虽然圣经没有直接使用"抑郁症"这一现代医学术语，但描述了类似抑郁的情绪状态：</p>
+                    
+                    <div class="bible-verse">
+                        我的心在我里面忧闷，死亡的惊惶临到我身。恐惧战兢归到我身，惊恐漫过我身。
+                        <span class="verse-reference">诗篇 55:4-5 (和合本)</span>
+                    </div>
+                    
+                    <div class="bible-verse">
+                        我为何如此忧闷？为何在我里面烦躁？
+                        <span class="verse-reference">诗篇 42:5 (和合本)</span>
+                    </div>
+                    
+                    <h4>抑郁的多元原因</h4>
+                    <p>基督教理解应当认识到抑郁的多方面成因：</p>
+                    
+                    <p><strong>1. 生物学因素</strong>：神经递质失衡、遗传倾向、身体疾病等</p>
+                    <p><strong>2. 心理因素</strong>：认知模式、童年经历、创伤等</p>
+                    <p><strong>3. 社会因素</strong>：关系问题、社会压力、生活变化等</p>
+                    <p><strong>4. 灵性因素</strong>：信仰危机、罪疚感、属灵争战等</p>
+                    <p><strong>5. 存在性因素</strong>：意义感缺失、生命目标不明确等</p>
+                </div>
+                <div class="related-resources">
+                    <h4>相关资源推荐</h4>
+                    <div class="resource-list">
+                        <a href="#" class="resource-item">《属灵抑郁症》- 马丁·劳埃德·琼斯</a>
+                        <a href="#" class="resource-item">《黑暗中的恩典》- 韦尔奇</a>
+                        <a href="#" class="resource-item">《灵魂的黑夜》- 圣约翰</a>
+                    </div>
+                </div>`
+            },
+            {
+                id: 7,
+                title: "圣经是如何形成的？如何知道正典是可靠的？",
+                topic: "history",
+                shortDesc: "探讨圣经正典的形成历史与权威性...",
+                content: `<div class="qa-content-header">
+                    <h3 class="qa-content-title">圣经是如何形成的？如何知道正典是可靠的？</h3>
+                    <div class="qa-content-meta">主题: 教会历史 | 审核: 已审核</div>
+                </div>
+                <div class="qa-content-body">
+                    <p>圣经的形成过程与正典权威的确立是基督教信仰的基础问题。这一过程涉及历史、神学和信仰多个层面的深入思考。</p>
+                    
+                    <h4>圣经的形成过程</h4>
+                    <p><strong>旧约正典形成</strong></p>
+                    <p>旧约的形成大致可分为三个阶段：</p>
+                    <p>1. <strong>律法书(妥拉)</strong>：摩西五经约成形于公元前1400-1200年间，被视为最早确立的正典部分</p>
+                    <p>2. <strong>先知书</strong>：包括前先知书(约书亚-列王记)和后先知书(大小先知书)，约在公元前400年完成</p>
+                    <p>3. <strong>圣卷</strong>：包括诗歌智慧书和历代志等，约在公元前200年左右完成</p>
+                    
+                    <p><strong>新约正典形成</strong></p>
+                    <p>新约正典的形成过程：</p>
+                    <p>1. <strong>写作阶段</strong>：新约各卷在公元50-100年间陆续写成</p>
+                    <p>2. <strong>收集与流传</strong>：各地教会开始收集和交换使徒的书信和福音书</p>
+                    <p>3. <strong>初步共识</strong>：到公元200年左右，大部分新约书卷已被广泛接受</p>
+                    <p>4. <strong>正式确认</strong>：公元367年，亚他那修在复活节信函中列出了现今的27卷新约书目</p>
+                </div>
+                <div class="related-resources">
+                    <h4>相关资源推荐</h4>
+                    <div class="resource-list">
+                        <a href="#" class="resource-item">《圣经导论》- 费依</a>
+                        <a href="#" class="resource-item">《圣经正典》- 布鲁斯</a>
+                        <a href="#" class="resource-item">《圣经的由来》- 潘霍华</a>
+                    </div>
+                </div>`
+            }
+        ];
+
+        // DOM元素获取和变量定义
         const modalOverlay = document.getElementById('modalOverlay');
         const modalClose = document.getElementById('modalClose');
         const modalTitle = document.getElementById('modalTitle');
         const promptText = document.getElementById('promptText');
         const copyBtn = document.getElementById('copyBtn');
         const copySuccess = document.getElementById('copySuccess');
-        const openDeepseekAppBtn = document.getElementById('openDeepseekAppBtn');
+        
         const openDeepseekWebBtn = document.getElementById('openDeepseekWebBtn');
-        const androidStoreLink = document.getElementById('androidStoreLink');
-        const iosStoreLink = document.getElementById('iosStoreLink');
+        const openDeepseekAppBtn = document.getElementById('openDeepseekAppBtn');
         
-        // 教会年历节期帮助
-        const lectionaryHelp = document.getElementById('lectionary-help');
-        const lectionaryHelpToggle = document.getElementById('lectionary-help-toggle');
-        
-        // 反馈相关元素
         const feedbackBtn = document.getElementById('feedbackBtn');
-        const feedbackOverlay = document.getElementById('feedbackOverlay');
-        const feedbackClose = document.getElementById('feedbackClose');
-        const feedbackForm = document.getElementById('feedbackForm');
-        const feedbackSuccess = document.getElementById('feedbackSuccess');
-        const sendingIndicator = document.getElementById('sendingIndicator');
         
-        // 检测设备类型并更新应用商店链接
-        function updateStoreLinks() {
-            const isAndroid = /Android/i.test(navigator.userAgent);
-            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        const qaList = document.getElementById('qaList');
+        const qaContent = document.getElementById('qaContent');
+        const qaWelcome = document.getElementById('qaWelcome');
+        const qaResult = document.getElementById('qaResult');
+        const qaSearchInput = document.getElementById('qaSearchInput');
+        const qaSearchBtn = document.getElementById('qaSearchBtn');
+        const topicBtns = document.querySelectorAll('.topic-btn');
+        const qaCustomForm = document.getElementById('qaCustomForm');
+        
+        // 初始化函数
+        function initialize() {
+            // 生成方案卡片
+            generateSolutionCards();
             
-            if (isAndroid) {
-                // Android设备显示Google Play链接，隐藏iOS链接
-                androidStoreLink.style.display = 'inline';
-                iosStoreLink.style.display = 'none';
-            } else if (isIOS) {
-                // iOS设备显示App Store链接，隐藏Android链接
-                androidStoreLink.style.display = 'none';
-                iosStoreLink.style.display = 'inline';
-            } else {
-                // 桌面设备显示两个链接
-                androidStoreLink.style.display = 'inline';
-                iosStoreLink.style.display = 'inline';
-            }
+            // 生成问题列表
+            generateQAList();
+            
+            // 设置事件监听器
+            setupEventListeners();
+            
+            // 绘制Canvas背景
+            drawHeaderCanvas();
         }
         
-        // 添加点击事件处理
-        function setupCardClickHandlers() {
-            const cards = document.querySelectorAll('.solution-card');
+        // 生成方案卡片
+        function generateSolutionCards() {
+            const solutionsGrid = document.getElementById('solutionsGrid');
+            solutionsGrid.innerHTML = '';
             
-            cards.forEach(card => {
-                card.addEventListener('click', function() {
-                    // 获取卡片ID和标题
-                    const cardId = this.getAttribute('data-card-id');
-                    const title = this.querySelector('.card-title').textContent;
-                    
-                    // 从模板获取提示词
-                    const prompt = promptTemplates[cardId];
-                    
-                    // 更新模态框内容
-                    modalTitle.textContent = title;
-                    promptText.textContent = prompt;
-                    
-                    // 根据类型显示不同的辅助内容
-                    if (title === "三代经课讲道预备") {
-                        lectionaryHelpToggle.style.display = 'block';
-                    } else {
-                        lectionaryHelpToggle.style.display = 'none';
-                        lectionaryHelp.style.display = 'none';
-                    }
-                    
-                    // 显示模态框
-                    modalOverlay.classList.add('active');
-                });
+            solutionCards.forEach(card => {
+                const benefitsHTML = card.benefits.map(benefit => `<li>${benefit}</li>`).join('');
+                
+                const cardHTML = `
+                <div class="solution-card" data-card-id="${card.id}">
+                    <div class="card-header">
+                        <div class="card-illustration" id="illustration${card.id}"></div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">${card.title}</h3>
+                        <p class="card-description">${card.description}</p>
+                        <ul class="benefits-list">
+                            ${benefitsHTML}
+                        </ul>
+                        <div class="implementation-tips">
+                            <h4>实施建议</h4>
+                            <p>${card.tips}</p>
+                        </div>
+                        <div class="click-indicator">点击查看详情</div>
+                    </div>
+                </div>
+                `;
+                
+                solutionsGrid.innerHTML += cardHTML;
             });
-        }
-        
-        // 节期指南切换显示
-        if (lectionaryHelpToggle) {
-            lectionaryHelpToggle.addEventListener('click', function() {
-                if (lectionaryHelp.style.display === 'none') {
-                    lectionaryHelp.style.display = 'block';
-                    this.textContent = '隐藏教会年历节期指南';
-                } else {
-                    lectionaryHelp.style.display = 'none';
-                    this.textContent = '显示教会年历节期指南';
+            
+            // 卡片点击事件
+            document.querySelectorAll('.solution-card').forEach(card => {
+                card.addEventListener('click', handleCardClick);
+            });
+            
+            // 绘制卡片图标
+            setTimeout(() => {
+                for (let i = 1; i <= 7; i++) {
+                    const el = document.getElementById(`illustration${i}`);
+                    if (el) drawCardIllustration(i, el);
                 }
+            }, 100);
+        }
+        
+        // 生成问答列表
+        function generateQAList(filter = 'all') {
+            qaList.innerHTML = '';
+            
+            let filteredData = bibleQAData;
+            if (filter !== 'all') {
+                filteredData = bibleQAData.filter(item => item.topic === filter);
+            }
+            
+            filteredData.forEach(qa => {
+                const listItem = document.createElement('li');
+                listItem.className = 'qa-list-item';
+                listItem.setAttribute('data-qa-id', qa.id);
+                listItem.innerHTML = `
+                    <h4>${qa.title}</h4>
+                    <p>${qa.shortDesc}</p>
+                `;
+                
+                listItem.addEventListener('click', () => {
+                    showQuestion(qa.id);
+                    
+                    // 移除其他项目的active类
+                    document.querySelectorAll('.qa-list-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // 添加active类给当前项目
+                    listItem.classList.add('active');
+                });
+                
+                qaList.appendChild(listItem);
             });
         }
         
-        // 关闭模态框
-        modalClose.addEventListener('click', function() {
-            modalOverlay.classList.remove('active');
-        });
-        
-        // 点击模态框背景也关闭
-        modalOverlay.addEventListener('click', function(e) {
-            if (e.target === modalOverlay) {
+        // 设置事件监听器
+        function setupEventListeners() {
+            // 模态框相关
+            modalClose.addEventListener('click', () => {
                 modalOverlay.classList.remove('active');
-            }
-        });
-        
-        // 复制提示词
-        copyBtn.addEventListener('click', function() {
-            navigator.clipboard.writeText(promptText.textContent).then(() => {
-                copySuccess.classList.add('show');
-                setTimeout(() => {
-                    copySuccess.classList.remove('show');
-                }, 2000);
-            }).catch(err => {
-                console.error('无法复制到剪贴板: ', err);
-                alert('无法自动复制提示词。请手动选择文本并复制。');
             });
-        });
-        
-        // 尝试唤醒DeepSeek软件（简化版，只作为备选）
-        openDeepseekAppBtn.addEventListener('click', function() {
-            // 显示加载提示
-            const loadingEl = document.createElement('div');
-            loadingEl.id = 'appLoadingIndicator';
-            loadingEl.innerHTML = '尝试打开DeepSeek...';
-            document.body.appendChild(loadingEl);
             
-            // 尝试使用基本方式打开应用
-            try {
-                const isAndroid = /Android/i.test(navigator.userAgent);
-                if (isAndroid) {
-                    window.location.href = "intent://chat/#Intent;scheme=deepseek;package=com.deepseek.chat;end";
-                } else {
-                    window.location.href = "deepseek://";
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    modalOverlay.classList.remove('active');
                 }
-            } catch(e) {
-                console.error("打开应用失败", e);
-            }
+            });
             
-            // 2秒后无论如何都移除加载提示
-            setTimeout(function() {
-                if (document.getElementById('appLoadingIndicator')) {
-                    document.body.removeChild(loadingEl);
-                }
-                
-                // 显示引导提示
-                alert("如果无法打开DeepSeek应用，请使用DeepSeek网页版，或从应用商店下载安装。");
-                
-            }, 2000);
-        });
-        
-        // 直接打开DeepSeek网站
-        openDeepseekWebBtn.addEventListener('click', function() {
-            window.open(DEEPSEEK_WEB_URL, '_blank');
-        });
-        
-        // 反馈表单相关功能
-        // 打开反馈表单
-        feedbackBtn.addEventListener('click', function() {
-            feedbackOverlay.classList.add('active');
-            // 重置表单状态
-            feedbackForm.reset();
-            feedbackForm.style.display = 'flex';
-            feedbackSuccess.style.display = 'none';
-            sendingIndicator.style.display = 'none';
-        });
-        
-        // 关闭反馈表单
-        feedbackClose.addEventListener('click', function() {
-            feedbackOverlay.classList.remove('active');
-        });
-        
-        // 点击背景关闭反馈表单
-        feedbackOverlay.addEventListener('click', function(e) {
-            if (e.target === feedbackOverlay) {
-                feedbackOverlay.classList.remove('active');
-            }
-        });
-        
-        // 使用EmailJS发送反馈 - 更新了服务ID
-        feedbackForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // 显示发送中状态
-            sendingIndicator.style.display = 'block';
-            
-            // 获取表单数据
-            const formData = {
-                name: document.getElementById('user_name').value,
-                email: document.getElementById('user_email').value || '未提供',
-                message: document.getElementById('message').value,
-                time: new Date().toLocaleString()
-            };
-            
-            // 使用EmailJS发送 - 使用新的服务ID
-            emailjs.send('service_ieun53f', 'template_7m1014z', formData)
-                .then(function(response) {
-                    console.log('发送成功:', response);
-                    sendingIndicator.style.display = 'none';
-                    feedbackForm.style.display = 'none';
-                    feedbackSuccess.style.display = 'block';
-                    
-                    // 5秒后自动关闭反馈表单
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(promptText.textContent).then(() => {
+                    copySuccess.classList.add('show');
                     setTimeout(() => {
-                        feedbackOverlay.classList.remove('active');
-                    }, 5000);
-                }, function(error) {
-                    console.error('发送失败:', error);
-                    sendingIndicator.style.display = 'none';
-                    alert('发送失败，请稍后再试。错误: ' + error.text);
+                        copySuccess.classList.remove('show');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('无法复制到剪贴板: ', err);
+                    alert('无法自动复制提示词。请手动选择文本并复制。');
                 });
-        });
-        
-        // 绘制各种Canvas图形的函数
-        function drawHeaderCanvas() {
-            const canvas = document.createElement('canvas');
-            const header = document.getElementById('header-canvas');
-            header.appendChild(canvas);
-            const ctx = canvas.getContext('2d');
+            });
             
+            // DeepSeek按钮
+            openDeepseekWebBtn.addEventListener('click', () => {
+                window.open("https://chat.deepseek.com/", '_blank');
+            });
+            
+            openDeepseekAppBtn.addEventListener('click', () => {
+                try {
+                    const isAndroid = /Android/i.test(navigator.userAgent);
+                    if (isAndroid) {
+                        window.location.href = "intent://chat/#Intent;scheme=deepseek;package=com.deepseek.chat;end";
+                    } else {
+                        window.location.href = "deepseek://";
+                    }
+                } catch(e) {
+                    console.error("打开应用失败", e);
+                    alert("无法打开DeepSeek应用，请使用网页版或从应用商店下载安装。");
+                }
+            });
+            
+            // 问答相关
+            topicBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // 移除其他按钮的active类
+                    topicBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // 添加active类给当前按钮
+                    btn.classList.add('active');
+                    
+                    // 根据主题筛选问题
+                    const topic = btn.getAttribute('data-topic');
+                    generateQAList(topic);
+                    
+                    // 显示欢迎信息
+                    qaWelcome.style.display = 'block';
+                    qaResult.style.display = 'none';
+                });
+            });
+            
+            // 搜索功能
+            qaSearchBtn.addEventListener('click', searchQuestions);
+            qaSearchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    searchQuestions();
+                }
+            });
+            
+            // 自定义问题提交
+            qaCustomForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const question = document.getElementById('customQuestion').value.trim();
+                if (question) {
+                    submitCustomQuestion(question);
+                }
+            });
+        }
+        
+        // 处理卡片点击
+        function handleCardClick() {
+            const cardId = this.getAttribute('data-card-id');
+            const title = this.querySelector('.card-title').textContent;
+            const prompt = promptTemplates[cardId];
+            
+            modalTitle.textContent = title;
+            promptText.textContent = prompt || '加载中...';
+            modalOverlay.classList.add('active');
+        }
+        
+        // 显示问题答案
+        function showQuestion(id) {
+            const question = bibleQAData.find(q => q.id === parseInt(id));
+            if (!question) return;
+            
+            qaWelcome.style.display = 'none';
+            qaResult.style.display = 'block';
+            qaResult.innerHTML = question.content;
+        }
+        
+        // 搜索问题
+        function searchQuestions() {
+            const searchTerm = qaSearchInput.value.trim().toLowerCase();
+            if (!searchTerm) return;
+            
+            const results = bibleQAData.filter(qa => 
+                qa.title.toLowerCase().includes(searchTerm) || 
+                qa.shortDesc.toLowerCase().includes(searchTerm)
+            );
+            
+            if (results.length > 0) {
+                // 更新列表
+                qaList.innerHTML = '';
+                results.forEach(qa => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'qa-list-item';
+                    listItem.setAttribute('data-qa-id', qa.id);
+                    listItem.innerHTML = `
+                        <h4>${qa.title}</h4>
+                        <p>${qa.shortDesc}</p>
+                    `;
+                    
+                    listItem.addEventListener('click', () => {
+                        showQuestion(qa.id);
+                        document.querySelectorAll('.qa-list-item').forEach(item => {
+                            item.classList.remove('active');
+                        });
+                        listItem.classList.add('active');
+                    });
+                    
+                    qaList.appendChild(listItem);
+                });
+                
+                // 显示第一个结果
+                showQuestion(results[0].id);
+                qaList.firstChild.classList.add('active');
+            } else {
+                alert('未找到相关问题，请尝试其他关键词或在下方提交您的问题。');
+            }
+        }
+        
+        // 提交自定义问题
+        function submitCustomQuestion(question) {
+            // 这里可以实现与DeepSeek API的集成，但目前暂时使用模拟回复
+            
+            // 重定向到DeepSeek网站，并预填问题
+            const deepseekUrl = `https://chat.deepseek.com/?q=${encodeURIComponent(promptTemplates[7].replace('[这里输入您的问题]', question))}`;
+            window.open(deepseekUrl, '_blank');
+            
+            // 清空输入框
+            document.getElementById('customQuestion').value = '';
+        }
+        
+        // 绘制头部背景Canvas
+        function drawHeaderCanvas() {
+            const header = document.getElementById('header-canvas');
+            const canvas = document.createElement('canvas');
+            header.appendChild(canvas);
+            
+            const ctx = canvas.getContext('2d');
             canvas.width = header.offsetWidth;
             canvas.height = header.offsetHeight;
             
@@ -1337,86 +1564,77 @@
             }
         }
         
-        function drawIllustration1() {
-            const container = document.getElementById('illustration1');
+        // 绘制卡片图标
+        function drawCardIllustration(id, container) {
             const canvas = document.createElement('canvas');
             container.appendChild(canvas);
-            const ctx = canvas.getContext('2d');
             
+            const ctx = canvas.getContext('2d');
             canvas.width = container.offsetWidth;
             canvas.height = container.offsetHeight;
             
-            // Bible and magnifying glass
-            // Bible
             ctx.fillStyle = '#ffffff';
             ctx.strokeStyle = '#ffffff';
             ctx.lineWidth = 2;
             
-            // Book
+            // 根据ID绘制不同图标
+            switch(id) {
+                case 1: // 经文分析与讲道准备
+                    drawBibleIcon(ctx, canvas);
+                    break;
+                case 2: // 自动化教会行政
+                    drawAdminIcon(ctx, canvas);
+                    break;
+                case 3: // 个性化辅导资源库
+                    drawCounselingIcon(ctx, canvas);
+                    break;
+                case 4: // 多语言服侍与翻译
+                    drawTranslationIcon(ctx, canvas);
+                    break;
+                case 5: // 媒体内容创作
+                    drawMediaIcon(ctx, canvas);
+                    break;
+                case 6: // 三代经课讲道预备
+                    drawLectionaryIcon(ctx, canvas);
+                    break;
+                case 7: // 圣经问答助手
+                    drawQAIcon(ctx, canvas);
+                    break;
+            }
+        }
+        
+        // 绘制各种图标的函数
+        function drawBibleIcon(ctx, canvas) {
+            // 圣经和放大镜图标
             ctx.beginPath();
-            ctx.moveTo(canvas.width/2 - 50, canvas.height/2 - 30);
-            ctx.lineTo(canvas.width/2 + 50, canvas.height/2 - 30);
-            ctx.lineTo(canvas.width/2 + 50, canvas.height/2 + 30);
-            ctx.lineTo(canvas.width/2 - 50, canvas.height/2 + 30);
-            ctx.closePath();
+            ctx.rect(canvas.width/2 - 50, canvas.height/2 - 30, 100, 60);
             ctx.stroke();
             
-            // Book pages
+            // 书页
             ctx.beginPath();
             ctx.moveTo(canvas.width/2, canvas.height/2 - 30);
             ctx.lineTo(canvas.width/2, canvas.height/2 + 30);
             ctx.stroke();
             
-            // Cross on book
+            // 放大镜
             ctx.beginPath();
-            ctx.moveTo(canvas.width/2 - 25, canvas.height/2);
-            ctx.lineTo(canvas.width/2 - 15, canvas.height/2);
-            ctx.moveTo(canvas.width/2 - 20, canvas.height/2 - 5);
-            ctx.lineTo(canvas.width/2 - 20, canvas.height/2 + 5);
+            ctx.arc(canvas.width/2 + 60, canvas.height/2 - 20, 15, 0, Math.PI * 2);
             ctx.stroke();
             
-            // Magnifying glass
+            // 手柄
             ctx.beginPath();
-            ctx.arc(canvas.width/2 + 70, canvas.height/2 - 20, 20, 0, Math.PI * 2);
+            ctx.moveTo(canvas.width/2 + 50, canvas.height/2 - 10);
+            ctx.lineTo(canvas.width/2 + 30, canvas.height/2 + 20);
             ctx.stroke();
-            
-            // Handle
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2 + 55, canvas.height/2 - 5);
-            ctx.lineTo(canvas.width/2 + 40, canvas.height/2 + 20);
-            ctx.lineWidth = 3;
-            ctx.stroke();
-            
-            // AI symbol near the book
-            ctx.font = '15px Arial';
-            ctx.fillText('AI', canvas.width/2 + 20, canvas.height/2 + 10);
-            
-            // DeepSeek name in subtle text
-            ctx.font = '12px Arial';
-            ctx.fillStyle = 'rgba(255,255,255,0.7)';
-            ctx.fillText('DeepSeek', canvas.width/2 - 30, canvas.height/2 - 40);
         }
         
-        function drawIllustration2() {
-            const container = document.getElementById('illustration2');
-            const canvas = document.createElement('canvas');
-            container.appendChild(canvas);
-            const ctx = canvas.getContext('2d');
-            
-            canvas.width = container.offsetWidth;
-            canvas.height = container.offsetHeight;
-            
-            // Drawing administrative tools
-            ctx.strokeStyle = '#ffffff';
-            ctx.fillStyle = '#ffffff';
-            ctx.lineWidth = 2;
-            
-            // Calendar
+        function drawAdminIcon(ctx, canvas) {
+            // 日历图标
             ctx.beginPath();
             ctx.rect(canvas.width/2 - 60, canvas.height/2 - 30, 60, 60);
             ctx.stroke();
             
-            // Calendar grid
+            // 日历格子
             for (let i = 0; i < 2; i++) {
                 ctx.beginPath();
                 ctx.moveTo(canvas.width/2 - 60, canvas.height/2 - 30 + 20 * (i+1));
@@ -1424,243 +1642,83 @@
                 ctx.stroke();
             }
             
-            for (let i = 0; i < 2; i++) {
-                ctx.beginPath();
-                ctx.moveTo(canvas.width/2 - 60 + 20 * (i+1), canvas.height/2 - 30);
-                ctx.lineTo(canvas.width/2 - 60 + 20 * (i+1), canvas.height/2 + 30);
-                ctx.stroke();
-            }
-            
-            // Document
+            // 文档
             ctx.beginPath();
             ctx.rect(canvas.width/2 + 10, canvas.height/2 - 30, 50, 60);
             ctx.stroke();
             
-            // Document lines
+            // 文档线条
             for (let i = 0; i < 4; i++) {
                 ctx.beginPath();
                 ctx.moveTo(canvas.width/2 + 15, canvas.height/2 - 20 + 15 * i);
                 ctx.lineTo(canvas.width/2 + 55, canvas.height/2 - 20 + 15 * i);
                 ctx.stroke();
             }
-            
-            // Gear (representing automation)
-            ctx.beginPath();
-            ctx.arc(canvas.width/2 - 20, canvas.height/2 - 50, 15, 0, Math.PI * 2);
-            ctx.stroke();
-            
-            // Gear teeth
-            for (let i = 0; i < 8; i++) {
-                const angle = i * Math.PI / 4;
-                ctx.beginPath();
-                ctx.moveTo(canvas.width/2 - 20 + 15 * Math.cos(angle), canvas.height/2 - 50 + 15 * Math.sin(angle));
-                ctx.lineTo(canvas.width/2 - 20 + 22 * Math.cos(angle), canvas.height/2 - 50 + 22 * Math.sin(angle));
-                ctx.stroke();
-            }
-            
-            // DeepSeek label
-            ctx.font = '12px Arial';
-            ctx.fillStyle = 'rgba(255,255,255,0.7)';
-            ctx.fillText('DeepSeek', canvas.width/2 - 30, canvas.height/2 + 45);
         }
         
-        function drawIllustration3() {
-            const container = document.getElementById('illustration3');
-            const canvas = document.createElement('canvas');
-            container.appendChild(canvas);
-            const ctx = canvas.getContext('2d');
-            
-            canvas.width = container.offsetWidth;
-            canvas.height = container.offsetHeight;
-            
-            // Personal resource library
-            ctx.strokeStyle = '#ffffff';
-            ctx.fillStyle = '#ffffff';
-            ctx.lineWidth = 2;
-            
-            // Bookshelf
+        function drawCounselingIcon(ctx, canvas) {
+            // 书架图标
             ctx.beginPath();
             ctx.rect(canvas.width/2 - 60, canvas.height/2 - 40, 120, 80);
             ctx.stroke();
             
-            // Shelf dividers
+            // 书架隔板
             ctx.beginPath();
             ctx.moveTo(canvas.width/2 - 60, canvas.height/2);
             ctx.lineTo(canvas.width/2 + 60, canvas.height/2);
             ctx.stroke();
             
-            // Books on top shelf
+            // 上层书籍
             for (let i = 0; i < 5; i++) {
                 ctx.beginPath();
                 ctx.rect(canvas.width/2 - 55 + i * 23, canvas.height/2 - 35, 18, 30);
                 ctx.stroke();
             }
             
-            // Books on bottom shelf
+            // 下层书籍
             for (let i = 0; i < 4; i++) {
                 ctx.beginPath();
                 ctx.rect(canvas.width/2 - 50 + i * 25, canvas.height/2 + 5, 20, 30);
                 ctx.stroke();
             }
-            
-            // Person silhouette
-            ctx.beginPath();
-            ctx.arc(canvas.width/2 - 80, canvas.height/2, 15, 0, Math.PI * 2);
-            ctx.stroke();
-            
-            // Body
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2 - 80, canvas.height/2 + 15);
-            ctx.lineTo(canvas.width/2 - 80, canvas.height/2 + 40);
-            ctx.stroke();
-            
-            // Arms
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2 - 80, canvas.height/2 + 20);
-            ctx.lineTo(canvas.width/2 - 60, canvas.height/2 + 10);
-            ctx.stroke();
-            
-            // AI connection (dotted line from person to books)
-            ctx.setLineDash([2, 2]);
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2 - 60, canvas.height/2 + 10);
-            ctx.lineTo(canvas.width/2 - 20, canvas.height/2 - 10);
-            ctx.stroke();
-            ctx.setLineDash([]);
-            
-            // DeepSeek label
-            ctx.font = '12px Arial';
-            ctx.fillStyle = 'rgba(255,255,255,0.7)';
-            ctx.fillText('DeepSeek', canvas.width/2 + 10, canvas.height/2 - 50);
         }
         
-        function drawIllustration4() {
-            const container = document.getElementById('illustration4');
-            const canvas = document.createElement('canvas');
-            container.appendChild(canvas);
-            const ctx = canvas.getContext('2d');
-            
-            canvas.width = container.offsetWidth;
-            canvas.height = container.offsetHeight;
-            
-            // Multi-language translation
-            ctx.strokeStyle = '#ffffff';
-            ctx.fillStyle = '#ffffff';
-            ctx.lineWidth = 2;
-            
-            // World map (simplified)
+        function drawTranslationIcon(ctx, canvas) {
+            // 世界地图
             ctx.beginPath();
             ctx.arc(canvas.width/2, canvas.height/2, 50, 0, Math.PI * 2);
             ctx.stroke();
             
-            // Continents (very simplified)
+            // 语言气泡
             ctx.beginPath();
-            ctx.arc(canvas.width/2 - 20, canvas.height/2 - 15, 15, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.beginPath();
-            ctx.arc(canvas.width/2 + 15, canvas.height/2 - 5, 20, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.beginPath();
-            ctx.arc(canvas.width/2 - 5, canvas.height/2 + 25, 12, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Language bubbles
-            ctx.fillStyle = 'rgba(255,255,255,0.2)';
-            ctx.strokeStyle = '#ffffff';
-            
-            // English
-            ctx.beginPath();
-            ctx.arc(canvas.width/2 - 80, canvas.height/2 - 40, 20, 0, Math.PI * 2);
-            ctx.fill();
+            ctx.arc(canvas.width/2 - 60, canvas.height/2 - 30, 20, 0, Math.PI * 2);
             ctx.stroke();
-            ctx.fillStyle = '#ffffff';
-            ctx.font = '12px Arial';
-            ctx.fillText('En', canvas.width/2 - 87, canvas.height/2 - 35);
-            
-            // Chinese
-            ctx.fillStyle = 'rgba(255,255,255,0.2)';
-            ctx.beginPath();
-            ctx.arc(canvas.width/2 + 80, canvas.height/2 - 40, 20, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-            ctx.fillStyle = '#ffffff';
-            ctx.font = '12px Arial';
-            ctx.fillText('中', canvas.width/2 + 73, canvas.height/2 - 35);
-            
-            // Spanish
-            ctx.fillStyle = 'rgba(255,255,255,0.2)';
-            ctx.beginPath();
-            ctx.arc(canvas.width/2 + 70, canvas.height/2 + 40, 20, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-            ctx.fillStyle = '#ffffff';
-            ctx.font = '12px Arial';
-            ctx.fillText('Es', canvas.width/2 + 63, canvas.height/2 + 45);
-            
-            // Connection lines between languages
-            ctx.strokeStyle = '#ffffff';
-            ctx.setLineDash([2, 2]);
+            ctx.fillText('En', canvas.width/2 - 67, canvas.height/2 - 25);
             
             ctx.beginPath();
-            ctx.moveTo(canvas.width/2 - 60, canvas.height/2 - 40);
-            ctx.lineTo(canvas.width/2 + 60, canvas.height/2 - 40);
+            ctx.arc(canvas.width/2 + 60, canvas.height/2 - 30, 20, 0, Math.PI * 2);
             ctx.stroke();
+            ctx.fillText('中', canvas.width/2 + 53, canvas.height/2 - 25);
             
+            // 连接线
             ctx.beginPath();
-            ctx.moveTo(canvas.width/2 + 80, canvas.height/2 - 20);
-            ctx.lineTo(canvas.width/2 + 70, canvas.height/2 + 20);
+            ctx.moveTo(canvas.width/2 - 40, canvas.height/2 - 30);
+            ctx.lineTo(canvas.width/2 + 40, canvas.height/2 - 30);
             ctx.stroke();
-            
-            ctx.setLineDash([]);
-            
-            // DeepSeek in the middle
-            ctx.font = '10px Arial';
-            ctx.fillStyle = 'rgba(255,255,255,0.7)';
-            ctx.fillText('DeepSeek', canvas.width/2 - 25, canvas.height/2);
         }
         
-        function drawIllustration5() {
-            const container = document.getElementById('illustration5');
-            const canvas = document.createElement('canvas');
-            container.appendChild(canvas);
-            const ctx = canvas.getContext('2d');
-            
-            canvas.width = container.offsetWidth;
-            canvas.height = container.offsetHeight;
-            
-            // Media content creation
-            ctx.strokeStyle = '#ffffff';
-            ctx.fillStyle = '#ffffff';
-            ctx.lineWidth = 2;
-            
-            // Social media icons
-            // Smartphone / device
+        function drawMediaIcon(ctx, canvas) {
+            // 媒体设备图标
             ctx.beginPath();
             ctx.rect(canvas.width/2 - 30, canvas.height/2 - 40, 60, 80);
             ctx.stroke();
             
-            // Screen content
+            // 屏幕内容
             ctx.beginPath();
             ctx.rect(canvas.width/2 - 25, canvas.height/2 - 35, 50, 70);
             ctx.stroke();
             
-            // Post layout on screen
-            ctx.beginPath();
-            ctx.rect(canvas.width/2 - 20, canvas.height/2 - 30, 40, 25);
-            ctx.stroke();
-            
-            // Text lines
-            for (let i = 0; i < 3; i++) {
-                ctx.beginPath();
-                ctx.moveTo(canvas.width/2 - 20, canvas.height/2 + 5 + i * 10);
-                ctx.lineTo(canvas.width/2 + 20, canvas.height/2 + 5 + i * 10);
-                ctx.stroke();
-            }
-            
-            // Content types coming out of device
-            // Video symbol
+            // 视频图标
             ctx.beginPath();
             ctx.moveTo(canvas.width/2 + 40, canvas.height/2 - 30);
             ctx.lineTo(canvas.width/2 + 40, canvas.height/2 - 10);
@@ -1668,79 +1726,19 @@
             ctx.closePath();
             ctx.stroke();
             
-            // Document/article
+            // 文档图标
             ctx.beginPath();
             ctx.rect(canvas.width/2 + 40, canvas.height/2, 25, 30);
             ctx.stroke();
-            
-            // Document lines
-            for (let i = 0; i < 3; i++) {
-                ctx.beginPath();
-                ctx.moveTo(canvas.width/2 + 45, canvas.height/2 + 5 + i * 7);
-                ctx.lineTo(canvas.width/2 + 60, canvas.height/2 + 5 + i * 7);
-                ctx.stroke();
-            }
-            
-            // AI content generation symbol
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2 - 60, canvas.height/2 - 20);
-            ctx.lineTo(canvas.width/2 - 40, canvas.height/2 - 20);
-            ctx.stroke();
-            
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2 - 60, canvas.height/2);
-            ctx.lineTo(canvas.width/2 - 40, canvas.height/2);
-            ctx.stroke();
-            
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2 - 60, canvas.height/2 + 20);
-            ctx.lineTo(canvas.width/2 - 40, canvas.height/2 + 20);
-            ctx.stroke();
-            
-            // Connecting arrows
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2 - 40, canvas.height/2 - 20);
-            ctx.lineTo(canvas.width/2 - 35, canvas.height/2 - 20);
-            ctx.lineTo(canvas.width/2 - 35, canvas.height/2 - 10);
-            ctx.stroke();
-            
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2 - 40, canvas.height/2);
-            ctx.lineTo(canvas.width/2 - 35, canvas.height/2);
-            ctx.stroke();
-            
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2 - 40, canvas.height/2 + 20);
-            ctx.lineTo(canvas.width/2 - 35, canvas.height/2 + 20);
-            ctx.lineTo(canvas.width/2 - 35, canvas.height/2 + 10);
-            ctx.stroke();
-            
-            // DeepSeek label
-            ctx.font = '12px Arial';
-            ctx.fillStyle = 'rgba(255,255,255,0.7)';
-            ctx.fillText('DeepSeek', canvas.width/2 - 70, canvas.height/2 - 40);
         }
         
-        function drawIllustration6() {
-            const container = document.getElementById('illustration6');
-            const canvas = document.createElement('canvas');
-            container.appendChild(canvas);
-            const ctx = canvas.getContext('2d');
-            
-            canvas.width = container.offsetWidth;
-            canvas.height = container.offsetHeight;
-            
-            // 绘制三代经课图示
-            ctx.strokeStyle = '#ffffff';
-            ctx.fillStyle = '#ffffff';
-            ctx.lineWidth = 2;
-            
-            // 中央圆形 - 代表教会年历
+        function drawLectionaryIcon(ctx, canvas) {
+            // 教会年历圆形
             ctx.beginPath();
             ctx.arc(canvas.width/2, canvas.height/2, 40, 0, Math.PI * 2);
             ctx.stroke();
             
-            // 教会年历分区
+            // 分区
             for (let i = 0; i < 6; i++) {
                 const angle = i * Math.PI / 3;
                 ctx.beginPath();
@@ -1749,104 +1747,50 @@
                 ctx.stroke();
             }
             
-            // 三本书 - 代表三代经课
-            // 第一本书
+            // 三本书
             ctx.beginPath();
             ctx.rect(canvas.width/2 - 80, canvas.height/2 - 30, 30, 40);
             ctx.stroke();
-            // 书页
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2 - 65, canvas.height/2 - 30);
-            ctx.lineTo(canvas.width/2 - 65, canvas.height/2 + 10);
-            ctx.stroke();
             
-            // 第二本书
             ctx.beginPath();
             ctx.rect(canvas.width/2 + 50, canvas.height/2 - 30, 30, 40);
             ctx.stroke();
-            // 书页
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2 + 65, canvas.height/2 - 30);
-            ctx.lineTo(canvas.width/2 + 65, canvas.height/2 + 10);
-            ctx.stroke();
             
-            // 第三本书
             ctx.beginPath();
             ctx.rect(canvas.width/2 - 15, canvas.height/2 - 80, 30, 40);
             ctx.stroke();
-            // 书页
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2, canvas.height/2 - 80);
-            ctx.lineTo(canvas.width/2, canvas.height/2 - 40);
-            ctx.stroke();
-            
-            // 连接线
-            ctx.setLineDash([2, 2]);
-            
-            // 第一本书到圆心
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2 - 50, canvas.height/2 - 10);
-            ctx.lineTo(canvas.width/2 - 25, canvas.height/2);
-            ctx.stroke();
-            
-            // 第二本书到圆心
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2 + 50, canvas.height/2 - 10);
-            ctx.lineTo(canvas.width/2 + 25, canvas.height/2);
-            ctx.stroke();
-            
-            // 第三本书到圆心
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2, canvas.height/2 - 40);
-            ctx.lineTo(canvas.width/2, canvas.height/2 - 25);
-            ctx.stroke();
-            
-            ctx.setLineDash([]);
-            
-            // 十字架标志
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2, canvas.height/2 - 15);
-            ctx.lineTo(canvas.width/2, canvas.height/2 + 15);
-            ctx.moveTo(canvas.width/2 - 10, canvas.height/2);
-            ctx.lineTo(canvas.width/2 + 10, canvas.height/2);
-            ctx.lineWidth = 3;
-            ctx.stroke();
-            ctx.lineWidth = 2;
-            
-            // 和合本标识
-            ctx.font = '14px Arial';
-            ctx.fillStyle = '#ffffff';
-            ctx.fillText('和合本', canvas.width/2 - 25, canvas.height/2 + 45);
-            
-            // DeepSeek 标签
-            ctx.font = '12px Arial';
-            ctx.fillStyle = 'rgba(255,255,255,0.7)';
-            ctx.fillText('DeepSeek', canvas.width/2 - 25, canvas.height/2 + 65);
         }
         
-        // Call the drawing functions after window loads
-        window.onload = function() {
-            drawHeaderCanvas();
-            drawIllustration1();
-            drawIllustration2();
-            drawIllustration3();
-            drawIllustration4();
-            drawIllustration5();
-            drawIllustration6();
-            setupCardClickHandlers(); // 设置卡片点击事件
-            updateStoreLinks(); // 更新应用商店链接
-        };
+        function drawQAIcon(ctx, canvas) {
+            // 问答图标 - 问号与答案符号
+            // 问号
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(canvas.width/2 - 30, canvas.height/2 - 20, 25, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            ctx.font = '30px Arial';
+            ctx.fillText('?', canvas.width/2 - 38, canvas.height/2 - 10);
+            
+            // 答案符号
+            ctx.beginPath();
+            ctx.arc(canvas.width/2 + 30, canvas.height/2 + 20, 25, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // A字母
+            ctx.font = '30px Arial';
+            ctx.fillText('A', canvas.width/2 + 20, canvas.height/2 + 30);
+            
+            // 连接线
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 10, canvas.height/2 - 10);
+            ctx.lineTo(canvas.width/2 + 10, canvas.height/2 + 10);
+            ctx.stroke();
+        }
         
-        // Redraw on window resize for responsiveness
-        window.addEventListener('resize', function() {
-            drawHeaderCanvas();
-            drawIllustration1();
-            drawIllustration2();
-            drawIllustration3();
-            drawIllustration4();
-            drawIllustration5();
-            drawIllustration6();
-        });
+        // 页面加载完成后初始化
+        window.addEventListener('load', initialize);
     </script>
 </body>
 </html>
