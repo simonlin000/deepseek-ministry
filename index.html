@@ -8,7 +8,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script type="text/javascript">
    (function(){
-      emailjs.init("6ux_p2k8sMRbTXI-x");
+      emailjs.init("wt-dk3EqnrpPzKk_q"); // 使用您提供的用户ID
    })();
 </script>
     <!-- 引入Google字体，提升整体美观度 -->
@@ -2333,6 +2333,28 @@
     align-items: center;
   ">💬</button>
 
+  <!-- 全新独立反馈功能 -->
+<div id="newFeedbackSystem" style="display:none;">
+  <!-- 反馈按钮 -->
+  <button id="newFeedbackBtn" style="
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #4a6da7;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  ">💬</button>
+
   <!-- 反馈表单弹窗 -->
   <div id="newFeedbackOverlay" style="
     position: fixed;
@@ -2525,15 +2547,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 获取表单数据
     const formData = {
-      name: document.getElementById('new_user_name').value,
-      email: document.getElementById('new_user_email').value || '未提供',
+      user_name: document.getElementById('new_user_name').value,
+      user_email: document.getElementById('new_user_email').value || '未提供',
       message: document.getElementById('new_message').value,
-      time: new Date().toLocaleString()
+      submit_time: new Date().toLocaleString()
     };
     
     console.log('表单数据:', formData);
+    console.log('准备发送到 EmailJS, 服务ID:', 'service_ieun53f', ', 模板ID:', 'template_7m1014z');
     
-    // 使用EmailJS发送 - 如果已经引入EmailJS库
+    // 使用EmailJS发送
     if (typeof emailjs !== 'undefined') {
       emailjs.send('service_ieun53f', 'template_7m1014z', formData)
         .then(function(response) {
@@ -2560,26 +2583,9 @@ document.addEventListener('DOMContentLoaded', function() {
           alert('发送失败，请稍后再试。错误: ' + (error.text || '未知错误'));
         });
     } else {
-      // 如果没有EmailJS，模拟成功
-      console.log('EmailJS未引入，模拟成功响应');
-      setTimeout(function() {
-        sendingIndicator.style.display = 'none';
-        feedbackForm.style.display = 'none';
-        feedbackSuccess.style.display = 'block';
-        
-        // 5秒后自动关闭
-        setTimeout(function() {
-          feedbackOverlay.style.opacity = '0';
-          feedbackOverlay.style.pointerEvents = 'none';
-          
-          // 重置表单状态
-          setTimeout(function() {
-            feedbackForm.style.display = 'flex';
-            feedbackSuccess.style.display = 'none';
-            feedbackForm.reset();
-          }, 500);
-        }, 5000);
-      }, 1500);
+      console.error('EmailJS未找到，请确保已引入EmailJS库');
+      sendingIndicator.style.display = 'none';
+      alert('发送失败: EmailJS库未正确加载，请确保网站已引入EmailJS');
     }
   });
   
