@@ -2369,82 +2369,153 @@
         color: #888;
       ">×</div>
       
-      <h3 style="margin-top: 0; color: #333; font-size: 1.5rem;">提供您的建议与反馈</h3>
+      <!-- 选项卡导航 -->
+      <div id="feedbackTabs" style="
+        display: flex;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 20px;
+      ">
+        <div id="feedbackTabBtn" class="feedback-tab active" style="
+          padding: 10px 15px;
+          cursor: pointer;
+          border-bottom: 2px solid #4a6da7;
+          color: #4a6da7;
+          font-weight: 500;
+        ">提供反馈</div>
+        <div id="donationTabBtn" class="feedback-tab" style="
+          padding: 10px 15px;
+          cursor: pointer;
+          border-bottom: 2px solid transparent;
+          color: #666;
+        ">支持奉献</div>
+      </div>
       
-      <form id="newFeedbackForm" style="display: flex; flex-direction: column;">
-        <div style="margin-bottom: 15px;">
-          <label for="new_user_name" style="display: block; margin-bottom: 5px; font-weight: 500;">您的称呼</label>
-          <input type="text" id="new_user_name" name="user_name" style="
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-          " required>
-        </div>
+      <!-- 反馈表单 -->
+      <div id="feedbackTabContent" style="display: block;">
+        <h3 style="margin-top: 0; color: #333; font-size: 1.5rem;">提供您的建议与反馈</h3>
         
-        <div style="margin-bottom: 15px;">
-          <label for="new_user_email" style="display: block; margin-bottom: 5px; font-weight: 500;">电子邮箱（选填）</label>
-          <input type="email" id="new_user_email" name="user_email" style="
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
+        <form id="newFeedbackForm" style="display: flex; flex-direction: column;">
+          <div style="margin-bottom: 15px;">
+            <label for="new_user_name" style="display: block; margin-bottom: 5px; font-weight: 500;">您的称呼</label>
+            <input type="text" id="new_user_name" name="user_name" style="
+              width: 100%;
+              padding: 10px;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              font-size: 16px;
+            " required>
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <label for="new_user_email" style="display: block; margin-bottom: 5px; font-weight: 500;">电子邮箱（选填）</label>
+            <input type="email" id="new_user_email" name="user_email" style="
+              width: 100%;
+              padding: 10px;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              font-size: 16px;
+            ">
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <label for="new_message" style="display: block; margin-bottom: 5px; font-weight: 500;">您的建议或问题</label>
+            <textarea id="new_message" name="message" style="
+              width: 100%;
+              padding: 10px;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              font-size: 16px;
+              min-height: 120px;
+              resize: vertical;
+            " required></textarea>
+          </div>
+          
+          <div id="newSendingIndicator" style="
+            display: none;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #4a6da7;
           ">
-        </div>
-        
-        <div style="margin-bottom: 15px;">
-          <label for="new_message" style="display: block; margin-bottom: 5px; font-weight: 500;">您的建议或问题</label>
-          <textarea id="new_message" name="message" style="
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            <span style="
+              display: inline-block;
+              width: 20px;
+              height: 20px;
+              border: 3px solid #4a6da7;
+              border-top-color: transparent;
+              border-radius: 50%;
+              animation: spin 1s linear infinite;
+            "></span>
+            <span style="margin-left: 10px;">正在发送...</span>
+          </div>
+          
+          <button type="submit" style="
+            background-color: #4a6da7;
+            color: white;
+            border: none;
+            padding: 12px 20px;
             font-size: 16px;
-            min-height: 120px;
-            resize: vertical;
-          " required></textarea>
-        </div>
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+          ">提交反馈</button>
+        </form>
         
-        <div id="newSendingIndicator" style="
+        <div id="newFeedbackSuccess" style="
           display: none;
           text-align: center;
-          margin-bottom: 15px;
-          color: #4a6da7;
+          padding: 20px 0;
         ">
-          <span style="
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #4a6da7;
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-          "></span>
-          <span style="margin-left: 10px;">正在发送...</span>
+          <h3 style="color: #4caf50; margin-bottom: 10px;">感谢您的反馈！</h3>
+          <p style="color: #666;">我们已收到您的建议，将尽快进行处理和回复。</p>
+        </div>
+      </div>
+      
+      <!-- 奉献支持内容 -->
+      <div id="donationTabContent" style="display: none;">
+        <h3 style="margin-top: 0; color: #333; font-size: 1.5rem;">支持奉献</h3>
+        
+        <div style="
+          background-color: #f9f9f9;
+          border-left: 4px solid #ffc107;
+          padding: 15px;
+          margin-bottom: 20px;
+          border-radius: 4px;
+        ">
+          <p style="margin: 0; color: #666; font-size: 14px;">
+            <strong>温馨提示：</strong>奉献完全是自愿的，您可以根据自己的感动和能力决定是否奉献以及奉献金额。我们感谢每一位弟兄姊妹的爱心支持。
+          </p>
         </div>
         
-        <button type="submit" style="
-          background-color: #4a6da7;
-          color: white;
-          border: none;
-          padding: 12px 20px;
-          font-size: 16px;
-          font-weight: 500;
-          border-radius: 4px;
-          cursor: pointer;
-          transition: background-color 0.3s;
-        ">提交反馈</button>
-      </form>
-      
-      <div id="newFeedbackSuccess" style="
-        display: none;
-        text-align: center;
-        padding: 20px 0;
-      ">
-        <h3 style="color: #4caf50; margin-bottom: 10px;">感谢您的反馈！</h3>
-        <p style="color: #666;">我们已收到您的建议，将尽快进行处理和回复。</p>
+        <p style="color: #555; margin-bottom: 20px; line-height: 1.6;">
+          您的奉献将用于网站的开发与维护，帮助我们提供更好的服务，使更多人从中受益。「少种的少收，多种的多收」（林后9:6）
+        </p>
+        
+        <div style="text-align: center; margin-top: 30px;">
+          <p style="color: #666; margin-bottom: 15px;">点击下方按钮进入支付宝完成奉献</p>
+          
+          <button id="donationBtn" style="
+            background-color: #1677ff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+          ">
+            <svg viewBox="0 0 1024 1024" width="20" height="20" style="margin-right: 8px; fill: currentColor;">
+              <path d="M1024 701.8c0-143.6-143.4-173-143.4-173s16.4-91-143.6-143.8c-160-52.8-292.2 13.8-292.2 13.8s-26.6-39.4-84.6-84.6C302.2 259 214.8 318 214.8 318s-69-13.8-126.8 44.2C31 405.6 38.2 480 38.2 480s-135 44.6-38.2 170.4c97 125.6 229 131.8 229 131.8s-8.6 97 127 131.6c135.4 34.6 220.6-40 220.6-40s14.6 8.2 39.2 13c24.6 4.8 102-13 102-13s101.6 101.6 207.4 21.2 98.8-194 98.8-194z"/>
+              <path d="M381 566.6v148.6h-45.8l-68.6-99.2v99.2h-40.2V566.6H272l68.6 99v-99h40.4zm67.6 31v26.2h62.4v31H448.6v29.2h66.4v31.2h-106.4V566.6H515v31h-66.4zm206 28c0 62.8-43.4 92.4-110.2 92.4-66.6 0-110.2-29.6-110.2-92.4v-59h40v59c0 37.4 21.4 57.8 70.2 57.8 49 0 70.2-20.4 70.2-57.8v-59h40v59z" fill="#FFF"/>
+            </svg>
+            支付宝奉献
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -2454,6 +2525,11 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+.feedback-tab.active {
+  border-bottom: 2px solid #4a6da7 !important;
+  color: #4a6da7 !important;
+  font-weight: 500 !important;
 }
 </style>
 
@@ -2476,6 +2552,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const feedbackForm = document.getElementById('newFeedbackForm');
   const sendingIndicator = document.getElementById('newSendingIndicator');
   const feedbackSuccess = document.getElementById('newFeedbackSuccess');
+  
+  // 获取选项卡元素
+  const feedbackTabBtn = document.getElementById('feedbackTabBtn');
+  const donationTabBtn = document.getElementById('donationTabBtn');
+  const feedbackTabContent = document.getElementById('feedbackTabContent');
+  const donationTabContent = document.getElementById('donationTabContent');
+  const donationBtn = document.getElementById('donationBtn');
   
   if (!feedbackBtn || !feedbackOverlay || !feedbackClose || !feedbackForm) {
     console.error('未找到反馈相关元素:', {
@@ -2513,6 +2596,36 @@ document.addEventListener('DOMContentLoaded', function() {
   // 阻止点击内容区域导致关闭
   document.getElementById('newFeedbackContent').addEventListener('click', function(e) {
     e.stopPropagation();
+  });
+  
+  // 选项卡切换功能
+  feedbackTabBtn.addEventListener('click', function() {
+    // 激活反馈选项卡
+    feedbackTabBtn.className = 'feedback-tab active';
+    donationTabBtn.className = 'feedback-tab';
+    // 显示反馈内容，隐藏奉献内容
+    feedbackTabContent.style.display = 'block';
+    donationTabContent.style.display = 'none';
+  });
+  
+  donationTabBtn.addEventListener('click', function() {
+    // 激活奉献选项卡
+    donationTabBtn.className = 'feedback-tab active';
+    feedbackTabBtn.className = 'feedback-tab';
+    // 显示奉献内容，隐藏反馈内容
+    donationTabContent.style.display = 'block';
+    feedbackTabContent.style.display = 'none';
+  });
+  
+  // 支付宝奉献按钮点击事件
+  donationBtn.addEventListener('click', function() {
+    console.log('支付宝奉献按钮被点击');
+    // 从图片得到的收款码链接（您需要提取并替换为实际链接）
+    // 以下是示例链接，需要替换为您的实际支付宝收款链接
+   const alipayLink = 'https://qr.alipay.com/2m6174431fhwhmrl532ck34';
+    
+    // 尝试打开支付宝
+    window.location.href = alipayLink;
   });
   
   // 表单提交
@@ -2553,6 +2666,9 @@ document.addEventListener('DOMContentLoaded', function() {
               feedbackForm.style.display = 'flex';
               feedbackSuccess.style.display = 'none';
               feedbackForm.reset();
+              
+              // 重置回反馈选项卡
+              feedbackTabBtn.click();
             }, 500);
           }, 5000);
         }, function(error) {
