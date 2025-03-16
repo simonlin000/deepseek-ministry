@@ -295,43 +295,6 @@
             font-weight: 600;
         }
         
-        /* 反馈模态框特定样式 */
-        #feedbackModalOverlay .form-group {
-            margin-bottom: 20px;
-        }
-        
-        #feedbackModalOverlay label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--text-color);
-        }
-        
-        #feedbackModalOverlay .form-control {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            resize: vertical;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
-        }
-        
-        #feedbackModalOverlay .form-control:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03), 0 0 0 3px rgba(58, 123, 213, 0.1);
-        }
-        
-        #feedbackStatus {
-            font-weight: 500;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        
         .prompt-container {
             background-color: #f5f8ff;
             padding: 20px;
@@ -990,7 +953,7 @@
     </style>
 </head>
 <body>
-    <!-- 方案模态框 -->
+    <!-- 模态框 -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
             <div class="modal-close" id="modalClose">×</div>
@@ -1032,45 +995,6 @@
                 <button class="open-deepseek-web-btn" id="openDeepseekWebBtn">打开DeepSeek网站</button>
                 <button class="open-deepseek-app-btn" id="openDeepseekAppBtn">尝试打开App</button>
             </div>
-        </div>
-    </div>
-    
-    <!-- 反馈模态框 -->
-    <div class="modal-overlay" id="feedbackModalOverlay">
-        <div class="modal-content">
-            <div class="modal-close" id="feedbackModalClose">×</div>
-            <h3 class="modal-title">提交反馈</h3>
-            
-            <form id="feedbackForm">
-                <div class="form-group">
-                    <label for="feedbackName">您的称呼</label>
-                    <input type="text" id="feedbackName" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="feedbackEmail">电子邮箱（选填）</label>
-                    <input type="email" id="feedbackEmail" class="form-control" placeholder="用于回复您的反馈">
-                </div>
-                
-                <div class="form-group">
-                    <label for="feedbackType">反馈类型</label>
-                    <select id="feedbackType" class="form-control">
-                        <option value="suggestion">功能建议</option>
-                        <option value="bug">问题报告</option>
-                        <option value="content">内容纠错</option>
-                        <option value="other">其他</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="feedbackContent">反馈内容</label>
-                    <textarea id="feedbackContent" class="form-control" rows="5" required></textarea>
-                </div>
-                
-                <div id="feedbackStatus" style="display: none; margin-bottom: 15px; padding: 10px; border-radius: 5px; background-color: #f8f9fa;"></div>
-                
-                <button type="submit" class="submit-btn" id="submitFeedbackBtn">提交反馈</button>
-            </form>
         </div>
     </div>
     
@@ -1944,7 +1868,7 @@
         
         // 设置事件监听器
         function setupEventListeners() {
-            // 方案模态框相关
+            // 模态框相关
             modalClose.addEventListener('click', () => {
                 modalOverlay.classList.remove('active');
             });
@@ -1976,48 +1900,8 @@
             openDeepseekAppBtn.addEventListener('click', () => {
                 try {
                     const isAndroid = /Android/i.test(navigator.userAgent);
-                    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-                    
-                    // 创建一个提示元素
-                    const appOpenNotice = document.createElement('div');
-                    appOpenNotice.style.position = 'fixed';
-                    appOpenNotice.style.top = '20px';
-                    appOpenNotice.style.left = '50%';
-                    appOpenNotice.style.transform = 'translateX(-50%)';
-                    appOpenNotice.style.padding = '12px 20px';
-                    appOpenNotice.style.backgroundColor = 'rgba(0,0,0,0.8)';
-                    appOpenNotice.style.color = 'white';
-                    appOpenNotice.style.borderRadius = '8px';
-                    appOpenNotice.style.zIndex = '9999';
-                    appOpenNotice.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-                    appOpenNotice.style.fontSize = '14px';
-                    appOpenNotice.textContent = '正在尝试打开DeepSeek应用...';
-                    document.body.appendChild(appOpenNotice);
-                    
-                    // 设置超时检测
-                    let appOpenTimeout = setTimeout(() => {
-                        appOpenNotice.textContent = '无法打开DeepSeek应用，请确保已安装或使用网页版。';
-                        appOpenNotice.style.backgroundColor = '#e74c3c';
-                        
-                        // 5秒后移除提示
-                        setTimeout(() => {
-                            document.body.removeChild(appOpenNotice);
-                        }, 5000);
-                    }, 2500);
-                    
-                    // 监听页面可见性变化，如果用户切换到应用，则清除超时
-                    document.addEventListener('visibilitychange', function clearAppOpenTimeout() {
-                        if (document.hidden) {
-                            clearTimeout(appOpenTimeout);
-                            document.body.removeChild(appOpenNotice);
-                            document.removeEventListener('visibilitychange', clearAppOpenTimeout);
-                        }
-                    });
-                    
                     if (isAndroid) {
                         window.location.href = "intent://chat/#Intent;scheme=deepseek;package=com.deepseek.chat;end";
-                    } else if (isIOS) {
-                        window.location.href = "deepseek://";
                     } else {
                         window.location.href = "deepseek://";
                     }
@@ -2025,91 +1909,6 @@
                     console.error("打开应用失败", e);
                     alert("无法打开DeepSeek应用，请使用网页版或从应用商店下载安装。");
                 }
-            });
-            
-            // 反馈模态框相关
-            const feedbackModalOverlay = document.getElementById('feedbackModalOverlay');
-            const feedbackModalClose = document.getElementById('feedbackModalClose');
-            const feedbackForm = document.getElementById('feedbackForm');
-            const feedbackStatus = document.getElementById('feedbackStatus');
-            
-            feedbackBtn.addEventListener('click', () => {
-                feedbackModalOverlay.classList.add('active');
-            });
-            
-            feedbackModalClose.addEventListener('click', () => {
-                feedbackModalOverlay.classList.remove('active');
-            });
-            
-            feedbackModalOverlay.addEventListener('click', (e) => {
-                if (e.target === feedbackModalOverlay) {
-                    feedbackModalOverlay.classList.remove('active');
-                }
-            });
-            
-            feedbackForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                const name = document.getElementById('feedbackName').value.trim();
-                const email = document.getElementById('feedbackEmail').value.trim();
-                const type = document.getElementById('feedbackType').value;
-                const content = document.getElementById('feedbackContent').value.trim();
-                
-                if (!name || !content) {
-                    feedbackStatus.style.display = 'block';
-                    feedbackStatus.style.color = '#e74c3c';
-                    feedbackStatus.textContent = '请填写您的称呼和反馈内容';
-                    return;
-                }
-                
-                // 显示加载状态
-                const submitBtn = document.getElementById('submitFeedbackBtn');
-                const originalText = submitBtn.textContent;
-                submitBtn.disabled = true;
-                submitBtn.textContent = '提交中...';
-                feedbackStatus.style.display = 'none';
-                
-                // 使用EmailJS发送邮件
-                emailjs.send('default_service', 'template_feedback', {
-                    from_name: name,
-                    reply_to: email,
-                    feedback_type: type,
-                    message: content,
-                    page_url: window.location.href
-                }).then((response) => {
-                    console.log('邮件发送成功:', response);
-                    // 成功提交
-                    feedbackStatus.style.display = 'block';
-                    feedbackStatus.style.color = '#2ecc71';
-                    feedbackStatus.textContent = '感谢您的反馈！我们已收到您的信息。';
-                    
-                    // 重置表单
-                    feedbackForm.reset();
-                    
-                    // 3秒后关闭模态框
-                    setTimeout(() => {
-                        feedbackModalOverlay.classList.remove('active');
-                        feedbackStatus.style.display = 'none';
-                    }, 3000);
-                    
-                }).catch(error => {
-                    // 提交失败
-                    feedbackStatus.style.display = 'block';
-                    feedbackStatus.style.color = '#e74c3c';
-                    feedbackStatus.textContent = '提交失败，请稍后再试或直接联系我们。错误信息：' + error.text;
-                    console.error('反馈提交失败:', error);
-                    
-                    // 如果是服务配置问题，给出更具体的提示
-                    if (error.status === 0) {
-                        feedbackStatus.textContent = '网络连接错误，请检查您的网络连接并重试。';
-                    } else if (error.status === 400 || error.status === 500) {
-                        feedbackStatus.textContent = '服务器处理请求时出错，请稍后再试。';
-                    }
-                }).finally(() => {
-                    // 恢复按钮状态
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = originalText;
-                });
             });
             
             // 问答相关
