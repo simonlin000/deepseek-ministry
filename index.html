@@ -1976,8 +1976,48 @@
             openDeepseekAppBtn.addEventListener('click', () => {
                 try {
                     const isAndroid = /Android/i.test(navigator.userAgent);
+                    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+                    
+                    // 创建一个提示元素
+                    const appOpenNotice = document.createElement('div');
+                    appOpenNotice.style.position = 'fixed';
+                    appOpenNotice.style.top = '20px';
+                    appOpenNotice.style.left = '50%';
+                    appOpenNotice.style.transform = 'translateX(-50%)';
+                    appOpenNotice.style.padding = '12px 20px';
+                    appOpenNotice.style.backgroundColor = 'rgba(0,0,0,0.8)';
+                    appOpenNotice.style.color = 'white';
+                    appOpenNotice.style.borderRadius = '8px';
+                    appOpenNotice.style.zIndex = '9999';
+                    appOpenNotice.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                    appOpenNotice.style.fontSize = '14px';
+                    appOpenNotice.textContent = '正在尝试打开DeepSeek应用...';
+                    document.body.appendChild(appOpenNotice);
+                    
+                    // 设置超时检测
+                    let appOpenTimeout = setTimeout(() => {
+                        appOpenNotice.textContent = '无法打开DeepSeek应用，请确保已安装或使用网页版。';
+                        appOpenNotice.style.backgroundColor = '#e74c3c';
+                        
+                        // 5秒后移除提示
+                        setTimeout(() => {
+                            document.body.removeChild(appOpenNotice);
+                        }, 5000);
+                    }, 2500);
+                    
+                    // 监听页面可见性变化，如果用户切换到应用，则清除超时
+                    document.addEventListener('visibilitychange', function clearAppOpenTimeout() {
+                        if (document.hidden) {
+                            clearTimeout(appOpenTimeout);
+                            document.body.removeChild(appOpenNotice);
+                            document.removeEventListener('visibilitychange', clearAppOpenTimeout);
+                        }
+                    });
+                    
                     if (isAndroid) {
                         window.location.href = "intent://chat/#Intent;scheme=deepseek;package=com.deepseek.chat;end";
+                    } else if (isIOS) {
+                        window.location.href = "deepseek://";
                     } else {
                         window.location.href = "deepseek://";
                     }
@@ -2036,7 +2076,8 @@
                     feedback_type: type,
                     message: content,
                     page_url: window.location.href
-                }).then(() => {
+                }).then((response) => {
+                    console.log('邮件发送成功:', response);
                     // 成功提交
                     feedbackStatus.style.display = 'block';
                     feedbackStatus.style.color = '#2ecc71';
@@ -2055,8 +2096,15 @@
                     // 提交失败
                     feedbackStatus.style.display = 'block';
                     feedbackStatus.style.color = '#e74c3c';
-                    feedbackStatus.textContent = '提交失败，请稍后再试或直接联系我们。';
+                    feedbackStatus.textContent = '提交失败，请稍后再试或直接联系我们。错误信息：' + error.text;
                     console.error('反馈提交失败:', error);
+                    
+                    // 如果是服务配置问题，给出更具体的提示
+                    if (error.status === 0) {
+                        feedbackStatus.textContent = '网络连接错误，请检查您的网络连接并重试。';
+                    } else if (error.status === 400 || error.status === 500) {
+                        feedbackStatus.textContent = '服务器处理请求时出错，请稍后再试。';
+                    }
                 }).finally(() => {
                     // 恢复按钮状态
                     submitBtn.disabled = false;
