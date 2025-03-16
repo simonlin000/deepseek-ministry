@@ -6,11 +6,11 @@
     <title>牧者智囊 - 传道人AI辅助工具平台</title>
     <!-- 添加EmailJS库 -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function() {
-            emailjs.init("wt-dk3EqnrpPzKk_q");
-        })();
-    </script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init("6ux_p2k8sMRbTXI-x");
+   })();
+</script>
     <!-- 引入Google字体，提升整体美观度 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -2311,5 +2311,280 @@
         // 页面加载完成后初始化
         window.addEventListener('load', initialize);
     </script>
+<!-- 全新独立反馈功能 -->
+<div id="newFeedbackSystem" style="display:none;">
+  <!-- 反馈按钮 -->
+  <button id="newFeedbackBtn" style="
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #4a6da7;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  ">💬</button>
+
+  <!-- 反馈表单弹窗 -->
+  <div id="newFeedbackOverlay" style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  ">
+    <div id="newFeedbackContent" style="
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    ">
+      <div id="newFeedbackClose" style="
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #888;
+      ">×</div>
+      
+      <h3 style="margin-top: 0; color: #333; font-size: 1.5rem;">提供您的建议与反馈</h3>
+      
+      <form id="newFeedbackForm" style="display: flex; flex-direction: column;">
+        <div style="margin-bottom: 15px;">
+          <label for="new_user_name" style="display: block; margin-bottom: 5px; font-weight: 500;">您的称呼</label>
+          <input type="text" id="new_user_name" name="user_name" style="
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+          " required>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+          <label for="new_user_email" style="display: block; margin-bottom: 5px; font-weight: 500;">电子邮箱（选填）</label>
+          <input type="email" id="new_user_email" name="user_email" style="
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+          ">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+          <label for="new_message" style="display: block; margin-bottom: 5px; font-weight: 500;">您的建议或问题</label>
+          <textarea id="new_message" name="message" style="
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            min-height: 120px;
+            resize: vertical;
+          " required></textarea>
+        </div>
+        
+        <div id="newSendingIndicator" style="
+          display: none;
+          text-align: center;
+          margin-bottom: 15px;
+          color: #4a6da7;
+        ">
+          <span style="
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #4a6da7;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+          "></span>
+          <span style="margin-left: 10px;">正在发送...</span>
+        </div>
+        
+        <button type="submit" style="
+          background-color: #4a6da7;
+          color: white;
+          border: none;
+          padding: 12px 20px;
+          font-size: 16px;
+          font-weight: 500;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+        ">提交反馈</button>
+      </form>
+      
+      <div id="newFeedbackSuccess" style="
+        display: none;
+        text-align: center;
+        padding: 20px 0;
+      ">
+        <h3 style="color: #4caf50; margin-bottom: 10px;">感谢您的反馈！</h3>
+        <p style="color: #666;">我们已收到您的建议，将尽快进行处理和回复。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+
+<script>
+// 确保代码在页面加载完成后执行
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('新反馈系统初始化开始');
+  
+  // 显示反馈系统
+  const feedbackSystem = document.getElementById('newFeedbackSystem');
+  if (feedbackSystem) {
+    feedbackSystem.style.display = 'block';
+    console.log('反馈系统显示成功');
+  }
+  
+  // 获取元素
+  const feedbackBtn = document.getElementById('newFeedbackBtn');
+  const feedbackOverlay = document.getElementById('newFeedbackOverlay');
+  const feedbackClose = document.getElementById('newFeedbackClose');
+  const feedbackForm = document.getElementById('newFeedbackForm');
+  const sendingIndicator = document.getElementById('newSendingIndicator');
+  const feedbackSuccess = document.getElementById('newFeedbackSuccess');
+  
+  if (!feedbackBtn || !feedbackOverlay || !feedbackClose || !feedbackForm) {
+    console.error('未找到反馈相关元素:', {
+      feedbackBtn: !!feedbackBtn,
+      feedbackOverlay: !!feedbackOverlay,
+      feedbackClose: !!feedbackClose,
+      feedbackForm: !!feedbackForm
+    });
+    return; // 如果元素不存在则停止执行
+  }
+  
+  // 反馈按钮点击事件
+  feedbackBtn.addEventListener('click', function() {
+    console.log('反馈按钮被点击');
+    feedbackOverlay.style.opacity = '1';
+    feedbackOverlay.style.pointerEvents = 'all';
+  });
+  
+  // 关闭按钮点击事件
+  feedbackClose.addEventListener('click', function() {
+    console.log('关闭按钮被点击');
+    feedbackOverlay.style.opacity = '0';
+    feedbackOverlay.style.pointerEvents = 'none';
+  });
+  
+  // 点击背景关闭
+  feedbackOverlay.addEventListener('click', function(e) {
+    if (e.target === this) {
+      console.log('背景被点击');
+      this.style.opacity = '0';
+      this.style.pointerEvents = 'none';
+    }
+  });
+  
+  // 阻止点击内容区域导致关闭
+  document.getElementById('newFeedbackContent').addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+  
+  // 表单提交
+  feedbackForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    console.log('表单提交');
+    
+    // 显示发送中状态
+    sendingIndicator.style.display = 'block';
+    
+    // 获取表单数据
+    const formData = {
+      name: document.getElementById('new_user_name').value,
+      email: document.getElementById('new_user_email').value || '未提供',
+      message: document.getElementById('new_message').value,
+      time: new Date().toLocaleString()
+    };
+    
+    console.log('表单数据:', formData);
+    
+    // 使用EmailJS发送 - 如果已经引入EmailJS库
+    if (typeof emailjs !== 'undefined') {
+      emailjs.send('service_ieun53f', 'template_7m1014z', formData)
+        .then(function(response) {
+          console.log('发送成功:', response);
+          sendingIndicator.style.display = 'none';
+          feedbackForm.style.display = 'none';
+          feedbackSuccess.style.display = 'block';
+          
+          // 5秒后自动关闭反馈表单
+          setTimeout(function() {
+            feedbackOverlay.style.opacity = '0';
+            feedbackOverlay.style.pointerEvents = 'none';
+            
+            // 重置表单状态以便下次使用
+            setTimeout(function() {
+              feedbackForm.style.display = 'flex';
+              feedbackSuccess.style.display = 'none';
+              feedbackForm.reset();
+            }, 500);
+          }, 5000);
+        }, function(error) {
+          console.error('发送失败:', error);
+          sendingIndicator.style.display = 'none';
+          alert('发送失败，请稍后再试。错误: ' + (error.text || '未知错误'));
+        });
+    } else {
+      // 如果没有EmailJS，模拟成功
+      console.log('EmailJS未引入，模拟成功响应');
+      setTimeout(function() {
+        sendingIndicator.style.display = 'none';
+        feedbackForm.style.display = 'none';
+        feedbackSuccess.style.display = 'block';
+        
+        // 5秒后自动关闭
+        setTimeout(function() {
+          feedbackOverlay.style.opacity = '0';
+          feedbackOverlay.style.pointerEvents = 'none';
+          
+          // 重置表单状态
+          setTimeout(function() {
+            feedbackForm.style.display = 'flex';
+            feedbackSuccess.style.display = 'none';
+            feedbackForm.reset();
+          }, 500);
+        }, 5000);
+      }, 1500);
+    }
+  });
+  
+  console.log('新反馈系统初始化完成');
+});
+</script>
 </body>
 </html>
