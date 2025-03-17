@@ -1098,7 +1098,7 @@
             </div>
         </div>
     </section>
-<!-- 例证宝库部分（完全重写） -->
+<!-- 例证宝库部分（重构版） -->
 <section class="illustration-section">
     <div class="illustration-container">
         <div class="illustration-header">
@@ -1112,14 +1112,14 @@
         </div>
         
         <div class="illustration-categories">
-            <button class="category-btn active" id="categoryAll">全部例证</button>
-            <button class="category-btn" id="categoryFaith">信心</button>
-            <button class="category-btn" id="categoryPrayer">祷告</button>
-            <button class="category-btn" id="categoryPiety">敬虔</button>
-            <button class="category-btn" id="categoryLove">爱</button>
-            <button class="category-btn" id="categorySuffering">苦难与盼望</button>
-            <button class="category-btn" id="categoryService">服侍</button>
-            <button class="category-btn" id="categoryEvangelism">传福音</button>
+            <button class="category-btn active" data-category="all">全部例证</button>
+            <button class="category-btn" data-category="faith">信心</button>
+            <button class="category-btn" data-category="prayer">祷告</button>
+            <button class="category-btn" data-category="piety">敬虔</button>
+            <button class="category-btn" data-category="love">爱</button>
+            <button class="category-btn" data-category="suffering">苦难与盼望</button>
+            <button class="category-btn" data-category="service">服侍</button>
+            <button class="category-btn" data-category="evangelism">传福音</button>
         </div>
         
         <div class="illustration-interface">
@@ -1195,15 +1195,14 @@
         </div>
     </div>
 </section>
-
 <style>
 /* 例证宝库样式 */
 .illustration-section {
     background-color: #f8f9ff;
     padding: 55px 0;
     margin: 60px 0;
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
+    border-top: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
     box-shadow: 0 0 30px rgba(0,0,50,0.03);
 }
 
@@ -1219,14 +1218,14 @@
 }
 
 .illustration-title {
-    color: var(--primary-color);
+    color: #3a7bd5;
     margin-bottom: 16px;
     font-size: 2.2rem;
     font-weight: 600;
 }
 
 .illustration-subtitle {
-    color: var(--text-light);
+    color: #666;
     font-size: 1.15rem;
     max-width: 650px;
     margin: 0 auto;
@@ -1250,12 +1249,12 @@
 
 .illustration-search-input:focus {
     outline: none;
-    border-color: var(--primary-color);
+    border-color: #3a7bd5;
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.03), 0 0 0 3px rgba(58, 123, 213, 0.1);
 }
 
 .illustration-search-btn {
-    background-color: var(--primary-color);
+    background-color: #3a7bd5;
     color: white;
     border: none;
     padding: 0 24px;
@@ -1267,7 +1266,7 @@
 }
 
 .illustration-search-btn:hover {
-    background-color: var(--primary-dark);
+    background-color: #2d62ab;
 }
 
 .illustration-categories {
@@ -1283,8 +1282,8 @@
 
 .category-btn {
     background-color: white;
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
+    color: #3a7bd5;
+    border: 1px solid #3a7bd5;
     border-radius: 20px;
     padding: 8px 16px;
     font-size: 0.95rem;
@@ -1294,7 +1293,7 @@
 }
 
 .category-btn:hover, .category-btn.active {
-    background-color: var(--primary-color);
+    background-color: #3a7bd5;
     color: white;
     box-shadow: 0 3px 8px rgba(58, 123, 213, 0.2);
 }
@@ -1326,7 +1325,7 @@
     padding: 15px 20px;
     background-color: #eef2ff;
     font-weight: 600;
-    color: var(--primary-color);
+    color: #3a7bd5;
     border-bottom: 1px solid rgba(230, 236, 245, 0.7);
 }
 
@@ -1347,7 +1346,7 @@
 }
 
 .illustration-list-item.active {
-    border-left: 3px solid var(--primary-color);
+    border-left: 3px solid #3a7bd5;
 }
 
 .illustration-list-item h4 {
@@ -1359,7 +1358,7 @@
 
 .illustration-list-item p {
     font-size: 0.85rem;
-    color: var(--text-lighter);
+    color: #777;
     margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -1382,14 +1381,14 @@
 
 .illustration-content-title {
     font-size: 1.6rem;
-    color: var(--primary-color);
+    color: #3a7bd5;
     margin-bottom: 10px;
     font-weight: 600;
 }
 
 .illustration-content-meta {
     font-size: 0.9rem;
-    color: var(--text-lighter);
+    color: #777;
     display: flex;
     align-items: center;
 }
@@ -1400,7 +1399,7 @@
 
 .illustration-content-body p {
     margin-bottom: 16px;
-    color: var(--text-color);
+    color: #333;
 }
 
 .illustration-quote {
@@ -1408,7 +1407,7 @@
     padding: 18px;
     margin: 18px 0;
     border-radius: 10px;
-    border-left: 3px solid var(--primary-color);
+    border-left: 3px solid #3a7bd5;
     font-style: italic;
     color: #444;
     box-shadow: 0 2px 8px rgba(0,0,50,0.04);
@@ -1420,12 +1419,12 @@
     font-weight: 600;
     margin-top: 8px;
     font-style: normal;
-    color: var(--text-light);
+    color: #666;
     font-size: 0.9rem;
 }
 
 .illustration-welcome h3 {
-    color: var(--primary-color);
+    color: #3a7bd5;
     margin-bottom: 20px;
     font-size: 1.5rem;
     font-weight: 600;
@@ -1447,7 +1446,7 @@
 
 .illustration-welcome ul li:before {
     content: "•";
-    color: var(--primary-color);
+    color: #3a7bd5;
     font-weight: bold;
     position: absolute;
     left: -15px;
@@ -1460,7 +1459,7 @@
 }
 
 .illustration-copy-btn {
-    background-color: var(--primary-color);
+    background-color: #3a7bd5;
     color: white;
     border: none;
     border-radius: 6px;
@@ -1474,7 +1473,7 @@
 }
 
 .illustration-copy-btn:hover {
-    background-color: var(--primary-dark);
+    background-color: #2d62ab;
 }
 
 .illustration-copy-indicator {
@@ -1502,7 +1501,7 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border-left-color: var(--primary-color);
+    border-left-color: #3a7bd5;
     animation: spin 1s linear infinite;
     margin-bottom: 10px;
 }
@@ -1521,14 +1520,14 @@
 
 .illustration-submission h3 {
     margin-bottom: 15px;
-    color: var(--primary-color);
+    color: #3a7bd5;
     font-size: 1.3rem;
     font-weight: 600;
 }
 
 .illustration-submission p {
     margin-bottom: 20px;
-    color: var(--text-light);
+    color: #666;
 }
 
 .illustration-submission-form {
@@ -1545,7 +1544,7 @@
 
 .form-group label {
     font-weight: 500;
-    color: var(--text-color);
+    color: #333;
 }
 
 .form-control {
@@ -1557,12 +1556,12 @@
 
 .form-control:focus {
     outline: none;
-    border-color: var(--primary-color);
+    border-color: #3a7bd5;
     box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.1);
 }
 
 .illustration-submit-btn {
-    background-color: var(--primary-color);
+    background-color: #3a7bd5;
     color: white;
     border: none;
     padding: 12px;
@@ -1576,7 +1575,7 @@
 }
 
 .illustration-submit-btn:hover {
-    background-color: var(--primary-dark);
+    background-color: #2d62ab;
     box-shadow: 0 4px 12px rgba(58, 123, 213, 0.25);
 }
 
@@ -1592,6 +1591,36 @@
     color: #d97706;
     margin-bottom: 8px;
     font-size: 1.1rem;
+}
+
+.related-resources {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.related-resources h4 {
+    color: #3a7bd5;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.resource-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.resource-item {
+    color: #3a7bd5;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.resource-item:hover {
+    color: #2d62ab;
+    text-decoration: underline;
 }
 
 @media (max-width: 768px) {
@@ -2356,7 +2385,7 @@ const illustrationData = [
 // 当页面加载完成时执行
 document.addEventListener('DOMContentLoaded', function() {
     // 初始化例证列表
-    renderIllustrationList(illustrationData);
+    initIllustrationList();
     
     // 为分类按钮添加点击事件
     document.querySelectorAll('.category-btn').forEach(btn => {
@@ -2370,27 +2399,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('active');
             
             // 根据类别筛选例证
-            const categoryId = this.id;
-            let category = 'all';
-            
-            if (categoryId === 'categoryAll') {
-                category = 'all';
-            } else if (categoryId === 'categoryFaith') {
-                category = 'faith';
-            } else if (categoryId === 'categoryPrayer') {
-                category = 'prayer';
-            } else if (categoryId === 'categoryPiety') {
-                category = 'piety';
-            } else if (categoryId === 'categoryLove') {
-                category = 'love';
-            } else if (categoryId === 'categorySuffering') {
-                category = 'suffering';
-            } else if (categoryId === 'categoryService') {
-                category = 'service';
-            } else if (categoryId === 'categoryEvangelism') {
-                category = 'evangelism';
-            }
-            
+            const category = this.getAttribute('data-category');
             filterIllustrations(category);
         });
     });
@@ -2432,31 +2441,79 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// 渲染例证列表
-function renderIllustrationList(data) {
+// 初始化例证列表
+function initIllustrationList() {
     const listContainer = document.getElementById('illustrationList');
     listContainer.innerHTML = '';
     
-    data.forEach(item => {
-        const listItem = document.createElement('div');
-        listItem.className = 'illustration-list-item';
-        listItem.setAttribute('data-illustration-id', item.id);
-        listItem.setAttribute('data-category', item.category);
-        listItem.innerHTML = `
-            <h4>${item.title}</h4>
-            <p>${item.shortDesc}</p>
-        `;
+    // 从illustrationContents对象中获取例证ID
+    const illustrationIds = Object.keys(illustrationContents).map(id => parseInt(id));
+    let count = 0;
+    
+    // 根据例证ID创建列表项
+    illustrationIds.forEach(id => {
+        // 从HTML内容中提取标题和分类
+        const htmlContent = illustrationContents[id];
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlContent;
         
-        // 添加点击事件
-        listItem.addEventListener('click', function() {
-            showIllustration(item.id);
-        });
+        // 提取标题和分类
+        const titleElement = tempDiv.querySelector('.illustration-content-title');
+        const metaElement = tempDiv.querySelector('.illustration-content-meta');
         
-        listContainer.appendChild(listItem);
+        if (titleElement && metaElement) {
+            const title = titleElement.textContent.trim();
+            const metaText = metaElement.textContent.trim();
+            const category = metaText.includes('类别:') ? 
+                metaText.split('类别:')[1].split('|')[0].trim().toLowerCase() : '';
+            
+            // 创建摘要
+            let summary = '';
+            const firstP = tempDiv.querySelector('.illustration-content-body p');
+            if (firstP) {
+                summary = firstP.textContent.trim();
+                if (summary.length > 120) {
+                    summary = summary.substring(0, 120) + '...';
+                }
+            }
+            
+            // 创建列表项
+            const listItem = document.createElement('div');
+            listItem.className = 'illustration-list-item';
+            listItem.setAttribute('data-illustration-id', id);
+            listItem.setAttribute('data-category', translateCategory(category));
+            listItem.innerHTML = `
+                <h4>${title}</h4>
+                <p>${summary}</p>
+            `;
+            
+            // 添加点击事件
+            listItem.addEventListener('click', function() {
+                showIllustration(id);
+            });
+            
+            listContainer.appendChild(listItem);
+            count++;
+        }
     });
     
     // 更新计数
-    document.getElementById('itemCount').textContent = data.length;
+    document.getElementById('itemCount').textContent = count;
+}
+
+// 翻译类别为英文分类名
+function translateCategory(category) {
+    const categoryMap = {
+        '信心': 'faith',
+        '祷告': 'prayer',
+        '敬虔': 'piety',
+        '爱': 'love',
+        '苦难与盼望': 'suffering',
+        '服侍': 'service',
+        '传福音': 'evangelism'
+    };
+    
+    return categoryMap[category] || 'other';
 }
 
 // 显示例证内容
@@ -2483,21 +2540,21 @@ function showIllustration(id) {
     document.getElementById('illustrationLoading').style.display = 'flex';
     
     // 找到对应的例证
-    const illustration = illustrationData.find(item => item.id === parseInt(id));
+    const illustrationContent = illustrationContents[id];
     
     // 模拟加载时间
     setTimeout(() => {
-        if (illustration) {
+        if (illustrationContent) {
             const resultContainer = document.getElementById('illustrationResult');
-            resultContainer.innerHTML = illustration.content;
+            resultContainer.innerHTML = illustrationContent;
             resultContainer.style.display = 'block';
             
-            // 为复制按钮添加事件
+            // 重新绑定复制按钮事件
             const copyBtn = resultContainer.querySelector('.illustration-copy-btn');
             if (copyBtn) {
-                copyBtn.addEventListener('click', function() {
-                    copyIllustrationText(id);
-                });
+                copyBtn.onclick = function() {
+                    copyIllustration(id);
+                };
             }
             
             document.getElementById('illustrationLoading').style.display = 'none';
@@ -2508,78 +2565,27 @@ function showIllustration(id) {
     }, 500);
 }
 
-// 复制例证文本
-function copyIllustrationText(id) {
-    const illustration = illustrationData.find(item => item.id === parseInt(id));
-    if (!illustration) return;
-    
-    // 创建临时元素
-    const tempElement = document.createElement('div');
-    tempElement.innerHTML = illustration.content;
-    
-    // 提取纯文本
-    const content = tempElement.textContent || tempElement.innerText;
-    
-    try {
-        // 尝试使用现代API
-        navigator.clipboard.writeText(content).then(() => {
-            showCopySuccess(id);
-        }).catch(err => {
-            // 回退到传统方法
-            fallbackCopy(content, id);
-        });
-    } catch (err) {
-        // API不可用，使用传统方法
-        fallbackCopy(content, id);
-    }
-}
-
-// 回退复制方法
-function fallbackCopy(text, id) {
-    const textarea = document.createElement('textarea');
-    textarea.value = text;
-    textarea.style.position = 'fixed';
-    textarea.style.left = '-9999px';
-    document.body.appendChild(textarea);
-    textarea.select();
-    
-    try {
-        document.execCommand('copy');
-        showCopySuccess(id);
-    } catch (err) {
-        console.error('复制失败:', err);
-        alert('无法复制文本。请手动选择并复制。');
-    }
-    
-    document.body.removeChild(textarea);
-}
-
-// 显示复制成功提示
-function showCopySuccess(id) {
-    const indicator = document.getElementById(`copyIndicator${id}`);
-    if (indicator) {
-        indicator.style.opacity = '1';
-        setTimeout(() => {
-            indicator.style.opacity = '0';
-        }, 2000);
-    }
-}
-
 // 筛选例证
 function filterIllustrations(category) {
-    let filteredData;
+    const items = document.querySelectorAll('.illustration-list-item');
+    let count = 0;
     
-    if (category === 'all') {
-        filteredData = illustrationData;
-    } else {
-        filteredData = illustrationData.filter(item => item.category === category);
-    }
+    items.forEach(item => {
+        if (category === 'all' || item.getAttribute('data-category') === category) {
+            item.style.display = '';
+            count++;
+        } else {
+            item.style.display = 'none';
+        }
+    });
     
-    renderIllustrationList(filteredData);
+    // 更新计数
+    document.getElementById('itemCount').textContent = count;
     
     // 重置内容区域显示欢迎信息
     document.getElementById('illustrationWelcome').style.display = 'block';
     document.getElementById('illustrationResult').style.display = 'none';
+    document.getElementById('illustrationLoading').style.display = 'none';
 }
 
 // 搜索例证
@@ -2591,24 +2597,60 @@ function searchIllustrations(term) {
     
     // 模拟搜索延迟
     setTimeout(() => {
-        // 搜索标题、短描述和内容
-        const results = illustrationData.filter(item => {
-            return (
-                item.title.toLowerCase().includes(term) || 
-                item.shortDesc.toLowerCase().includes(term) || 
-                item.content.toLowerCase().includes(term)
-            );
+        const items = document.querySelectorAll('.illustration-list-item');
+        let count = 0;
+        let firstMatchId = null;
+        
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            const id = item.getAttribute('data-illustration-id');
+            const content = illustrationContents[id].toLowerCase();
+            
+            if (text.includes(term) || content.includes(term)) {
+                item.style.display = '';
+                count++;
+                
+                if (!firstMatchId) {
+                    firstMatchId = id;
+                }
+            } else {
+                item.style.display = 'none';
+            }
         });
-        if (results.length > 0) {
-            renderIllustrationList(results);
-            showIllustration(results[0].id); // 显示第一个搜索结果
+        
+        // 更新计数
+        document.getElementById('itemCount').textContent = count;
+        
+        if (count > 0 && firstMatchId) {
+            // 显示第一个匹配结果
+            showIllustration(firstMatchId);
         } else {
-            renderIllustrationList([]);
+            // 显示无结果提示
             document.getElementById('illustrationWelcome').style.display = 'block';
             document.getElementById('illustrationLoading').style.display = 'none';
             alert('未找到符合条件的例证，请尝试其他关键词。');
         }
     }, 600);
+}
+
+// 复制功能保持使用您原先的实现，以确保兼容性
+function copyIllustration(id) {
+    try {
+        const content = document.querySelector(`#illustrationResult .illustration-content-body`).innerText;
+        navigator.clipboard.writeText(content).then(() => {
+            // 显示复制成功提示
+            const indicator = document.getElementById(`copyIndicator${id}`);
+            if (indicator) {
+                indicator.classList.add('show');
+                setTimeout(() => {
+                    indicator.classList.remove('show');
+                }, 2000);
+            }
+        });
+    } catch (err) {
+        console.error('复制失败:', err);
+        alert('复制失败，请手动选择内容复制。');
+    }
 }
 </script>
     <footer>
