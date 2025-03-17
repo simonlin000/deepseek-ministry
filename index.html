@@ -1840,7 +1840,7 @@ const illustrationData = [
             
             <p>当被问及如何在渐冻症中找到平安时，康健回答说："我的身体每天都在冻结，但我的心灵却在融化——对神的爱和对周围人的关怀让我的心越来越温暖。这病拿走了我的健康，但给了我传福音的机会。"</p>
             
-            <p>康健于2018年安息主怀，葬礼上近300人参加，许多是因他的见证而信主的。他的故事成为内蒙古草原上一个有力的见证，显明神如何在最深的苦难中彰显祂的恩典和能力。</p>
+            <p>康健于2018年安息主怀，葬礼上近300人参加，许多人是因他的见证而信主的。他的故事成为内蒙古草原上一个有力的见证，显明神如何在最深的苦难中彰显祂的恩典和能力。</p>
         </div>
         <div class="illustration-buttons">
             <button class="illustration-copy-btn" data-id="7">
@@ -1909,12 +1909,20 @@ const illustrationData = [
     }
 ];
 
-
-// 添加JavaScript脚本，处理例证库的交互
+// 一旦DOM加载完成，初始化例证宝库功能
 document.addEventListener('DOMContentLoaded', function() {
-    // 动态生成例证列表
+    // 获取相关元素
+    const illustrationList = document.getElementById('illustrationList');
+    const illustrationWelcome = document.getElementById('illustrationWelcome');
+    const illustrationResult = document.getElementById('illustrationResult');
+    const illustrationLoading = document.getElementById('illustrationLoading');
+    const illustrationSearchBtn = document.getElementById('illustrationSearchBtn');
+    const illustrationSearchInput = document.getElementById('illustrationSearchInput');
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const illustrationSubmissionForm = document.getElementById('illustrationSubmissionForm');
+    
+    // 生成例证列表
     function generateIllustrationList(filter = 'all') {
-        const illustrationList = document.getElementById('illustrationList');
         if (!illustrationList) return;
         
         illustrationList.innerHTML = '';
@@ -1935,14 +1943,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             listItem.addEventListener('click', () => {
                 // 显示加载状态
-                document.getElementById('illustrationWelcome').style.display = 'none';
-                document.getElementById('illustrationResult').style.display = 'none';
-                document.getElementById('illustrationLoading').style.display = 'flex';
+                if (illustrationWelcome) illustrationWelcome.style.display = 'none';
+                if (illustrationResult) illustrationResult.style.display = 'none';
+                if (illustrationLoading) illustrationLoading.style.display = 'flex';
                 
                 // 模拟加载延迟，增强体验
                 setTimeout(() => {
                     showIllustration(illustration.id);
-                    document.getElementById('illustrationLoading').style.display = 'none';
+                    if (illustrationLoading) illustrationLoading.style.display = 'none';
                     
                     // 移除其他项目的active类
                     document.querySelectorAll('.illustration-list-item').forEach(item => {
@@ -1961,46 +1969,53 @@ document.addEventListener('DOMContentLoaded', function() {
     // 显示例证内容
     function showIllustration(id) {
         const illustration = illustrationData.find(item => item.id === parseInt(id));
-        if (!illustration) return;
+        if (!illustration || !illustrationResult) return;
         
-        const illustrationResult = document.getElementById('illustrationResult');
         illustrationResult.style.display = 'block';
         illustrationResult.innerHTML = illustration.content;
         
         // 绑定复制按钮事件
-        const copyBtn = illustrationResult.querySelector(`.illustration-copy-btn[data-id="${id}"]`);
-        if (copyBtn) {
-            copyBtn.addEventListener('click', function() {
-                const content = illustration.content.replace(/<[^>]*>/g, ' ')
-                                                .replace(/\s+/g, ' ')
-                                                .replace(/复制例证/g, '')
-                                                .replace(/复制成功!/g, '')
-                                                .replace(/相关资源推荐/g, '')
-                                                .trim();
+        const copyBtns = illustrationResult.querySelectorAll('.illustration-copy-btn');
+        copyBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const dataId = this.getAttribute('data-id');
+                const ill = illustrationData.find(item => item.id === parseInt(dataId));
+                if (!ill) return;
                 
-                navigator.clipboard.writeText(content).then(() => {
-                    const indicator = document.getElementById(`copyIndicator${id}`);
-                    indicator.classList.add('show');
-                    setTimeout(() => {
-                        indicator.classList.remove('show');
-                    }, 2000);
+                // 提取纯文本内容
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = ill.content;
+                const textContent = tempDiv.textContent || tempDiv.innerText || '';
+                
+                // 整理文本，移除多余空格
+                const formattedContent = textContent.replace(/\s+/g, ' ').trim();
+                
+                // 复制到剪贴板
+                navigator.clipboard.writeText(formattedContent).then(() => {
+                    const indicator = document.getElementById(`copyIndicator${dataId}`);
+                    if (indicator) {
+                        indicator.classList.add('show');
+                        setTimeout(() => {
+                            indicator.classList.remove('show');
+                        }, 2000);
+                    }
                 }).catch(err => {
                     console.error('无法复制: ', err);
                     alert('复制失败，请手动选择文本并复制');
                 });
             });
-        }
+        });
     }
     
     // 搜索例证
     function searchIllustrations() {
-        const searchTerm = document.getElementById('illustrationSearchInput').value.trim().toLowerCase();
+        const searchTerm = illustrationSearchInput ? illustrationSearchInput.value.trim().toLowerCase() : '';
         if (!searchTerm) return;
         
         // 显示加载状态
-        document.getElementById('illustrationWelcome').style.display = 'none';
-        document.getElementById('illustrationResult').style.display = 'none';
-        document.getElementById('illustrationLoading').style.display = 'flex';
+        if (illustrationWelcome) illustrationWelcome.style.display = 'none';
+        if (illustrationResult) illustrationResult.style.display = 'none';
+        if (illustrationLoading) illustrationLoading.style.display = 'flex';
         
         setTimeout(() => {
             const results = illustrationData.filter(illustration => 
@@ -2009,11 +2024,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 illustration.content.toLowerCase().includes(searchTerm)
             );
             
-            document.getElementById('illustrationLoading').style.display = 'none';
+            if (illustrationLoading) illustrationLoading.style.display = 'none';
             
-            if (results.length > 0) {
+            if (results.length > 0 && illustrationList) {
                 // 更新列表
-                const illustrationList = document.getElementById('illustrationList');
                 illustrationList.innerHTML = '';
                 
                 results.forEach(illustration => {
@@ -2038,9 +2052,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // 显示第一个结果
                 showIllustration(results[0].id);
-                illustrationList.firstChild.classList.add('active');
+                if (illustrationList.firstChild) {
+                    illustrationList.firstChild.classList.add('active');
+                }
             } else {
-                document.getElementById('illustrationWelcome').style.display = 'block';
+                if (illustrationWelcome) illustrationWelcome.style.display = 'block';
                 alert('未找到相关例证，请尝试其他关键词');
             }
         }, 800);
@@ -2050,10 +2066,17 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleIllustrationSubmission(e) {
         e.preventDefault();
         
-        const title = document.getElementById('illustrationTitle').value.trim();
-        const category = document.getElementById('illustrationCategory').value;
-        const content = document.getElementById('illustrationContent').value.trim();
-        const source = document.getElementById('illustrationSource').value.trim();
+        const titleInput = document.getElementById('illustrationTitle');
+        const categoryInput = document.getElementById('illustrationCategory');
+        const contentInput = document.getElementById('illustrationContent');
+        const sourceInput = document.getElementById('illustrationSource');
+        
+        if (!titleInput || !categoryInput || !contentInput || !sourceInput) return;
+        
+        const title = titleInput.value.trim();
+        const category = categoryInput.value;
+        const content = contentInput.value.trim();
+        const source = sourceInput.value.trim();
         
         if (!title || !content || !source) {
             alert('请填写完整的例证信息，尤其是出处/来源');
@@ -2063,16 +2086,18 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('感谢您的分享！您的例证已提交，我们会尽快审核并添加到例证库中。');
         
         // 重置表单
-        document.getElementById('illustrationSubmissionForm').reset();
+        if (illustrationSubmissionForm) {
+            illustrationSubmissionForm.reset();
+        }
     }
     
     // 添加事件监听器
-    if (document.getElementById('illustrationSearchBtn')) {
-        document.getElementById('illustrationSearchBtn').addEventListener('click', searchIllustrations);
+    if (illustrationSearchBtn) {
+        illustrationSearchBtn.addEventListener('click', searchIllustrations);
     }
     
-    if (document.getElementById('illustrationSearchInput')) {
-        document.getElementById('illustrationSearchInput').addEventListener('keypress', (e) => {
+    if (illustrationSearchInput) {
+        illustrationSearchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 searchIllustrations();
             }
@@ -2080,28 +2105,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // 分类按钮点击事件
-    document.querySelectorAll('.category-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            // 移除其他按钮的active类
-            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-            
-            // 添加active类给当前按钮
-            btn.classList.add('active');
-            
-            // 根据分类筛选例证
-            const category = btn.getAttribute('data-category');
-            generateIllustrationList(category);
-            
-            // 显示欢迎信息
-            document.getElementById('illustrationWelcome').style.display = 'block';
-            document.getElementById('illustrationResult').style.display = 'none';
+    if (categoryBtns) {
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 移除其他按钮的active类
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                
+                // 添加active类给当前按钮
+                btn.classList.add('active');
+                
+                // 根据分类筛选例证
+                const category = btn.getAttribute('data-category');
+                generateIllustrationList(category);
+                
+                // 显示欢迎信息
+                if (illustrationWelcome) illustrationWelcome.style.display = 'block';
+                if (illustrationResult) illustrationResult.style.display = 'none';
+            });
         });
-    });
+    }
     
     // 例证提交表单
-    const submissionForm = document.getElementById('illustrationSubmissionForm');
-    if (submissionForm) {
-        submissionForm.addEventListener('submit', handleIllustrationSubmission);
+    if (illustrationSubmissionForm) {
+        illustrationSubmissionForm.addEventListener('submit', handleIllustrationSubmission);
     }
     
     // 初始化例证列表
