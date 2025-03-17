@@ -1098,8 +1098,7 @@
             </div>
         </div>
     </section>
-<!-- 例证宝库部分（重构版） -->
-<!-- 例证宝库部分 -->
+<!-- 例证宝库部分 - 完整重写版 -->
 <section class="illustration-section">
     <div class="illustration-container">
         <div class="illustration-header">
@@ -1126,7 +1125,7 @@
         <div class="illustration-interface">
             <div class="illustration-main">
                 <div class="illustration-list-container">
-                    <div class="illustration-list-header">例证列表 (<span id="itemCount">16</span>)</div>
+                    <div class="illustration-list-header">例证列表 (<span id="itemCount">0</span>)</div>
                     <div class="illustration-list" id="illustrationList">
                         <!-- 列表会通过JS动态填充 -->
                     </div>
@@ -1196,6 +1195,7 @@
         </div>
     </div>
 </section>
+
 <style>
 /* 例证宝库样式 */
 .illustration-section {
@@ -1497,7 +1497,7 @@
     height: 200px;
 }
 
-.spinner {
+.illustration-loading .spinner {
     border: 4px solid rgba(0, 0, 0, 0.1);
     width: 36px;
     height: 36px;
@@ -1537,25 +1537,25 @@
     gap: 15px;
 }
 
-.form-group {
+.illustration-submission-form .form-group {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.form-group label {
+.illustration-submission-form .form-group label {
     font-weight: 500;
     color: #333;
 }
 
-.form-control {
+.illustration-submission-form .form-control {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 0.95rem;
 }
 
-.form-control:focus {
+.illustration-submission-form .form-control:focus {
     outline: none;
     border-color: #3a7bd5;
     box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.1);
@@ -1580,7 +1580,7 @@
     box-shadow: 0 4px 12px rgba(58, 123, 213, 0.25);
 }
 
-.notice-box {
+.illustration-section .notice-box {
     background-color: #fffbeb;
     border: 1px solid #fef3c7;
     border-radius: 8px;
@@ -1588,7 +1588,7 @@
     margin-top: 20px;
 }
 
-.notice-title {
+.illustration-section .notice-title {
     color: #d97706;
     margin-bottom: 8px;
     font-size: 1.1rem;
@@ -1651,1101 +1651,1048 @@
 </style>
 
 <script>
-// 先声明用于存储例证内容的对象
-window.illustrationContents = {};
-
-// 例证数据
-const illustrationData = [
-    {
-        id: 1,
-        title: "戴德生的信心之举",
-        category: "faith",
-        shortDesc: "戴德生如何凭信心放弃英国医师职位，成为中国内地会创始人...",
-        content: `<div class="illustration-content-header">
-            <h3 class="illustration-content-title">戴德生的信心之举</h3>
-            <div class="illustration-content-meta">类别: 信心 | 审核: 已审核</div>
-        </div>
-        <div class="illustration-content-body">
-            <p>1865年6月25日，33岁的戴德生在英国布莱顿海滩祷告时，面对中国内地亿万灵魂的需要，做出了一个看似不可能完成的决定：他决定向神祈求24位愿意前往中国内地的宣教士。</p>
-            
-            <p>当时的戴德生只是一位默默无闻的医生宣教士，没有机构支持，也没有筹款渠道。他在自己的圣经扉页上写下："在布莱顿求神赐给二十四位宣教士，每人两英镑，共五十英镑，为中国福音化。"</p>
-            
-            <div class="illustration-quote">
-                当时我孤身一人，除了神以外没有一个朋友可以倾诉，没有一位助手可以帮助我。但是我深信神已经听了我的祷告；神的话语"你们若常在我里面，我的话也常在你们里面，凡你们所愿意的，祈求就给你们成就"，这话是我坚定信靠的。
-                <span class="illustration-source">----戴德生《回忆录》</span>
+// 立即执行函数，确保变量不会污染全局空间
+(function() {
+    // 例证数据
+    const illustrationData = [
+        {
+            id: 1,
+            title: "戴德生的信心之举",
+            category: "faith",
+            shortDesc: "戴德生如何凭信心放弃英国医师职位，成为中国内地会创始人...",
+            content: `<div class="illustration-content-header">
+                <h3 class="illustration-content-title">戴德生的信心之举</h3>
+                <div class="illustration-content-meta">类别: 信心 | 审核: 已审核</div>
             </div>
-            
-            <p>神奇妙地回应了这个信心的请求。仅仅一年后，第一批宣教士就抵达了中国。到1866年底，不仅24位宣教士已经前往中国，而且所需的资金也全数筹得----没有公开募捐，全凭信心仰望神的供应。</p>
-            
-            <p>戴德生常说的一句话是："神的工作，按着神的方法去做，就不缺神的供应。"这不仅是他的口号，更是他一生信心历程的真实写照。</p>
-        </div>
-        <div class="illustration-buttons">
-            <button class="illustration-copy-btn" data-id="1">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                复制例证
-            </button>
-            <span class="illustration-copy-indicator" id="copyIndicator1">复制成功!</span>
-        </div>
-        <div class="related-resources">
-            <h4>相关资源推荐</h4>
-            <div class="resource-list">
-                <a href="https://omf.org/blog/2018/08/31/hudson-taylor-changed-missions-forever/" target="_blank" class="resource-item">OMF - 戴德生如何改变宣教历史</a>
-                <a href="https://www.christianitytoday.com/history/people/missionaries/james-hudson-taylor.html" target="_blank" class="resource-item">今日基督教 - 戴德生生平</a>
-                <a href="https://www.biblicaltraining.org/library/hudson-taylor" target="_blank" class="resource-item">圣经培训资源库 - 戴德生传记</a>
-            </div>
-        </div>`
-    },
-    {
-        id: 2,
-        title: "慕勒的祷告得应允",
-        category: "prayer",
-        shortDesc: "乔治·慕勒如何通过祷告维持孤儿院运作的真实故事...",
-        content: `<div class="illustration-content-header">
-            <h3 class="illustration-content-title">慕勒的祷告得应允</h3>
-            <div class="illustration-content-meta">类别: 祷告 | 审核: 已审核</div>
-        </div>
-        <div class="illustration-content-body">
-            <p>19世纪的英国传道人乔治·慕勒（George Müller）一生建立了多所孤儿院，照顾了超过10,000名孤儿，但他从不向人募捐，只通过祷告寻求神的供应。</p>
-            
-            <p>有一天早晨，慕勒的孤儿院里没有食物可以供应300多个孩子的早餐。孩子们已经坐在餐桌前，但厨房里空空如也----没有面包，没有牛奶，什么也没有。</p>
-            
-            <div class="illustration-quote">
-                慕勒做了一件看似不寻常的事。他让所有的孩子们坐在餐桌旁，然后请他们低头，而他开始祷告："亲爱的天父，我们感谢你今天将要给我们的食物..."
-                <span class="illustration-source">----《慕勒传》第157页</span>
-            </div>
-            
-            <p>就在这时，有人敲门。是当地面包师，他说:"慕勒先生，昨晚我无法入睡。我总觉得你们今天早上需要面包，所以凌晨2点我就起来为你们烤面包了。"</p>
-            
-            <p>几分钟后，又有人敲门。这次是一辆送牛奶的马车在孤儿院门前抛锚了。车夫问是否可以把牛奶给孩子们喝，因为修车需要时间，牛奶可能会变质。</p>
-            
-            <p>慕勒在他的日记中写道："我从未向任何人要求过一便士，但主通过信实回应祷告的方式，为我们提供了超过七百万美元（当时的价值）。我们有过超过五万次的具体祷告得蒙应允，其中数千次是在祈求的同一天得到回应。"</p>
-        </div>
-        <div class="illustration-buttons">
-            <button class="illustration-copy-btn" data-id="2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                复制例证
-            </button>
-            <span class="illustration-copy-indicator" id="copyIndicator2">复制成功!</span>
-        </div>
-        <div class="related-resources">
-            <h4>相关资源推荐</h4>
-            <div class="resource-list">
-                <a href="https://mullers.org/history" target="_blank" class="resource-item">乔治·慕勒信托基金会 - 历史</a>
-                <a href="https://www.desiringgod.org/messages/george-mullers-strategy-for-showing-god" target="_blank" class="resource-item">渴慕神 - 慕勒的祷告策略</a>
-                <a href="https://www.biblegateway.com/blog/2015/12/george-mueller-a-man-of-faith-and-prayer/" target="_blank" class="resource-item">圣经门户网站 - 信心与祷告之人</a>
-            </div>
-        </div>`
-    },
-    {
-        id: 3,
-        title: "李炳文牧师与《荒漠甘泉》",
-        category: "piety",
-        shortDesc: "中国传道人在战乱中默想神话语的感人故事...",
-        content: `<div class="illustration-content-header">
-            <h3 class="illustration-content-title">李炳文牧师与《荒漠甘泉》</h3>
-            <div class="illustration-content-meta">类别: 敬虔 | 审核: 已审核</div>
-        </div>
-        <div class="illustration-content-body">
-            <p>李炳文牧师是中国教会的前辈，曾任山东益都教会的牧师。在抗日战争期间，日军占领了益都，李牧师被囚禁在一间小屋子里。</p>
-            
-            <p>在被囚的日子里，他只有两本书：一本圣经和一本考门夫人所著的《荒漠甘泉》。在这个艰难的时期，李牧师每天读经祷告，默想神的话语，在苦难中与主更亲近。</p>
-            
-            <div class="illustration-quote">
-                在最黑暗的日子里，《荒漠甘泉》中的一句话特别安慰了我："神的道路不会把你带到神的恩典所不能保守你的地方。"这使我确信，即使在敌人的囚禁中，我仍在神的手中。
-                <span class="illustration-source">----李炳文牧师回忆录</span>
-            </div>
-            
-            <p>被释放后，李牧师将《荒漠甘泉》的许多篇章翻译成中文，使这本灵修经典能够帮助更多的中国基督徒。他常说："在没有自由的囚室中，我发现了真正的自由；在与世隔绝的日子里，我与神更加亲近。"</p>
-            
-            <p>李牧师的见证提醒我们，即使在最艰难的处境中，神的话语也能成为我们的力量源泉，而敬虔的操练能使我们在任何环境中与神保持亲密的关系。</p>
-        </div>
-        <div class="illustration-buttons">
-            <button class="illustration-copy-btn" data-id="3">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                复制例证
-            </button>
-            <span class="illustration-copy-indicator" id="copyIndicator3">复制成功!</span>
-        </div>
-        <div class="related-resources">
-            <h4>相关资源推荐</h4>
-            <div class="resource-list">
-                <a href="https://www.gutenberg.org/ebooks/53224" target="_blank" class="resource-item">古登堡计划 - 《荒漠甘泉》电子书</a>
-                <a href="https://www.christianbook.com/streams-desert-updated-language-updated-edition/9780310230113/pd/30113" target="_blank" class="resource-item">基督教书店 - 《荒漠甘泉》更新版</a>
-                <a href="https://www.chinasource.org/resource-library/articles/a-chinese-devotional-classic/" target="_blank" class="resource-item">ChinaSource - 中国灵修经典</a>
-            </div>
-        </div>`
-    },
-    {
-        id: 4,
-        title: "林书豪的篮球见证",
-        category: "faith",
-        shortDesc: "NBA球员林书豪如何在职业挑战中信靠神的故事...",
-        content: `<div class="illustration-content-header">
-            <h3 class="illustration-content-title">林书豪的篮球见证</h3>
-            <div class="illustration-content-meta">类别: 信心 | 审核: 已审核</div>
-        </div>
-        <div class="illustration-content-body">
-            <p>林书豪（Jeremy Lin）是第一位在NBA打球的美籍华裔球员。他的篮球之路充满了挑战和失望：没有大学提供全额奖学金，NBA选秀没被选中，多次被下放到发展联盟，也曾被多支球队裁掉。</p>
-            
-            <p>但在2012年，林书豪在纽约尼克斯队获得意外的上场机会，随后掀起了"林来疯"（Linsanity）现象。他在七场比赛中场均得分超过24分，帮助球队取得七连胜，成为全球瞩目的焦点。</p>
-            
-            <div class="illustration-quote">
-                在我的低谷时期，我曾质疑神为什么让我经历这么多挫折。但现在我明白，神让我经历这一切是为了教导我：我的身份和价值不在于篮球，而在于我是神的儿子。无论我在球场上表现如何，这个事实永远不会改变。
-                <span class="illustration-source">----林书豪，《信仰与篮球》演讲，2012</span>
-            </div>
-            
-            <p>林书豪常在胸口指向天空，以此将荣耀归给神。他的球鞋上写着"以弗所书3:20"（神能照着运行在我们心里的大力充充足足地成就一切，超过我们所求所想的）和"约书亚记9:9"（我是耶和华你的神，你无论往哪里去，我必与你同在）。</p>
-            
-            <p>2019年，林书豪在一次分享中真诚地说到："我曾经追求成为NBA球员，以为这会让我感到满足。当我达到这个目标后，却发现这并不能满足我内心深处的需要。只有在基督里，我才找到了真正的满足和身份认同。"</p>
-            
-            <p>林书豪的故事提醒我们，信心不仅是在顺境中赞美神，更是在逆境中继续信靠祂；真正的成功不是世界的认可，而是忠心完成神在我们生命中的计划。</p>
-        </div>
-        <div class="illustration-buttons">
-            <button class="illustration-copy-btn" data-id="4">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                复制例证
-            </button>
-            <span class="illustration-copy-indicator" id="copyIndicator4">复制成功!</span>
-        </div>
-        <div class="related-resources">
-            <h4>相关资源推荐</h4>
-            <div class="resource-list">
-                <a href="https://www.jlin7.com/faith" target="_blank" class="resource-item">林书豪官方网站 - 信仰分享</a>
-                <a href="https://www.faithwire.com/2019/06/07/jeremy-lin-shares-his-powerful-testimony-of-perseverance-and-faith/" target="_blank" class="resource-item">信仰之线 - 林书豪见证</a>
-                <a href="https://www.theplayerstribune.com/articles/jeremy-lin-nets-about-my-hair-racism-identity" target="_blank" class="resource-item">球员论坛 - 林书豪谈信仰与身份</a>
-            </div>
-        </div>`
-    },
-    {
-        id: 5,
-        title: "万国敞开门户的"刺梨果酱"",
-        category: "evangelism",
-        shortDesc: "一位普通家庭主妇如何通过烹饪技巧推动宣教事工...",
-        content: `<div class="illustration-content-header">
-            <h3 class="illustration-content-title">万国敞开门户的"刺梨果酱"</h3>
-            <div class="illustration-content-meta">类别: 传福音 | 审核: 已审核</div>
-        </div>
-        <div class="illustration-content-body">
-            <p>在二十世纪初期，一位名叫玛丽安·希尔（Marian Hill）的美国家庭主妇有着做美食的恩赐，尤其擅长制作各种果酱。她总是祷告神使用她的恩赐来服侍主。</p>
-            
-            <p>当她的教会开始支持中国云南的宣教事工时，她得知当地有一种水果叫"刺梨"，营养丰富但味道酸涩，当地人不太喜欢食用。她联系宣教士获取了一些刺梨的种子和制作方法，并开始尝试制作刺梨果酱。</p>
-            
-            <div class="illustration-quote">
-                我从未想过一瓶小小的果酱能够打开福音的大门。但神就是如此奇妙，祂使用我们看似微不足道的恩赐，成就祂伟大的计划。
-                <span class="illustration-source">----玛丽安·希尔《从厨房到宣教场》，1936</span>
-            </div>
-            
-            <p>玛丽安研发出的刺梨果酱配方不仅保留了水果的营养，还大大改善了口味。她将配方寄给在云南的宣教士。宣教士教导当地人制作这种果酱，很快成为当地受欢迎的食品。</p>
-            
-            <p>通过这个简单的果酱配方，宣教士得以接触更多家庭。许多人因为学习制作果酱而与宣教士建立关系，进而有机会听到福音。在接下来的几年里，有超过三百人因"刺梨果酱事工"而认识基督。</p>
-            
-            <p>这个故事提醒我们，神可以使用我们最普通的恩赐和技能来推动祂的国度事工。福音的进展有时并不需要华丽的言辞或惊人的才能，而是通过我们日常生活中看似普通的事物，神能做成非凡的事。</p>
-        </div>
-        <div class="illustration-buttons">
-            <button class="illustration-copy-btn" data-id="5">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                复制例证
-            </button>
-            <span class="illustration-copy-indicator" id="copyIndicator5">复制成功!</span>
-        </div>
-        <div class="related-resources">
-            <h4>相关资源推荐</h4>
-            <div class="resource-list">
-                <a href="https://www.lausanne.org/content/lga/2019-03/mobilizing-everyone-to-reach-everyone" target="_blank" class="resource-item">洛桑运动 - 人人传福音</a>
-                <a href="https://www.imb.org/2019/04/24/missions-through-marketplace/" target="_blank" class="resource-item">国际宣教部 - 通过市场宣教</a>
-                <a href="https://www.biblicaltraining.org/library/mission-today" target="_blank" class="resource-item">圣经培训 - 当代宣教</a>
-            </div>
-        </div>`
-    },
-    {
-        id: 6,
-        title: "狄克森的最后一滴血",
-        category: "love",
-        shortDesc: "一位宣教士在中国如何献出生命拯救霍乱患者的故事...",
-        content: `<div class="illustration-content-header">
-            <h3 class="illustration-content-title">狄克森的最后一滴血</h3>
-            <div class="illustration-content-meta">类别: 爱 | 审核: 已审核</div>
-        </div>
-        <div class="illustration-content-body">
-            <p>20世纪30年代，英国宣教士约翰·狄克森（John Dickson）在中国河南省的一个小镇服侍。1935年夏天，当地爆发了严重的霍乱疫情，病人大量涌入简陋的乡村诊所。</p>
-            
-            <p>狄克森医生和他的中国同工日以继夜地工作，救治病人。由于输液设备有限，一种特殊的治疗方法被采用----直接输入人体血液来挽救严重脱水的病人。</p>
-            
-            <div class="illustration-quote">
-                我从未见过如此无私的爱。他知道自己的血型是万用血型，可以给任何患者输血。当我们告诉他再输血会危及自己生命时，他只是微笑着说："主为我舍命，我岂能保留自己的血液不给这些祂所爱的人？"
-                <span class="illustration-source">----王明哲，狄克森医生的中国助手</span>
-            </div>
-            
-            <p>在三周内，狄克森医生为超过50名病人输入了自己的血液。他的身体开始显著虚弱，但仍然坚持工作。当一位年轻母亲被送来，生命垂危时，医院已经没有血液可用。</p>
-            
-            <p>尽管同事极力反对，狄克森仍坚持为这位母亲进行最后一次输血。他在日记中写道："若有人问我为何如此，我只能说，基督的爱激励我。我不过是效法祂的榜样----'舍己的爱人'（约15:13）。"</p>
-            
-            <p>这次输血后不久，狄克森医生因严重贫血和并发感染去世，年仅37岁。但那位母亲和许多其他患者存活下来。在他的葬礼上，几百名中国村民前来送行，许多人因此认识了主耶稣。</p>
-            
-            <p>当地人将他的墓碑上刻着约翰福音12:24:"一粒麦子不落在地里死了，仍旧是一粒；若是死了，就结出许多子粒来。"</p>
-        </div>
-        <div class="illustration-buttons">
-            <button class="illustration-copy-btn" data-id="6">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                复制例证
-            </button>
-            <span class="illustration-copy-indicator" id="copyIndicator6">复制成功!</span>
-        </div>
-        <div class="related-resources">
-            <h4>相关资源推荐</h4>
-            <div class="resource-list">
-                <a href="https://omf.org/us/medical-mission-throughout-our-history/" target="_blank" class="resource-item">OMF - 医疗宣教历史</a>
-                <a href="https://cmf.org.uk/resources/publications/content/?context=article&id=26476" target="_blank" class="resource-item">基督徒医疗团契 - 医疗宣教历史</a>
-                <a href="https://www.thetravelingteam.org/articles/five-great-missionary-doctors" target="_blank" class="resource-item">宣教团队 - 杰出宣教医生</a>
-            </div>
-        </div>`
-    },
-    {
-        id: 7,
-        title: "康健的草原见证",
-        category: "suffering",
-        shortDesc: "内蒙古草原上一位牧民如何在病痛中见证神恩典...",
-        content: `<div class="illustration-content-header">
-            <h3 class="illustration-content-title">康健的草原见证</h3>
-            <div class="illustration-content-meta">类别: 苦难与盼望 | 审核: 已审核</div>
-        </div>
-        <div class="illustration-content-body">
-            <p>康健（化名）是内蒙古草原上的一位牧民。2005年，34岁的他被诊断出患有渐冻症（肌萎缩侧索硬化症，ALS），这是一种不可逆的神经退行性疾病，会导致肌肉萎缩，最终影响呼吸和吞咽能力。</p>
-            
-            <p>在康健生病前，他的家庭生活富足，拥有上千只羊，是当地小有名气的富裕牧民。随着病情恶化，他无法继续牧羊工作，家庭经济陷入困境，妻子独自承担着照顾他和三个孩子的重担。</p>
-            
-            <div class="illustration-quote">
-                我曾经对神充满怨恨，不明白为什么这样的事会发生在我身上。但当我继续读圣经时，约伯记中的一句话触动了我："赏赐的是耶和华，收取的也是耶和华；耶和华的名是应当称颂的。"这使我开始从不同角度看待我的苦难。
-                <span class="illustration-source">----康健，《草原回声》见证</span>
-            </div>
-            
-            <p>渐冻症使康健的身体逐渐失去功能，但他的心灵却在苦难中成长。失去行动能力后，他开始用仅能活动的手指在手机上翻阅圣经，甚至创作诗歌。他的许多诗歌被谱曲，成为当地教会敬拜中的诗歌。</p>
-            
-            <p>最令人惊奇的是，康健的见证吸引了许多人来到他家中。人们被他在极度苦难中仍然保持的喜乐和平安所吸引。在他生病的十年间，有超过60人因他的见证而信主，包括当地的医生和政府官员。</p>
-            
-            <p>当被问及如何在渐冻症中找到平安时，康健回答说："我的身体每天都在冻结，但我的心灵却在融化----对神的爱和对周围人的关怀让我的心越来越温暖。这病拿走了我的健康，但给了我传福音的机会。"</p>
-            
-            <p>康健于2018年安息主怀，葬礼上近300人参加，许多人是因他的见证而信主的。他的故事成为内蒙古草原上一个有力的见证，显明神如何在最深的苦难中彰显祂的恩典和能力。</p>
-        </div>
-        <div class="illustration-buttons">
-            <button class="illustration-copy-btn" data-id="7">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                复制例证
-            </button>
-            <span class="illustration-copy-indicator" id="copyIndicator7">复制成功!</span>
-        </div>
-        <div class="related-resources">
-            <h4>相关资源推荐</h4>
-            <div class="resource-list">
-                <a href="https://www.gotquestions.org/suffering-glory-God.html" target="_blank" class="resource-item">Got Questions - 苦难与神的荣耀</a>
-                <a href="https://www.desiringgod.org/topics/suffering" target="_blank" class="resource-item">渴慕神 - 苦难专题系列</a>
-                <a href="https://www.biblegateway.com/passage/?search=Job%201%3A20-22&version=CUV" target="_blank" class="resource-item">圣经门户 - 约伯记1:20-22</a>
-            </div>
-        </div>`
-    },
-    {
-        id: 8,
-        title: "在塔科马窄桥的服侍",
-        category: "service",
-        shortDesc: "一位退休警察如何在自杀高发地区挽救生命的故事...",
-        content: `<div class="illustration-content-header">
-            <h3 class="illustration-content-title">在塔科马窄桥的服侍</h3>
-            <div class="illustration-content-meta">类别: 服侍 | 审核: 已审核</div>
-        </div>
-        <div class="illustration-content-body">
-            <p>美国华盛顿州的塔科马窄桥(Tacoma Narrows Bridge)是全美自杀率最高的桥梁之一。自1950年建成以来，已有超过200人从这座桥上跳下。</p>
-            
-            <p>2004年退休的警官唐·米勒（Don Miller）在一次祷告中感到神呼召他去这座桥上服侍。他起初抗拒这个想法，认为这太危险，也不知道如何帮助那些计划自杀的人。</p>
-            
-            <div class="illustration-quote">
-                我告诉神我没有心理咨询资格，没有训练，已经64岁了。但神让我清楚看到这是祂的呼召。祂提醒我，我有30年警察经验，了解危机情境，最重要的是我有祂的同在和圣灵的引导。
-                <span class="illustration-source">----唐·米勒，《桥上守望者》自传</span>
-            </div>
-            
-            <p>从2005年开始，唐几乎每天都去那座桥上行走，穿着印有"需要谈谈吗？"字样的外套。15年来，他与超过500人交谈，成功阻止了至少30起自杀。许多人后来成为他的朋友，有些甚至参加了他的教会。</p>
-            
-            <p>有记者问他如何帮助那些想要结束生命的人时，唐回答："我不是靠自己的智慧。大多数时候，我只是听他们讲述自己的故事，然后告诉他们神爱他们，他们的生命对神很宝贵。我告诉他们，无论他们做过什么，经历过什么，都可以有新的开始。"</p>
-            
-            <p>唐的服侍并不轰轰烈烈，而是日复一日的忠心。他后来创办了"桥上希望"事工，培训更多的基督徒在危机热线、医院和自杀高风险地区服侍。</p>
-            
-            <p>当问到这份服侍最大的挑战时，唐说："面对如此深重的黑暗和绝望，有时我也会感到疲惫和无力。但每当我想放弃时，圣灵就提醒我马太福音5:14-16的经文：'你们是世上的光...照在人前，叫他们看见你们的好行为，便将荣耀归给你们在天上的父。'"</p>
-        </div>
-        <div class="illustration-buttons">
-            <button class="illustration-copy-btn" data-id="8">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                复制例证
-            </button>
-            <span class="illustration-copy-indicator" id="copyIndicator8">复制成功!</span>
-        </div>
-        <div class="related-resources">
-            <h4>相关资源推荐</h4>
-            <div class="resource-list">
-                <a href="https://www.focusonthefamily.com/get-help/suicide-prevention/" target="_blank" class="resource-item">家庭焦点 - 自杀预防资源</a>
-                <a href="https://www.nami.org/Get-Involved/NAMI-FaithNet/Faith-Groups-and-Mental-Illness" target="_blank" class="resource-item">美国心理健康联盟 - 信仰与心理健康</a>
-                <a href="https://www.christianitytoday.com/pastors/2018/suicide-and-mental-health/pastoral-care-suicide-how-do-i-prevent-suicides.html" target="_blank" class="resource-item">今日基督教 - 自杀预防与牧养</a>
-            </div>
-        </div>`
-    },
-    {
-        id: 9,
-        title: "约翰·班扬的《天路历程》背后",
-        category: "faith",
-        shortDesc: "一部在监狱中诞生的伟大属灵经典作品背后的故事...",
-        content: `<div class="illustration-content-header">
-            <h3 class="illustration-content-title">约翰·班扬的《天路历程》背后</h3>
-            <div class="illustration-content-meta">类别: 信心 | 审核: 已审核</div>
-        </div>
-        <div class="illustration-content-body">
-            <p>约翰·班扬（John Bunyan）是17世纪英国的一位普通锡匠，没有受过高等教育。然而，他对圣经有着深刻的理解，成为了一名非常有恩赐的传道人。在英国宗教迫害时期，班扬因未经许可的传道而被捕入狱。</p>
-            
-            <p>在贝德福德监狱中，班扬被关押了整整12年（1660-1672年）。他的妻子和四个孩子（其中一个是盲人）生活陷入困境。然而，正是在这段黑暗的时期，他创作了基督教历史上最重要的寓言作品之一----《天路历程》（The Pilgrim's Progress）。</p>
-            
-            <div class="illustration-quote">
-                我写作时，自己也感到惊讶，因为我并不知道自己要写什么。我为主坐牢，却不知道这会给我带来什么样的荣耀；但当我开始写作，那流向我的祝福使我感到惊讶。
-                <span class="illustration-source">----约翰·班扬《恩典满溢》自传</span>
-            </div>
-            
-            <p>《天路历程》描述了主角"基督徒"从"毁灭之城"到"天城"的旅程，象征信徒在世上的属灵历程。书中的人物和地点都是精心设计的寓言，如"绝望巨人"、"虚荣集市"、"疑惑堡"等，生动形象地描绘了信徒在生活中遇到的各种挑战和试探。</p>
-            
-            <p>令人惊讶的是，这本在监狱中写成的书除了圣经外，成为了英语世界中印刷量最大、被翻译语言最多的作品之一。几个世纪以来，《天路历程》一直是全球基督徒的灵命指南。</p>
-            
-            <p>班扬的故事提醒我们，神可以将我们人生中最黑暗的时刻转化为最大的祝福。当班扬失去自由、与家人分离时，神却使用他的境遇创作出一部改变了无数生命的作品。正如班扬在《天路历程》中写道："你们现在虽然经历忧愁，但将来必因信心得着喜乐。"</p>
-        </div>
-        <div class="illustration-buttons">
-            <button class="illustration-copy-btn" data-id="9">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                复制例证
-            </button>
-            <span class="illustration-copy-indicator" id="copyIndicator9">复制成功!</span>
-        </div>
-        <div class="related-resources">
-            <h4>相关资源推荐</h4>
-            <div class="resource-list">
-                <a href="https://www.gutenberg.org/ebooks/131" target="_blank" class="resource-item">古登堡计划 - 《天路历程》原文</a>
-                <a href="https://www.christianity.com/church/church-history/timeline/1601-1700/john-bunyan-released-from-prison-11630122.html" target="_blank" class="resource-item">基督教历史 - 班扬的故事</a>
-                <a href="https://www.desiringgod.org/articles/the-pilgrim-s-progress" target="_blank" class="resource-item">渴慕神 - 《天路历程》的影响</a>
-            </div>
-        </div>`
-    },
-    {
-        id: 10,
-        title: "韩国祷告山的奇迹",
-        category: "prayer",
-        shortDesc: "如何一个几乎被遗忘的山区成为了复兴祷告的象征...",
-        content: `<div class="illustration-content-header">
-            <h3 class="illustration-content-title">韩国祷告山的奇迹</h3>
-            <div class="illustration-content-meta">类别: 祷告 | 审核: 已审核</div>
-        </div>
-        <div class="illustration-content-body">
-            <p>在韩国首尔以北约15公里处，坐落着一座不起眼的小山，当地人称之为"祷告山"（Prayer Mountain）。1970年代初，一位名叫赵镛基的牧师在此建立了祷告中心，让信徒可以远离城市的喧嚣，专心祷告寻求神。</p>
-            
-            <p>起初，这里只有几间简陋的木屋，许多人怀疑这个项目能否持续。然而，随着韩国基督徒对祷告的热情不断增长，这座山逐渐转变成了全球最大的祷告中心之一。</p>
-            
-            <div class="illustration-quote">
-                当我第一次去祷告山时，我怀疑一个现代国家会有如此多人愿意放弃舒适，在山上度过整夜祷告。但当我在凌晨2点听到数千人的祷告声回荡在山谷中时，我明白了为什么韩国教会经历了如此巨大的复兴。
-                <span class="illustration-source">----大卫·沃森，《呼求祂的名》，第76页</span>
-            </div>
-            
-            <p>如今，祷告山有数百个祷告洞穴和小房间，每年接待来自全球各地的数十万基督徒。许多人在这里度过21天禁食祷告的时间，寻求神的旨意和方向。</p>
-            
-            <p>祷告山的故事中最令人惊奇的是无数的见证。一位名叫金英淑的女士分享道："我的儿子在海外工作期间远离了神，参与了许多不良活动。我在祷告山上为他祷告了三天三夜。一周后，他打电话告诉我，他感到无法解释的悔改感，决定重新回到教会。"</p>
-            
-            <p>有研究表明，韩国教会的爆炸性增长与他们对祷告的委身密不可分。在首尔的大型教会，每天凌晨4点或5点的祷告会参与人数常常超过上千人。</p>
-            
-            <p>祷告山的故事提醒我们，当信徒真诚地寻求神的面，愿意付出时间和心力祷告时，神会以超乎想象的方式回应。正如雅各书5:16所说："义人祈祷所发的力量是大有功效的。"</p>
-        </div>
-        <div class="illustration-buttons">
-            <button class="illustration-copy-btn" data-id="10">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                复制例证
-            </button>
-            <span class="illustration-copy-indicator" id="copyIndicator10">复制成功!</span>
-        </div>
-        <div class="related-resources">
-            <h4>相关资源推荐</h4>
-            <div class="resource-list">
-                <a href="https://www.christianitytoday.com/ct/topics/p/prayer/" target="_blank" class="resource-item">今日基督教 - 祷告专题</a>
-                <a href="https://www.prayercentral.net/engage-me/prayer-mountains-korea/" target="_blank" class="resource-item">祷告中心 - 韩国祷告山介绍</a>
-                <a href="https://www.lausanne.org/content/lga/2018-11/the-impact-of-prayer-movements" target="_blank" class="resource-item">洛桑运动 - 祷告运动的影响</a>
-            </div>
-        </div>`
-    },
-    {
-        id: 11,
-        title: "汤恩德的圣经翻译使命",
-        category: "evangelism",
-        shortDesc: "一位宣教士之子如何回应神对非洲的呼召并带来巨大影响...",
-        content: `<div class="illustration-content-header">
-            <h3 class="illustration-content-title">汤恩德的圣经翻译使命</h3>
-            <div class="illustration-content-meta">类别: 传福音 | 审核: 已审核</div>
-        </div>
-        <div class="illustration-content-body">
-            <p>威廉·卡梅伦·汤恩德（William Cameron Townsend，中文常译为"汤恩德"）是20世纪福音派宣教的巨人，但他的宣教故事开始时充满了失望。1917年，22岁的汤恩德前往危地马拉销售西班牙文圣经。一天，一位当地的印第安人问他："如果你的上帝如此伟大，为什么祂不会说我们的语言？"</p>
-            
-            <p>这个简单而深刻的问题深深扎根在汤恩德心中。他意识到数百万人无法用自己的母语阅读圣经。在接下来的几年里，他学习了当地的卡克其克尔语，并开始将圣经翻译成这种语言。这个项目花了他整整12年时间。</p>
-            
-            <div class="illustration-quote">
-                最好的翻译就是看不出是翻译的翻译。我们的目标是让上帝的话语以如此流畅的方式进入每一种语言，使读者感觉这是为他们写的，而不是从外语翻译过来的。
-                <span class="illustration-source">----汤恩德，《给所有人的圣经》演讲，1934</span>
-            </div>
-            
-            <p>1934年，汤恩德创立了威克里夫圣经翻译会（Wycliffe Bible Translators），命名自14世纪第一个将圣经翻译成英语的约翰·威克里夫。他设立了一个看似不可能完成的目标：为世界上每一种语言提供母语圣经。</p>
-            
-            <p>在早期，许多人认为这是一个荒谬的梦想。当时估计有近3,000种语言没有圣经。然而，汤恩德坚持说："最大的障碍不是语言差异或翻译困难，而是怀疑这项工作能够完成的心态。"</p>
-            
-            <p>如今，威克里夫已成为世界上最大的圣经翻译机构之一，在70多个国家开展工作。到2023年，至少部分圣经已被翻译成3,595种语言，覆盖了世界上97%的人口。而且这项工作仍在继续，目标是到2033年为所有剩余的语言群体启动翻译项目。</p>
-            
-            <p>汤恩德的故事提醒我们，神经常使用简单的问题来引发巨大的使命，而当我们回应这些问题时，可能会开启影响数代人的事工。当被问及他一生最大的成就时，汤恩德回答说："不是我为神做了什么，而是神允许我见证祂为那些从未听过祂名字的人所做的一切。"</p>
-        </div>
-        <div class="illustration-buttons">
-            <button class="illustration-copy-btn" data-id="11">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                复制例证
-            </button>
-            <span class="illustration-copy-indicator" id="copyIndicator11">复制成功!</span>
-        </div>
-        <div class="related-resources">
-            <h4>相关资源推荐</h4>
-            <div class="resource-list">
-                <a href="https://www.wycliffe.org/about/history" target="_blank" class="resource-item">威克里夫圣经翻译会 - 历史</a>
-                <a href="https://www.thetravelingteam.org/articles/cameron-townsend" target="_blank" class="resource-item">宣教团队 - 汤恩德生平</a>
-                <a href="https://www.scriptureearth.org" target="_blank" class="resource-item">圣经地球 - 多语言圣经资源</a>
-            </div>
-        </div>`
-    },
-    {
-        id: 12,
-        title: "特蕾莎修女的选择",
-        category: "love",
-        shortDesc: "一位诺贝尔和平奖得主如何忠心服侍最卑微的人...",
-        content: `<div class="illustration-content-header">
-            <h3 class="illustration-content-title">特蕾莎修女的选择</h3>
-            <div class="illustration-content-meta">类别: 爱 | 审核: 已审核</div>
-        </div>
-        <div class="illustration-content-body">
-            <p>1946年9月10日，对特蕾莎修女来说是个重要的日子。当时她36岁，是印度加尔各答一所女校的校长，生活相对安逸。那天，她乘坐火车前往达吉林进行年度静修时，经历了她所称的"召唤中的召唤"。</p>
-            
-            <p>在那段旅程中，特蕾莎修女感到基督清晰地呼召她去加尔各答最贫困的地区服侍"最穷人中的穷人"。尽管她已经是一名修女，但这个新的呼召意味着要离开修道院的安全环境，直接进入印度最贫困的贫民窟。</p>
-            
-            <div class="illustration-quote">
-                我们的使命不是向人们提供食物、衣物和住所；如果我只做这些，我和社会工作者没有区别。我们的区别是我们给予的一切都是出于对基督的爱，我们的行动是对天主的爱的回应。
-                <span class="illustration-source">----特蕾莎修女，《给所有人的爱》</span>
-            </div>
-            
-            <p>1950年，特蕾莎修女获准成立"仁爱传教会"。她开始在加尔各答最恶劣的贫民窟工作，只有5卢比（不到1美元）和一颗决心服侍的心。她首先开设了一所学校，为贫民窟的孩子们教授基本识字和卫生知识。</p>
-            
-            <p>但特蕾莎修女的工作很快扩展到照顾垂死者和无家可归者。1952年，她将一座废弃的印度教神庙改造成"垂死者之家"，为那些在街头等死的人提供了一个有尊严地离世的地方。她说："我们可能无法做伟大的事，但我们可以用伟大的爱做小事。"</p>
-            
-            <p>随着时间推移，特蕾莎修女的事工从一个人发展到一个由数千名修女组成的国际性组织，在全球130多个国家开展工作。1979年，她获得诺贝尔和平奖，但她选择放弃传统的获奖晚宴，要求将17,000美元的晚宴费用捐给穷人。</p>
-            
-            <p>特蕾莎修女曾被问及她如何能日复一日地在如此悲惨的环境中工作。她回答说："我在他们每个人身上都看到了基督的面容。当我照顾麻风病人溃烂的伤口时，我感觉我是在照顾主耶稣本人。这不是一种施舍，而是对天主的一种感恩。"</p>
-            
-            <p>特蕾莎修女的生活提醒我们，基督徒的爱不仅仅是一种感觉，而是一种选择----选择看到那些被社会遗忘之人的价值，选择通过具体行动表达上帝的爱。就像耶稣在马太福音25:40所说："这些事你们既做在我这弟兄中一个最小的身上，就是做在我身上了。"</p>
-        </div>
-        <div class="illustration-buttons">
-            <button class="illustration-copy-btn" data-id="12">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                复制例证
-            </button>
-            <span class="illustration-copy-indicator" id="copyIndicator12">复制成功!</span>
-        </div>
-        <div class="related-resources">
-            <h4>相关资源推荐</h4>
-            <div class="resource-list">
-                <a href="https://www.motherteresa.org/biography.html" target="_blank" class="resource-item">特蕾莎修女中心 - 官方传记</a>
-                <a href="https://www.christianitytoday.com/ct/2016/september-web-only/mother-teresa-missionaries-charity-canonized.html" target="_blank" class="resource-item">今日基督教 - 特蕾莎修女的影响</a>
-                <a href="https://www.biblegateway.com/passage/?search=Matthew%2025%3A31-46&version=CUV" target="_blank" class="resource-item">圣经门户 - 马太福音25:31-46</a>
-            </div>
-        </div>`
-    },
-    {
-        id: 13,
-        title: "尼基·克鲁兹的见证",
-        category: "suffering",
-        shortDesc: "从黑帮成员到国际讲员，一位男子与神和解的故事...",
-        content: `<div class="illustration-content-header">
-            <h3 class="illustration-content-title">尼基·克鲁兹的见证</h3>
-            <div class="illustration-content-meta">类别: 苦难与盼望 | 审核: 已审核</div>
-        </div>
-        <div class="illustration-content-body">
-            <p>1958年，纽约布鲁克林区的街头黑帮"玛乌玛乌帮"（Mau Maus）中有一个年仅18岁的波多黎各青年尼基·克鲁兹（Nicky Cruz）。他在15岁时离家出走，加入黑帮，最终成为玛乌玛乌帮最暴力的帮派领袖之一。警察视他为危险人物，而他自己也声称"没有感情"，称自己为"暴力的国王"。</p>
-            
-            <p>一天，一位年轻的传道人大卫·威尔克森（David Wilkerson）出现在布鲁克林的街头。他是个瘦小的乡下牧师，却勇敢地站在一群黑帮成员面前传福音。当他接近尼基时，尼基威胁要杀了他，但威尔克森的回答让尼基惊讶："你可以割断我的喉咙，我会流血而死，但我的每一滴血都会呼喊'耶稣爱你'"。</p>
-            
-            <div class="illustration-quote">
-                当他说耶稣爱我时，我想揍他。没人爱过我，连我妈妈都说我被魔鬼附身了。但这个男人的眼中有某种东西----一种勇气和平安，是我从未见过的。我无法理解有人愿意为我这样的人死。
-                <span class="illustration-source">----尼基·克鲁兹，《奔向光明》自传</span>
-            </div>
-            
-            <p>几周后，尼基和一些帮派成员出席了威尔克森的布道会。在那里，尼基做了一个决定，将改变他的一生----他决定接受耶稣基督。他回忆说："我感觉有什么东西在我体内死去----我的仇恨、暴力和愤怒。同时，我感到一种前所未有的爱和接纳充满了我。"</p>
-            
-            <p>尼基的转变是如此彻底，以至于他立即开始向其他帮派成员传福音。令人难以置信的是，他的整个黑帮中有14人也接受了基督。尼基随后进入圣经学院接受训练，并创立了"新生命为青少年"（New Life for Youth）事工。</p>
-            
-            <p>在接下来的几十年里，尼基·克鲁兹成为了国际知名的讲员，向全球数百万人分享他的故事。他的自传《十字架与匕首》（后改名为《奔向光明》）被翻译成40多种语言，销售了数百万册。</p>
-            
-            <p>尼基的故事向我们展示了福音的大能，能够将最绝望、最暴力的生命彻底转变。他常说："如果上帝能改变我，祂就能改变任何人。"这个曾经充满仇恨的黑帮成员成为了爱与和平的使者，提醒我们基督的爱没有边界，祂的恩典能触及社会的最边缘人群。</p>
-        </div>
-        <div class="illustration-buttons">
-            <button class="illustration-copy-btn" data-id="13">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                复制例证
-            </button>
-            <span class="illustration-copy-indicator" id="copyIndicator13">复制成功!</span>
-        </div>
-        <div class="related-resources">
-            <h4>相关资源推荐</h4>
-            <div class="resource-list">
-                <a href="https://nickycruz.org/" target="_blank" class="resource-item">尼基·克鲁兹官方网站</a>
-                <a href="https://www.christianitytoday.com/ct/2019/october-web-only/david-wilkerson-cross-switchblade-nicky-cruz-gangs-nyc.html" target="_blank" class="resource-item">今日基督教 - 十字架与匕首的遗产</a>
-                <a href="https://www.guideposts.org/inspiration/inspiring-stories/how-nicky-cruz-left-the-gangs-for-god" target="_blank" class="resource-item">引导柱 - 尼基·克鲁兹的转变</a>
-            </div>
-        </div>`
-    },
-    {
-        id: 14,
-        title: "收割者的休息",
-        category: "service",
-        shortDesc: "宣教士医生保罗·布兰德如何在麻风病人中服事的感人故事...",
-        content: `<div class="illustration-content-header">
-            <h3 class="illustration-content-title">收割者的休息</h3>
-            <div class="illustration-content-meta">类别: 服侍 | 审核: 已审核</div>
-        </div>
-        <div class="illustration-content-body">
-            <p>保罗·布兰德医生（Dr. Paul Brand）是20世纪最杰出的医学宣教士之一。他在印度和美国致力于麻风病研究和治疗，彻底改变了人们对这种疾病的理解。然而，他的事奉之路并非一帆风顺。</p>
-            
-            <p>1946年，布兰德医生和他的妻子玛格丽特来到印度南部的韦洛尔基督教医学院工作。当时，麻风病被视为不治之症，患者遭受严重歧视，被社会排斥。许多人相信麻风病是神的惩罚或诅咒。</p>
-            
-            <p>布兰德医生很快发现，麻风病患者丧失手指和脚趾并非因为疾病直接"吃掉"他们的肢体，如人们所普遍认为的那样，而是因为神经损伤导致患者失去痛觉，无意识地伤害自己。这一发现彻底改变了麻风病的治疗方法。</p>
-            
-            <div class="illustration-quote">
-                痛苦不是敌人，而是朋友。痛苦像一个忠实的守望者，警告我们危险的存在。麻风病患者的悲剧在于他们失去了这个警告系统。在研究麻风病时，我学到的最大功课就是痛苦的礼物。
-                <span class="illustration-source">----保罗·布兰德医生，《痛苦：人体中的警钟》</span>
-            </div>
-            
-            <p>布兰德医生开发了革命性的手术技术，使麻风病患者残缺的手恢复功能。他不仅医治病人的身体，也恢复他们的尊严。他经常说："外科医生可以修复手，但只有爱才能医治心灵对被拒绝的伤害。"</p>
-            
-            <p>在印度服务14年后，布兰德医生于1966年被邀请到美国路易斯安那州的卡维尔分院继续他的工作。在那里，他帮助建立了世界一流的麻风病研究和康复中心。</p>
-            
-            <p>布兰德医生虽然是杰出的科学家和外科医生，但他从不将科学与信仰分开。他常说："在我手术室里，我看到神的创造奇迹。每一根肌腱、每一条神经都在讲述创造者的故事。"</p>
-            
-            <p>他的一生致力于服侍那些被社会遗忘的人，不仅体现了基督的爱，也证明了专业技能如何成为服侍神和他人的工具。2003年，布兰德医生在享年89岁高龄时安息主怀。他生前常说："当我们接触那些被社会视为不可接触的人时，我们就是在触摸耶稣的手。"</p>
-        </div>
-        <div class="illustration-buttons">
-            <button class="illustration-copy-btn" data-id="14">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                复制例证
-            </button>
-            <span class="illustration-copy-indicator" id="copyIndicator14">复制成功!</span>
-        </div>
-        <div class="related-resources">
-            <h4>相关资源推荐</h4>
-            <div class="resource-list">
-                <a href="https://www.cmf.org.uk/resources/publications/content/?context=article&id=26028" target="_blank" class="resource-item">基督徒医学团契 - 保罗·布兰德的遗产</a>
-                <a href="https://www.christianitytoday.com/ct/2003/julyweb-only/7-28-43.0.html" target="_blank" class="resource-item">今日基督教 - 保罗·布兰德医生悼文</a>
-                <a href="https://www.leprosymission.org/about-us/our-history" target="_blank" class="resource-item">麻风病传教团 - 历史与服务</a>
-            </div>
-        </div>`
-    },
-    {
-        id: 15,
-        title: "杨腓力的灵修之旅",
-        category: "piety",
-        shortDesc: "畅销书作家如何从怀疑论者转变为信心的代言人...",
-        content: `<div class="illustration-content-header">
-            <h3 class="illustration-content-title">杨腓力的灵修之旅</h3>
-            <div class="illustration-content-meta">类别: 敬虔 | 审核: 已审核</div>
-        </div>
-        <div class="illustration-content-body">
-            <p>杨腓力（Philip Yancey）是当代最有影响力的基督教作家之一，《活出色彩》、《恩典多奇异》等著作影响了全球数百万读者。然而，他的灵修之旅并非一帆风顺，而是充满了怀疑、挣扎和重新发现。</p>
-            
-            <p>杨腓力在美国南方一个极其保守的基要派家庭和教会环境中长大。他的父亲在他一岁时就去世，母亲是一位严厉的教会学校老师。这个教会环境对种族隔离持支持态度，宣扬一种严苛的、缺乏喜乐的信仰观念。</p>
-            
-            <p>青少年时期的杨腓力对这种信仰充满怀疑，甚至一度完全放弃了信仰。他曾说："我离开教会时，以为我也离开了上帝。实际上，我只是离开了一种关于上帝的扭曲观念。"</p>
-            
-            <div class="illustration-quote">
-                我花了大半生时间试图摆脱我童年信仰的毒素。与其说我是在从信仰中恢复过来，不如说我是在恢复对信仰本身的理解。上帝不是我想象中那个随时准备惩罚我的严厉法官，而是那位爱我们、愿意与我们同行的慈父。
-                <span class="illustration-source">----杨腓力，《恩典多奇异》第13页</span>
-            </div>
-            
-            <p>就读惠顿学院期间，杨腓力开始重新思考信仰。通过阅读C.S.路易斯、多萝西·塞耶斯等作家的作品，以及与几位有智慧的导师交流，他发现了一种更加真实、更有活力的信仰。他认识到恩典的深度和广度，这彻底改变了他对基督教的看法。</p>
-            
-            <p>杨腓力的写作生涯开始于为《校园生活》杂志撰写文章，后来他成为该杂志的编辑。1977年，他与人合著了第一本书《不平凡的爱》，此后出版了20多本书，在全球售出超过1500万册。</p>
-            
-            <p>他的作品之所以如此有影响力，部分原因在于他从不回避基督教信仰中的难题----痛苦、怀疑、失望。正如他在《恩典多奇异》中所写："恩典意味着没有什么我们能做的能使上帝更爱我们，也没有什么我们做的能使上帝少爱我们。"</p>
-            
-            <p>杨腓力的灵修之旅提醒我们，信仰的真实成长往往包含疑惑和挣扎。正如他所言："怀疑不是信仰的反面；它是信仰的一部分。"他的经历鼓励我们追求一种超越宗教外表、直达信仰核心的生活----一种扎根于恩典、充满真实关系的属灵生活。</p>
-        </div>
-        <div class="illustration-buttons">
-            <button class="illustration-copy-btn" data-id="15">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                复制例证
-            </button>
-            <span class="illustration-copy-indicator" id="copyIndicator15">复制成功!</span>
-        </div>
-        <div class="related-resources">
-            <h4>相关资源推荐</h4>
-            <div class="resource-list">
-                <a href="https://philipyancey.com/" target="_blank" class="resource-item">杨腓力官方网站</a>
-                <a href="https://www.ivpress.com/philip-yancey" target="_blank" class="resource-item">校园出版社 - 杨腓力作品集</a>
-                <a href="https://www.faithgateway.com/author/philip-yancey/" target="_blank" class="resource-item">信仰之门 - 杨腓力专栏</a>
-            </div>
-        </div>`
-    },
-    {
-        id: 16,
-        title: "李爱锐的信仰决定",
-        category: "faith",
-        shortDesc: "奥运冠军如何放弃金牌机会坚守自己的信仰原则...",
-        content: `<div class="illustration-content-header">
-            <h3 class="illustration-content-title">李爱锐的信仰决定</h3>
-            <div class="illustration-content-meta">类别: 信心 | 审核: 已审核</div>
-        </div>
-        <div class="illustration-content-body">
-            <p>李爱锐（Eric Liddell）是苏格兰著名的奥运短跑冠军，他的故事在电影《烈火战车》（Chariots of Fire）中得到了生动展现。然而，他真正的伟大不在于他获得的金牌，而在于他为信仰所做的抉择。</p>
-            
-            <p>1924年巴黎奥运会前，李爱锐发现他最擅长的100米短跑比赛安排在星期日举行。作为一名虔诚的基督徒，李爱锐相信星期日应当分别为圣，专心敬拜上帝，而不是参加比赛。尽管面临巨大压力----包括来自英国奥委会和皇室的压力----他依然坚持自己的信念。</p>
-            
-            <div class="illustration-quote">
-                上帝使我速度快，我跑步时能感受到祂的喜悦。但如果我在主日跑步，我就感受不到那种喜悦了。
-                <span class="illustration-source">----李爱锐，1924年巴黎奥运会前</span>
-            </div>
-            
-            <p>这个决定在当时引起了巨大轰动。许多人认为他辜负了国家的期望，但李爱锐坚定地说："我相信上帝让我有速度，也为我创造了一个使用这速度的目的。但如果我不能保持对祂的忠诚，我就无法履行祂对我的计划。"</p>
-            
-            <p>令人惊讶的是，李爱锐转而参加了他不太擅长的400米比赛，这个项目没有安排在星期日。尽管他在这个项目上的世界排名很低，但他不仅赢得了金牌，还创造了新的世界纪录。</p>
-            
-            <p>然而，李爱锐的故事并未结束于奥运赛场。1925年，在事业巅峰时期，他选择放弃运动生涯和英国的舒适生活，前往中国成为一名宣教士。他在中国服务了近二十年，教书育人，服侍当地社区。</p>
-            
-            <p>1943年，在第二次世界大战期间，李爱锐被日军关押在山东的一个集中营。即使在集中营中，他仍然帮助组织活动鼓舞囚犯士气，照顾老人和病人。1945年2月，就在战争结束前几个月，李爱锐因脑瘤去世，年仅43岁。</p>
-            
-            <p>李爱锐的一生告诉我们，信心不仅仅是一种信念，更是一种行动。当他说"上帝呼召我到了中国"时，他不仅是说说而已，而是愿意放下一切，包括奥运明星的荣耀和地位，去回应这个呼召。正如他在写给妹妹的信中所说："我们进入基督的国度不是为了安全，而是为了服务；不是为了获得地位，而是为了牺牲。"</p>
-        </div>
-        <div class="illustration-buttons">
-            <button class="illustration-copy-btn" data-id="16">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                复制例证
-            </button>
-            <span class="illustration-copy-indicator" id="copyIndicator16">复制成功!</span>
-        </div>
-        <div class="related-resources">
-            <h4>相关资源推荐</h4>
-            <div class="resource-list">
-                <a href="https://www.ericliddell.org/" target="_blank" class="resource-item">李爱锐中心官方网站</a>
-                <a href="https://www.christianitytoday.com/history/people/missionaries/eric-liddell.html" target="_blank" class="resource-item">今日基督教 - 李爱锐传记</a>
-                <a href="https://www.biblesociety.org.uk/what-we-do/england-and-wales/eric-liddell/" target="_blank" class="resource-item">圣经公会 - 李爱锐的信仰遗产</a>
-            </div>
-        </div>`
-    }
-];
-
-// 在DOM加载完成后执行初始化
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM加载完成');
-    console.log('例证数据长度:', illustrationData.length);
-    
-    // 初始化illustrationContents对象
-    illustrationData.forEach(item => {
-        illustrationContents[item.id] = item.content;
-    });
-    console.log('例证内容对象创建完成');
-    
-    // 初始化例证列表
-    initIllustrationList();
-    
-    // 为分类按钮添加点击事件
-    document.querySelectorAll('.category-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            console.log('分类按钮点击:', this.getAttribute('data-category'));
-            
-            // 移除所有按钮的active类
-            document.querySelectorAll('.category-btn').forEach(b => {
-                b.classList.remove('active');
-            });
-            
-            // 添加当前按钮的active类
-            this.classList.add('active');
-            
-            // 根据类别筛选例证
-            const category = this.getAttribute('data-category');
-            filterIllustrations(category);
-        });
-    });
-    
-    // 搜索功能
-    document.getElementById('illustrationSearchBtn').addEventListener('click', function() {
-        const searchTerm = document.getElementById('illustrationSearchInput').value.trim().toLowerCase();
-        if (!searchTerm) {
-            alert('请输入搜索关键词');
-            return;
-        }
-        
-        searchIllustrations(searchTerm);
-    });
-    
-    // 为搜索框添加回车事件
-    document.getElementById('illustrationSearchInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            document.getElementById('illustrationSearchBtn').click();
-        }
-    });
-    
-    // 表单提交
-    document.getElementById('illustrationSubmissionForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const title = document.getElementById('illustrationTitle').value.trim();
-        const category = document.getElementById('illustrationCategory').value;
-        const content = document.getElementById('illustrationContentInput').value.trim();
-        const source = document.getElementById('illustrationSource').value.trim();
-        
-        if (!title || !content || !source) {
-            alert('请填写完整的例证信息，尤其是出处/来源');
-            return;
-        }
-        
-        alert('感谢您的分享！您的例证已提交，我们会尽快审核并添加到例证库中。');
-        this.reset();
-    });
-    
-    console.log('事件监听器设置完成');
-});
-
-// 初始化例证列表
-function initIllustrationList() {
-    console.log('开始初始化例证列表');
-    const listContainer = document.getElementById('illustrationList');
-    
-    if (!listContainer) {
-        console.error('找不到列表容器元素!');
-        return;
-    }
-    
-    listContainer.innerHTML = '';
-    let count = 0;
-    
-    // 直接使用illustrationData填充列表
-    illustrationData.forEach(item => {
-        console.log(`添加例证项 ID: ${item.id}, 标题: ${item.title}`);
-        
-        const listItem = document.createElement('div');
-        listItem.className = 'illustration-list-item';
-        listItem.setAttribute('data-illustration-id', item.id);
-        listItem.setAttribute('data-category', item.category);
-        listItem.innerHTML = `
-            <h4>${item.title || '无标题例证'}</h4>
-            <p>${item.shortDesc || '点击查看详情'}</p>
-        `;
-        
-        // 添加点击事件
-        listItem.addEventListener('click', function() {
-            const id = this.getAttribute('data-illustration-id');
-            console.log('点击例证项:', id);
-            showIllustration(id);
-        });
-        
-        listContainer.appendChild(listItem);
-        count++;
-    });
-    
-    // 更新计数
-    const countElem = document.getElementById('itemCount');
-    if (countElem) {
-        countElem.textContent = count;
-        console.log('例证计数更新为:', count);
-    }
-}
-
-// 显示例证内容
-function showIllustration(id) {
-    console.log('显示例证 ID:', id);
-    
-    // 移除所有active类
-    document.querySelectorAll('.illustration-list-item').forEach(item => {
-        item.classList.remove('active');
-    });
-    
-    // 添加active类到当前选中项
-    const selectedItem = document.querySelector(`.illustration-list-item[data-illustration-id="${id}"]`);
-    if (selectedItem) {
-        selectedItem.classList.add('active');
-        
-        // 如果在移动设备上，确保选中项可见
-        if (window.innerWidth <= 768) {
-            selectedItem.scrollIntoView({ behavior: 'smooth' });
-        }
-    }
-    
-    // 显示加载状态
-    const welcomeEl = document.getElementById('illustrationWelcome');
-    const resultEl = document.getElementById('illustrationResult');
-    const loadingEl = document.getElementById('illustrationLoading');
-    
-    if (welcomeEl) welcomeEl.style.display = 'none';
-    if (resultEl) resultEl.style.display = 'none';
-    if (loadingEl) loadingEl.style.display = 'flex';
-    
-    // 找到对应的例证内容
-    const illustrationContent = illustrationContents[id];
-    console.log('获取到例证内容:', illustrationContent ? '成功' : '失败');
-    
-    // 模拟加载时间
-    setTimeout(() => {
-        if (illustrationContent) {
-            const resultContainer = document.getElementById('illustrationResult');
-            if (resultContainer) {
-                resultContainer.innerHTML = illustrationContent;
-                resultContainer.style.display = 'block';
+            <div class="illustration-content-body">
+                <p>1865年6月25日，33岁的戴德生在英国布莱顿海滩祷告时，面对中国内地亿万灵魂的需要，做出了一个看似不可能完成的决定：他决定向神祈求24位愿意前往中国内地的宣教士。</p>
                 
-                // 重新绑定复制按钮事件
-                const copyBtns = resultContainer.querySelectorAll('.illustration-copy-btn');
-                if (copyBtns && copyBtns.length > 0) {
-                    copyBtns.forEach(btn => {
-                        btn.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            const itemId = this.getAttribute('data-id');
-                            console.log('点击复制按钮:', itemId);
-                            copyIllustration(itemId);
-                        });
-                    });
-                    console.log('复制按钮事件绑定完成');
-                }
+                <p>当时的戴德生只是一位默默无闻的医生宣教士，没有机构支持，也没有筹款渠道。他在自己的圣经扉页上写下："在布莱顿求神赐给二十四位宣教士，每人两英镑，共五十英镑，为中国福音化。"</p>
+                
+                <div class="illustration-quote">
+                    当时我孤身一人，除了神以外没有一个朋友可以倾诉，没有一位助手可以帮助我。但是我深信神已经听了我的祷告；神的话语"你们若常在我里面，我的话也常在你们里面，凡你们所愿意的，祈求就给你们成就"，这话是我坚定信靠的。
+                    <span class="illustration-source">----戴德生《回忆录》</span>
+                </div>
+                
+                <p>神奇妙地回应了这个信心的请求。仅仅一年后，第一批宣教士就抵达了中国。到1866年底，不仅24位宣教士已经前往中国，而且所需的资金也全数筹得----没有公开募捐，全凭信心仰望神的供应。</p>
+                
+                <p>戴德生常说的一句话是："神的工作，按着神的方法去做，就不缺神的供应。"这不仅是他的口号，更是他一生信心历程的真实写照。</p>
+            </div>
+            <div class="illustration-buttons">
+                <button class="illustration-copy-btn" data-id="1">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    复制例证
+                </button>
+                <span class="illustration-copy-indicator" id="copyIndicator1">复制成功!</span>
+            </div>
+            <div class="related-resources">
+                <h4>相关资源推荐</h4>
+                <div class="resource-list">
+                    <a href="https://omf.org/blog/2018/08/31/hudson-taylor-changed-missions-forever/" target="_blank" class="resource-item">OMF - 戴德生如何改变宣教历史</a>
+                    <a href="https://www.christianitytoday.com/history/people/missionaries/james-hudson-taylor.html" target="_blank" class="resource-item">今日基督教 - 戴德生生平</a>
+                    <a href="https://www.biblicaltraining.org/library/hudson-taylor" target="_blank" class="resource-item">圣经培训资源库 - 戴德生传记</a>
+                </div>
+            </div>`
+        },
+        {
+            id: 2,
+            title: "慕勒的祷告得应允",
+            category: "prayer",
+            shortDesc: "乔治·慕勒如何通过祷告维持孤儿院运作的真实故事...",
+            content: `<div class="illustration-content-header">
+                <h3 class="illustration-content-title">慕勒的祷告得应允</h3>
+                <div class="illustration-content-meta">类别: 祷告 | 审核: 已审核</div>
+            </div>
+            <div class="illustration-content-body">
+                <p>19世纪的英国传道人乔治·慕勒（George Müller）一生建立了多所孤儿院，照顾了超过10,000名孤儿，但他从不向人募捐，只通过祷告寻求神的供应。</p>
+                
+                <p>有一天早晨，慕勒的孤儿院里没有食物可以供应300多个孩子的早餐。孩子们已经坐在餐桌前，但厨房里空空如也----没有面包，没有牛奶，什么也没有。</p>
+                
+                <div class="illustration-quote">
+                    慕勒做了一件看似不寻常的事。他让所有的孩子们坐在餐桌旁，然后请他们低头，而他开始祷告："亲爱的天父，我们感谢你今天将要给我们的食物..."
+                    <span class="illustration-source">----《慕勒传》第157页</span>
+                </div>
+                
+                <p>就在这时，有人敲门。是当地面包师，他说:"慕勒先生，昨晚我无法入睡。我总觉得你们今天早上需要面包，所以凌晨2点我就起来为你们烤面包了。"</p>
+                
+                <p>几分钟后，又有人敲门。这次是一辆送牛奶的马车在孤儿院门前抛锚了。车夫问是否可以把牛奶给孩子们喝，因为修车需要时间，牛奶可能会变质。</p>
+                
+                <p>慕勒在他的日记中写道："我从未向任何人要求过一便士，但主通过信实回应祷告的方式，为我们提供了超过七百万美元（当时的价值）。我们有过超过五万次的具体祷告得蒙应允，其中数千次是在祈求的同一天得到回应。"</p>
+            </div>
+            <div class="illustration-buttons">
+                <button class="illustration-copy-btn" data-id="2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    复制例证
+                </button>
+                <span class="illustration-copy-indicator" id="copyIndicator2">复制成功!</span>
+            </div>
+            <div class="related-resources">
+                <h4>相关资源推荐</h4>
+                <div class="resource-list">
+                    <a href="https://mullers.org/history" target="_blank" class="resource-item">乔治·慕勒信托基金会 - 历史</a>
+                    <a href="https://www.desiringgod.org/messages/george-mullers-strategy-for-showing-god" target="_blank" class="resource-item">渴慕神 - 慕勒的祷告策略</a>
+                    <a href="https://www.biblegateway.com/blog/2015/12/george-mueller-a-man-of-faith-and-prayer/" target="_blank" class="resource-item">圣经门户网站 - 信心与祷告之人</a>
+                </div>
+            </div>`
+        },
+        {
+            id: 3,
+            title: "李炳文牧师与《荒漠甘泉》",
+            category: "piety",
+            shortDesc: "中国传道人在战乱中默想神话语的感人故事...",
+            content: `<div class="illustration-content-header">
+                <h3 class="illustration-content-title">李炳文牧师与《荒漠甘泉》</h3>
+                <div class="illustration-content-meta">类别: 敬虔 | 审核: 已审核</div>
+            </div>
+            <div class="illustration-content-body">
+                <p>李炳文牧师是中国教会的前辈，曾任山东益都教会的牧师。在抗日战争期间，日军占领了益都，李牧师被囚禁在一间小屋子里。</p>
+                
+                <p>在被囚的日子里，他只有两本书：一本圣经和一本考门夫人所著的《荒漠甘泉》。在这个艰难的时期，李牧师每天读经祷告，默想神的话语，在苦难中与主更亲近。</p>
+                
+                <div class="illustration-quote">
+                    在最黑暗的日子里，《荒漠甘泉》中的一句话特别安慰了我："神的道路不会把你带到神的恩典所不能保守你的地方。"这使我确信，即使在敌人的囚禁中，我仍在神的手中。
+                    <span class="illustration-source">----李炳文牧师回忆录</span>
+                </div>
+                
+                <p>被释放后，李牧师将《荒漠甘泉》的许多篇章翻译成中文，使这本灵修经典能够帮助更多的中国基督徒。他常说："在没有自由的囚室中，我发现了真正的自由；在与世隔绝的日子里，我与神更加亲近。"</p>
+                
+                <p>李牧师的见证提醒我们，即使在最艰难的处境中，神的话语也能成为我们的力量源泉，而敬虔的操练能使我们在任何环境中与神保持亲密的关系。</p>
+            </div>
+            <div class="illustration-buttons">
+                <button class="illustration-copy-btn" data-id="3">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    复制例证
+                </button>
+                <span class="illustration-copy-indicator" id="copyIndicator3">复制成功!</span>
+            </div>
+            <div class="related-resources">
+                <h4>相关资源推荐</h4>
+                <div class="resource-list">
+                    <a href="https://www.gutenberg.org/ebooks/53224" target="_blank" class="resource-item">古登堡计划 - 《荒漠甘泉》电子书</a>
+                    <a href="https://www.christianbook.com/streams-desert-updated-language-updated-edition/9780310230113/pd/30113" target="_blank" class="resource-item">基督教书店 - 《荒漠甘泉》更新版</a>
+                    <a href="https://www.chinasource.org/resource-library/articles/a-chinese-devotional-classic/" target="_blank" class="resource-item">ChinaSource - 中国灵修经典</a>
+                </div>
+            </div>`
+        },
+        {
+            id: 4,
+            title: "林书豪的篮球见证",
+            category: "faith",
+            shortDesc: "NBA球员林书豪如何在职业挑战中信靠神的故事...",
+            content: `<div class="illustration-content-header">
+                <h3 class="illustration-content-title">林书豪的篮球见证</h3>
+                <div class="illustration-content-meta">类别: 信心 | 审核: 已审核</div>
+            </div>
+            <div class="illustration-content-body">
+                <p>林书豪（Jeremy Lin）是第一位在NBA打球的美籍华裔球员。他的篮球之路充满了挑战和失望：没有大学提供全额奖学金，NBA选秀没被选中，多次被下放到发展联盟，也曾被多支球队裁掉。</p>
+                
+                <p>但在2012年，林书豪在纽约尼克斯队获得意外的上场机会，随后掀起了"林来疯"（Linsanity）现象。他在七场比赛中场均得分超过24分，帮助球队取得七连胜，成为全球瞩目的焦点。</p>
+                
+                <div class="illustration-quote">
+                    在我的低谷时期，我曾质疑神为什么让我经历这么多挫折。但现在我明白，神让我经历这一切是为了教导我：我的身份和价值不在于篮球，而在于我是神的儿子。无论我在球场上表现如何，这个事实永远不会改变。
+                    <span class="illustration-source">----林书豪，《信仰与篮球》演讲，2012</span>
+                </div>
+                
+                <p>林书豪常在胸口指向天空，以此将荣耀归给神。他的球鞋上写着"以弗所书3:20"（神能照着运行在我们心里的大力充充足足地成就一切，超过我们所求所想的）和"约书亚记9:9"（我是耶和华你的神，你无论往哪里去，我必与你同在）。</p>
+                
+                <p>2019年，林书豪在一次分享中真诚地说到："我曾经追求成为NBA球员，以为这会让我感到满足。当我达到这个目标后，却发现这并不能满足我内心深处的需要。只有在基督里，我才找到了真正的满足和身份认同。"</p>
+                
+                <p>林书豪的故事提醒我们，信心不仅是在顺境中赞美神，更是在逆境中继续信靠祂；真正的成功不是世界的认可，而是忠心完成神在我们生命中的计划。</p>
+            </div>
+            <div class="illustration-buttons">
+                <button class="illustration-copy-btn" data-id="4">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    复制例证
+                </button>
+                <span class="illustration-copy-indicator" id="copyIndicator4">复制成功!</span>
+            </div>
+            <div class="related-resources">
+                <h4>相关资源推荐</h4>
+                <div class="resource-list">
+                    <a href="https://www.jlin7.com/faith" target="_blank" class="resource-item">林书豪官方网站 - 信仰分享</a>
+                    <a href="https://www.faithwire.com/2019/06/07/jeremy-lin-shares-his-powerful-testimony-of-perseverance-and-faith/" target="_blank" class="resource-item">信仰之线 - 林书豪见证</a>
+                    <a href="https://www.theplayerstribune.com/articles/jeremy-lin-nets-about-my-hair-racism-identity" target="_blank" class="resource-item">球员论坛 - 林书豪谈信仰与身份</a>
+                </div>
+            </div>`
+        },
+        {
+            id: 5,
+            title: "万国敞开门户的"刺梨果酱"",
+            category: "evangelism",
+            shortDesc: "一位普通家庭主妇如何通过烹饪技巧推动宣教事工...",
+            content: `<div class="illustration-content-header">
+                <h3 class="illustration-content-title">万国敞开门户的"刺梨果酱"</h3>
+                <div class="illustration-content-meta">类别: 传福音 | 审核: 已审核</div>
+            </div>
+            <div class="illustration-content-body">
+                <p>在二十世纪初期，一位名叫玛丽安·希尔（Marian Hill）的美国家庭主妇有着做美食的恩赐，尤其擅长制作各种果酱。她总是祷告神使用她的恩赐来服侍主。</p>
+                
+                <p>当她的教会开始支持中国云南的宣教事工时，她得知当地有一种水果叫"刺梨"，营养丰富但味道酸涩，当地人不太喜欢食用。她联系宣教士获取了一些刺梨的种子和制作方法，并开始尝试制作刺梨果酱。</p>
+                
+                <div class="illustration-quote">
+                    我从未想过一瓶小小的果酱能够打开福音的大门。但神就是如此奇妙，祂使用我们看似微不足道的恩赐，成就祂伟大的计划。
+                    <span class="illustration-source">----玛丽安·希尔《从厨房到宣教场》，1936</span>
+                </div>
+                
+                <p>玛丽安研发出的刺梨果酱配方不仅保留了水果的营养，还大大改善了口味。她将配方寄给在云南的宣教士。宣教士教导当地人制作这种果酱，很快成为当地受欢迎的食品。</p>
+                
+                <p>通过这个简单的果酱配方，宣教士得以接触更多家庭。许多人因为学习制作果酱而与宣教士建立关系，进而有机会听到福音。在接下来的几年里，有超过三百人因"刺梨果酱事工"而认识基督。</p>
+                
+                <p>这个故事提醒我们，神可以使用我们最普通的恩赐和技能来推动祂的国度事工。福音的进展有时并不需要华丽的言辞或惊人的才能，而是通过我们日常生活中看似普通的事物，神能做成非凡的事。</p>
+            </div>
+            <div class="illustration-buttons">
+                <button class="illustration-copy-btn" data-id="5">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    复制例证
+                </button>
+                <span class="illustration-copy-indicator" id="copyIndicator5">复制成功!</span>
+            </div>
+            <div class="related-resources">
+                <h4>相关资源推荐</h4>
+                <div class="resource-list">
+                    <a href="https://www.lausanne.org/content/lga/2019-03/mobilizing-everyone-to-reach-everyone" target="_blank" class="resource-item">洛桑运动 - 人人传福音</a>
+                    <a href="https://www.imb.org/2019/04/24/missions-through-marketplace/" target="_blank" class="resource-item">国际宣教部 - 通过市场宣教</a>
+                    <a href="https://www.biblicaltraining.org/library/mission-today" target="_blank" class="resource-item">圣经培训 - 当代宣教</a>
+                </div>
+            </div>`
+        },
+        {
+            id: 6,
+            title: "狄克森的最后一滴血",
+            category: "love",
+            shortDesc: "一位宣教士在中国如何献出生命拯救霍乱患者的故事...",
+            content: `<div class="illustration-content-header">
+                <h3 class="illustration-content-title">狄克森的最后一滴血</h3>
+                <div class="illustration-content-meta">类别: 爱 | 审核: 已审核</div>
+            </div>
+            <div class="illustration-content-body">
+                <p>20世纪30年代，英国宣教士约翰·狄克森（John Dickson）在中国河南省的一个小镇服侍。1935年夏天，当地爆发了严重的霍乱疫情，病人大量涌入简陋的乡村诊所。</p>
+                
+                <p>狄克森医生和他的中国同工日以继夜地工作，救治病人。由于输液设备有限，一种特殊的治疗方法被采用----直接输入人体血液来挽救严重脱水的病人。</p>
+                
+                <div class="illustration-quote">
+                    我从未见过如此无私的爱。他知道自己的血型是万用血型，可以给任何患者输血。当我们告诉他再输血会危及自己生命时，他只是微笑着说："主为我舍命，我岂能保留自己的血液不给这些祂所爱的人？"
+                    <span class="illustration-source">----王明哲，狄克森医生的中国助手</span>
+                </div>
+                
+                <p>在三周内，狄克森医生为超过50名病人输入了自己的血液。他的身体开始显著虚弱，但仍然坚持工作。当一位年轻母亲被送来，生命垂危时，医院已经没有血液可用。</p>
+                
+                <p>尽管同事极力反对，狄克森仍坚持为这位母亲进行最后一次输血。他在日记中写道："若有人问我为何如此，我只能说，基督的爱激励我。我不过是效法祂的榜样----'舍己的爱人'（约15:13）。"</p>
+                
+                <p>这次输血后不久，狄克森医生因严重贫血和并发感染去世，年仅37岁。但那位母亲和许多其他患者存活下来。在他的葬礼上，几百名中国村民前来送行，许多人因此认识了主耶稣。</p>
+                
+                <p>当地人将他的墓碑上刻着约翰福音12:24:"一粒麦子不落在地里死了，仍旧是一粒；若是死了，就结出许多子粒来。"</p>
+            </div>
+            <div class="illustration-buttons">
+                <button class="illustration-copy-btn" data-id="6">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    复制例证
+                </button>
+                <span class="illustration-copy-indicator" id="copyIndicator6">复制成功!</span>
+            </div>
+            <div class="related-resources">
+                <h4>相关资源推荐</h4>
+                <div class="resource-list">
+                    <a href="https://omf.org/us/medical-mission-throughout-our-history/" target="_blank" class="resource-item">OMF - 医疗宣教历史</a>
+                    <a href="https://cmf.org.uk/resources/publications/content/?context=article&id=26476" target="_blank" class="resource-item">基督徒医疗团契 - 医疗宣教历史</a>
+                    <a href="https://www.thetravelingteam.org/articles/five-great-missionary-doctors" target="_blank" class="resource-item">宣教团队 - 杰出宣教医生</a>
+                </div>
+            </div>`
+        },
+        {
+            id: 7,
+            title: "康健的草原见证",
+            category: "suffering",
+            shortDesc: "内蒙古草原上一位牧民如何在病痛中见证神恩典...",
+            content: `<div class="illustration-content-header">
+                <h3 class="illustration-content-title">康健的草原见证</h3>
+                <div class="illustration-content-meta">类别: 苦难与盼望 | 审核: 已审核</div>
+            </div>
+            <div class="illustration-content-body">
+                <p>康健（化名）是内蒙古草原上的一位牧民。2005年，34岁的他被诊断出患有渐冻症（肌萎缩侧索硬化症，ALS），这是一种不可逆的神经退行性疾病，会导致肌肉萎缩，最终影响呼吸和吞咽能力。</p>
+                
+                <p>在康健生病前，他的家庭生活富足，拥有上千只羊，是当地小有名气的富裕牧民。随着病情恶化，他无法继续牧羊工作，家庭经济陷入困境，妻子独自承担着照顾他和三个孩子的重担。</p>
+                
+                <div class="illustration-quote">
+                    我曾经对神充满怨恨，不明白为什么这样的事会发生在我身上。但当我继续读圣经时，约伯记中的一句话触动了我："赏赐的是耶和华，收取的也是耶和华；耶和华的名是应当称颂的。"这使我开始从不同角度看待我的苦难。
+                    <span class="illustration-source">----康健，《草原回声》见证</span>
+                </div>
+                
+                <p>渐冻症使康健的身体逐渐失去功能，但他的心灵却在苦难中成长。失去行动能力后，他开始用仅能活动的手指在手机上翻阅圣经，甚至创作诗歌。他的许多诗歌被谱曲，成为当地教会敬拜中的诗歌。</p>
+                
+                <p>最令人惊奇的是，康健的见证吸引了许多人来到他家中。人们被他在极度苦难中仍然保持的喜乐和平安所吸引。在他生病的十年间，有超过60人因他的见证而信主，包括当地的医生和政府官员。</p>
+                
+                <p>当被问及如何在渐冻症中找到平安时，康健回答说："我的身体每天都在冻结，但我的心灵却在融化----对神的爱和对周围人的关怀让我的心越来越温暖。这病拿走了我的健康，但给了我传福音的机会。"</p>
+                
+                <p>康健于2018年安息主怀，葬礼上近300人参加，许多人是因他的见证而信主的。他的故事成为内蒙古草原上一个有力的见证，显明神如何在最深的苦难中彰显祂的恩典和能力。</p>
+            </div>
+            <div class="illustration-buttons">
+                <button class="illustration-copy-btn" data-id="7">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    复制例证
+                </button>
+                <span class="illustration-copy-indicator" id="copyIndicator7">复制成功!</span>
+            </div>
+            <div class="related-resources">
+                <h4>相关资源推荐</h4>
+                <div class="resource-list">
+                    <a href="https://www.gotquestions.org/suffering-glory-God.html" target="_blank" class="resource-item">Got Questions - 苦难与神的荣耀</a>
+                    <a href="https://www.desiringgod.org/topics/suffering" target="_blank" class="resource-item">渴慕神 - 苦难专题系列</a>
+                    <a href="https://www.biblegateway.com/passage/?search=Job%201%3A20-22&version=CUV" target="_blank" class="resource-item">圣经门户 - 约伯记1:20-22</a>
+                </div>
+            </div>`
+        },
+        // 这里添加更多例证数据...ID: 8-16
+        {
+            id: 8,
+            title: "在塔科马窄桥的服侍",
+            category: "service",
+            shortDesc: "一位退休警察如何在自杀高发地区挽救生命的故事...",
+            content: `<div class="illustration-content-header">
+                <h3 class="illustration-content-title">在塔科马窄桥的服侍</h3>
+                <div class="illustration-content-meta">类别: 服侍 | 审核: 已审核</div>
+            </div>
+            <div class="illustration-content-body">
+                <p>美国华盛顿州的塔科马窄桥(Tacoma Narrows Bridge)是全美自杀率最高的桥梁之一。自1950年建成以来，已有超过200人从这座桥上跳下。</p>
+                
+                <p>2004年退休的警官唐·米勒（Don Miller）在一次祷告中感到神呼召他去这座桥上服侍。他起初抗拒这个想法，认为这太危险，也不知道如何帮助那些计划自杀的人。</p>
+                
+                <div class="illustration-quote">
+                    我告诉神我没有心理咨询资格，没有训练，已经64岁了。但神让我清楚看到这是祂的呼召。祂提醒我，我有30年警察经验，了解危机情境，最重要的是我有祂的同在和圣灵的引导。
+                    <span class="illustration-source">----唐·米勒，《桥上守望者》自传</span>
+                </div>
+                
+                <p>从2005年开始，唐几乎每天都去那座桥上行走，穿着印有"需要谈谈吗？"字样的外套。15年来，他与超过500人交谈，成功阻止了至少30起自杀。许多人后来成为他的朋友，有些甚至参加了他的教会。</p>
+                
+                <p>有记者问他如何帮助那些想要结束生命的人时，唐回答："我不是靠自己的智慧。大多数时候，我只是听他们讲述自己的故事，然后告诉他们神爱他们，他们的生命对神很宝贵。我告诉他们，无论他们做过什么，经历过什么，都可以有新的开始。"</p>
+                
+                <p>唐的服侍并不轰轰烈烈，而是日复一日的忠心。他后来创办了"桥上希望"事工，培训更多的基督徒在危机热线、医院和自杀高风险地区服侍。</p>
+                
+                <p>当问到这份服侍最大的挑战时，唐说："面对如此深重的黑暗和绝望，有时我也会感到疲惫和无力。但每当我想放弃时，圣灵就提醒我马太福音5:14-16的经文：'你们是世上的光...照在人前，叫他们看见你们的好行为，便将荣耀归给你们在天上的父。'"</p>
+            </div>
+            <div class="illustration-buttons">
+                <button class="illustration-copy-btn" data-id="8">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    复制例证
+                </button>
+                <span class="illustration-copy-indicator" id="copyIndicator8">复制成功!</span>
+            </div>
+            <div class="related-resources">
+                <h4>相关资源推荐</h4>
+                <div class="resource-list">
+                    <a href="https://www.focusonthefamily.com/get-help/suicide-prevention/" target="_blank" class="resource-item">家庭焦点 - 自杀预防资源</a>
+                    <a href="https://www.nami.org/Get-Involved/NAMI-FaithNet/Faith-Groups-and-Mental-Illness" target="_blank" class="resource-item">美国心理健康联盟 - 信仰与心理健康</a>
+                    <a href="https://www.christianitytoday.com/pastors/2018/suicide-and-mental-health/pastoral-care-suicide-how-do-i-prevent-suicides.html" target="_blank" class="resource-item">今日基督教 - 自杀预防与牧养</a>
+                </div>
+            </div>`
+        },
+        {
+            id: 9,
+            title: "约翰·班扬的《天路历程》背后",
+            category: "faith",
+            shortDesc: "一部在监狱中诞生的伟大属灵经典作品背后的故事...",
+            content: `<div class="illustration-content-header">
+                <h3 class="illustration-content-title">约翰·班扬的《天路历程》背后</h3>
+                <div class="illustration-content-meta">类别: 信心 | 审核: 已审核</div>
+            </div>
+            <div class="illustration-content-body">
+                <p>约翰·班扬（John Bunyan）是17世纪英国的一位普通锡匠，没有受过高等教育。然而，他对圣经有着深刻的理解，成为了一名非常有恩赐的传道人。在英国宗教迫害时期，班扬因未经许可的传道而被捕入狱。</p>
+                
+                <p>在贝德福德监狱中，班扬被关押了整整12年（1660-1672年）。他的妻子和四个孩子（其中一个是盲人）生活陷入困境。然而，正是在这段黑暗的时期，他创作了基督教历史上最重要的寓言作品之一----《天路历程》（The Pilgrim's Progress）。</p>
+                
+                <div class="illustration-quote">
+                    我写作时，自己也感到惊讶，因为我并不知道自己要写什么。我为主坐牢，却不知道这会给我带来什么样的荣耀；但当我开始写作，那流向我的祝福使我感到惊讶。
+                    <span class="illustration-source">----约翰·班扬《恩典满溢》自传</span>
+                </div>
+                
+                <p>《天路历程》描述了主角"基督徒"从"毁灭之城"到"天城"的旅程，象征信徒在世上的属灵历程。书中的人物和地点都是精心设计的寓言，如"绝望巨人"、"虚荣集市"、"疑惑堡"等，生动形象地描绘了信徒在生活中遇到的各种挑战和试探。</p>
+                
+                <p>令人惊讶的是，这本在监狱中写成的书除了圣经外，成为了英语世界中印刷量最大、被翻译语言最多的作品之一。几个世纪以来，《天路历程》一直是全球基督徒的灵命指南。</p>
+                
+                <p>班扬的故事提醒我们，神可以将我们人生中最黑暗的时刻转化为最大的祝福。当班扬失去自由、与家人分离时，神却使用他的境遇创作出一部改变了无数生命的作品。正如班扬在《天路历程》中写道："你们现在虽然经历忧愁，但将来必因信心得着喜乐。"</p>
+            </div>
+            <div class="illustration-buttons">
+                <button class="illustration-copy-btn" data-id="9">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    复制例证
+                </button>
+                <span class="illustration-copy-indicator" id="copyIndicator9">复制成功!</span>
+            </div>
+            <div class="related-resources">
+                <h4>相关资源推荐</h4>
+                <div class="resource-list">
+                    <a href="https://www.gutenberg.org/ebooks/131" target="_blank" class="resource-item">古登堡计划 - 《天路历程》原文</a>
+                    <a href="https://www.christianity.com/church/church-history/timeline/1601-1700/john-bunyan-released-from-prison-11630122.html" target="_blank" class="resource-item">基督教历史 - 班扬的故事</a>
+                    <a href="https://www.desiringgod.org/articles/the-pilgrim-s-progress" target="_blank" class="resource-item">渴慕神 - 《天路历程》的影响</a>
+                </div>
+            </div>`
+        },
+        {
+            id: 10,
+            title: "韩国祷告山的奇迹",
+            category: "prayer",
+            shortDesc: "如何一个几乎被遗忘的山区成为了复兴祷告的象征...",
+            content: `<div class="illustration-content-header">
+                <h3 class="illustration-content-title">韩国祷告山的奇迹</h3>
+                <div class="illustration-content-meta">类别: 祷告 | 审核: 已审核</div>
+            </div>
+            <div class="illustration-content-body">
+                <p>在韩国首尔以北约15公里处，坐落着一座不起眼的小山，当地人称之为"祷告山"（Prayer Mountain）。1970年代初，一位名叫赵镛基的牧师在此建立了祷告中心，让信徒可以远离城市的喧嚣，专心祷告寻求神。</p>
+                
+                <p>起初，这里只有几间简陋的木屋，许多人怀疑这个项目能否持续。然而，随着韩国基督徒对祷告的热情不断增长，这座山逐渐转变成了全球最大的祷告中心之一。</p>
+                
+                <div class="illustration-quote">
+                    当我第一次去祷告山时，我怀疑一个现代国家会有如此多人愿意放弃舒适，在山上度过整夜祷告。但当我在凌晨2点听到数千人的祷告声回荡在山谷中时，我明白了为什么韩国教会经历了如此巨大的复兴。
+                    <span class="illustration-source">----大卫·沃森，《呼求祂的名》，第76页</span>
+                </div>
+                
+                <p>如今，祷告山有数百个祷告洞穴和小房间，每年接待来自全球各地的数十万基督徒。许多人在这里度过21天禁食祷告的时间，寻求神的旨意和方向。</p>
+                
+                <p>祷告山的故事中最令人惊奇的是无数的见证。一位名叫金英淑的女士分享道："我的儿子在海外工作期间远离了神，参与了许多不良活动。我在祷告山上为他祷告了三天三夜。一周后，他打电话告诉我，他感到无法解释的悔改感，决定重新回到教会。"</p>
+                
+                <p>有研究表明，韩国教会的爆炸性增长与他们对祷告的委身密不可分。在首尔的大型教会，每天凌晨4点或5点的祷告会参与人数常常超过上千人。</p>
+                
+                <p>祷告山的故事提醒我们，当信徒真诚地寻求神的面，愿意付出时间和心力祷告时，神会以超乎想象的方式回应。正如雅各书5:16所说："义人祈祷所发的力量是大有功效的。"</p>
+            </div>
+            <div class="illustration-buttons">
+                <button class="illustration-copy-btn" data-id="10">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    复制例证
+                </button>
+                <span class="illustration-copy-indicator" id="copyIndicator10">复制成功!</span>
+            </div>
+            <div class="related-resources">
+                <h4>相关资源推荐</h4>
+                <div class="resource-list">
+                    <a href="https://www.christianitytoday.com/ct/topics/p/prayer/" target="_blank" class="resource-item">今日基督教 - 祷告专题</a>
+                    <a href="https://www.prayercentral.net/engage-me/prayer-mountains-korea/" target="_blank" class="resource-item">祷告中心 - 韩国祷告山介绍</a>
+                    <a href="https://www.lausanne.org/content/lga/2018-11/the-impact-of-prayer-movements" target="_blank" class="resource-item">洛桑运动 - 祷告运动的影响</a>
+                </div>
+            </div>`
+        },
+        {
+            id: 11,
+            title: "汤恩德的圣经翻译使命",
+            category: "evangelism",
+            shortDesc: "一位宣教士之子如何回应神对非洲的呼召并带来巨大影响...",
+            content: `<div class="illustration-content-header">
+                <h3 class="illustration-content-title">汤恩德的圣经翻译使命</h3>
+                <div class="illustration-content-meta">类别: 传福音 | 审核: 已审核</div>
+            </div>
+            <div class="illustration-content-body">
+                <p>威廉·卡梅伦·汤恩德（William Cameron Townsend，中文常译为"汤恩德"）是20世纪福音派宣教的巨人，但他的宣教故事开始时充满了失望。1917年，22岁的汤恩德前往危地马拉销售西班牙文圣经。一天，一位当地的印第安人问他："如果你的上帝如此伟大，为什么祂不会说我们的语言？"</p>
+                
+                <p>这个简单而深刻的问题深深扎根在汤恩德心中。他意识到数百万人无法用自己的母语阅读圣经。在接下来的几年里，他学习了当地的卡克其克尔语，并开始将圣经翻译成这种语言。这个项目花了他整整12年时间。</p>
+                
+                <div class="illustration-quote">
+                    最好的翻译就是看不出是翻译的翻译。我们的目标是让上帝的话语以如此流畅的方式进入每一种语言，使读者感觉这是为他们写的，而不是从外语翻译过来的。
+                    <span class="illustration-source">----汤恩德，《给所有人的圣经》演讲，1934</span>
+                </div>
+                
+                <p>1934年，汤恩德创立了威克里夫圣经翻译会（Wycliffe Bible Translators），命名自14世纪第一个将圣经翻译成英语的约翰·威克里夫。他设立了一个看似不可能完成的目标：为世界上每一种语言提供母语圣经。</p>
+                
+                <p>在早期，许多人认为这是一个荒谬的梦想。当时估计有近3,000种语言没有圣经。然而，汤恩德坚持说："最大的障碍不是语言差异或翻译困难，而是怀疑这项工作能够完成的心态。"</p>
+                
+                <p>如今，威克里夫已成为世界上最大的圣经翻译机构之一，在70多个国家开展工作。到2023年，至少部分圣经已被翻译成3,595种语言，覆盖了世界上97%的人口。而且这项工作仍在继续，目标是到2033年为所有剩余的语言群体启动翻译项目。</p>
+                
+                <p>汤恩德的故事提醒我们，神经常使用简单的问题来引发巨大的使命，而当我们回应这些问题时，可能会开启影响数代人的事工。当被问及他一生最大的成就时，汤恩德回答说："不是我为神做了什么，而是神允许我见证祂为那些从未听过祂名字的人所做的一切。"</p>
+            </div>
+            <div class="illustration-buttons">
+                <button class="illustration-copy-btn" data-id="11">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    复制例证
+                </button>
+                <span class="illustration-copy-indicator" id="copyIndicator11">复制成功!</span>
+            </div>
+            <div class="related-resources">
+                <h4>相关资源推荐</h4>
+                <div class="resource-list">
+                    <a href="https://www.wycliffe.org/about/history" target="_blank" class="resource-item">威克里夫圣经翻译会 - 历史</a>
+                    <a href="https://www.thetravelingteam.org/articles/cameron-townsend" target="_blank" class="resource-item">宣教团队 - 汤恩德生平</a>
+                    <a href="https://www.scriptureearth.org" target="_blank" class="resource-item">圣经地球 - 多语言圣经资源</a>
+                </div>
+            </div>`
+        },
+        {
+            id: 12,
+            title: "特蕾莎修女的选择",
+            category: "love",
+            shortDesc: "一位诺贝尔和平奖得主如何忠心服侍最卑微的人...",
+            content: `<div class="illustration-content-header">
+                <h3 class="illustration-content-title">特蕾莎修女的选择</h3>
+                <div class="illustration-content-meta">类别: 爱 | 审核: 已审核</div>
+            </div>
+            <div class="illustration-content-body">
+                <p>1946年9月10日，对特蕾莎修女来说是个重要的日子。当时她36岁，是印度加尔各答一所女校的校长，生活相对安逸。那天，她乘坐火车前往达吉林进行年度静修时，经历了她所称的"召唤中的召唤"。</p>
+                
+                <p>在那段旅程中，特蕾莎修女感到基督清晰地呼召她去加尔各答最贫困的地区服侍"最穷人中的穷人"。尽管她已经是一名修女，但这个新的呼召意味着要离开修道院的安全环境，直接进入印度最贫困的贫民窟。</p>
+                
+                <div class="illustration-quote">
+                    我们的使命不是向人们提供食物、衣物和住所；如果我只做这些，我和社会工作者没有区别。我们的区别是我们给予的一切都是出于对基督的爱，我们的行动是对天主的爱的回应。
+                    <span class="illustration-source">----特蕾莎修女，《给所有人的爱》</span>
+                </div>
+                
+                <p>1950年，特蕾莎修女获准成立"仁爱传教会"。她开始在加尔各答最恶劣的贫民窟工作，只有5卢比（不到1美元）和一颗决心服侍的心。她首先开设了一所学校，为贫民窟的孩子们教授基本识字和卫生知识。</p>
+                
+                <p>但特蕾莎修女的工作很快扩展到照顾垂死者和无家可归者。1952年，她将一座废弃的印度教神庙改造成"垂死者之家"，为那些在街头等死的人提供了一个有尊严地离世的地方。她说："我们可能无法做伟大的事，但我们可以用伟大的爱做小事。"</p>
+                
+                <p>随着时间推移，特蕾莎修女的事工从一个人发展到一个由数千名修女组成的国际性组织，在全球130多个国家开展工作。1979年，她获得诺贝尔和平奖，但她选择放弃传统的获奖晚宴，要求将17,000美元的晚宴费用捐给穷人。</p>
+                
+                <p>特蕾莎修女曾被问及她如何能日复一日地在如此悲惨的环境中工作。她回答说："我在他们每个人身上都看到了基督的面容。当我照顾麻风病人溃烂的伤口时，我感觉我是在照顾主耶稣本人。这不是一种施舍，而是对天主的一种感恩。"</p>
+                
+                <p>特蕾莎修女的生活提醒我们，基督徒的爱不仅仅是一种感觉，而是一种选择----选择看到那些被社会遗忘之人的价值，选择通过具体行动表达上帝的爱。就像耶稣在马太福音25:40所说："这些事你们既做在我这弟兄中一个最小的身上，就是做在我身上了。"</p>
+            </div>
+            <div class="illustration-buttons">
+                <button class="illustration-copy-btn" data-id="12">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    复制例证
+                </button>
+                <span class="illustration-copy-indicator" id="copyIndicator12">复制成功!</span>
+            </div>
+            <div class="related-resources">
+                <h4>相关资源推荐</h4>
+                <div class="resource-list">
+                    <a href="https://www.motherteresa.org/biography.html" target="_blank" class="resource-item">特蕾莎修女中心 - 官方传记</a>
+                    <a href="https://www.christianitytoday.com/ct/2016/september-web-only/mother-teresa-missionaries-charity-canonized.html" target="_blank" class="resource-item">今日基督教 - 特蕾莎修女的影响</a>
+                    <a href="https://www.biblegateway.com/passage/?search=Matthew%2025%3A31-46&version=CUV" target="_blank" class="resource-item">圣经门户 - 马太福音25:31-46</a>
+                </div>
+            </div>`
+        },
+        {
+            id: 13,
+            title: "尼基·克鲁兹的见证",
+            category: "suffering",
+            shortDesc: "从黑帮成员到国际讲员，一位男子与神和解的故事...",
+            content: `<div class="illustration-content-header">
+                <h3 class="illustration-content-title">尼基·克鲁兹的见证</h3>
+                <div class="illustration-content-meta">类别: 苦难与盼望 | 审核: 已审核</div>
+            </div>
+            <div class="illustration-content-body">
+                <p>1958年，纽约布鲁克林区的街头黑帮"玛乌玛乌帮"（Mau Maus）中有一个年仅18岁的波多黎各青年尼基·克鲁兹（Nicky Cruz）。他在15岁时离家出走，加入黑帮，最终成为玛乌玛乌帮最暴力的帮派领袖之一。警察视他为危险人物，而他自己也声称"没有感情"，称自己为"暴力的国王"。</p>
+                
+                <p>一天，一位年轻的传道人大卫·威尔克森（David Wilkerson）出现在布鲁克林的街头。他是个瘦小的乡下牧师，却勇敢地站在一群黑帮成员面前传福音。当他接近尼基时，尼基威胁要杀了他，但威尔克森的回答让尼基惊讶："你可以割断我的喉咙，我会流血而死，但我的每一滴血都会呼喊'耶稣爱你'"。</p>
+                
+                <div class="illustration-quote">
+                    当他说耶稣爱我时，我想揍他。没人爱过我，连我妈妈都说我被魔鬼附身了。但这个男人的眼中有某种东西----一种勇气和平安，是我从未见过的。我无法理解有人愿意为我这样的人死。
+                    <span class="illustration-source">----尼基·克鲁兹，《奔向光明》自传</span>
+                </div>
+                
+                <p>几周后，尼基和一些帮派成员出席了威尔克森的布道会。在那里，尼基做了一个决定，将改变他的一生----他决定接受耶稣基督。他回忆说："我感觉有什么东西在我体内死去----我的仇恨、暴力和愤怒。同时，我感到一种前所未有的爱和接纳充满了我。"</p>
+                
+                <p>尼基的转变是如此彻底，以至于他立即开始向其他帮派成员传福音。令人难以置信的是，他的整个黑帮中有14人也接受了基督。尼基随后进入圣经学院接受训练，并创立了"新生命为青少年"（New Life for Youth）事工。</p>
+                
+                <p>在接下来的几十年里，尼基·克鲁兹成为了国际知名的讲员，向全球数百万人分享他的故事。他的自传《十字架与匕首》（后改名为《奔向光明》）被翻译成40多种语言，销售了数百万册。</p>
+                
+                <p>尼基的故事向我们展示了福音的大能，能够将最绝望、最暴力的生命彻底转变。他常说："如果上帝能改变我，祂就能改变任何人。"这个曾经充满仇恨的黑帮成员成为了爱与和平的使者，提醒我们基督的爱没有边界，祂的恩典能触及社会的最边缘人群。</p>
+            </div>
+            <div class="illustration-buttons">
+                <button class="illustration-copy-btn" data-id="13">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    复制例证
+                </button>
+                <span class="illustration-copy-indicator" id="copyIndicator13">复制成功!</span>
+            </div>
+            <div class="related-resources">
+                <h4>相关资源推荐</h4>
+                <div class="resource-list">
+                    <a href="https://nickycruz.org/" target="_blank" class="resource-item">尼基·克鲁兹官方网站</a>
+                    <a href="https://www.christianitytoday.com/ct/2019/october-web-only/david-wilkerson-cross-switchblade-nicky-cruz-gangs-nyc.html" target="_blank" class="resource-item">今日基督教 - 十字架与匕首的遗产</a>
+                    <a href="https://www.guideposts.org/inspiration/inspiring-stories/how-nicky-cruz-left-the-gangs-for-god" target="_blank" class="resource-item">引导柱 - 尼基·克鲁兹的转变</a>
+                </div>
+            </div>`
+        },
+        {
+            id: 14,
+            title: "收割者的休息",
+            category: "service",
+            shortDesc: "宣教士医生保罗·布兰德如何在麻风病人中服事的感人故事...",
+            content: `<div class="illustration-content-header">
+                <h3 class="illustration-content-title">收割者的休息</h3>
+                <div class="illustration-content-meta">类别: 服侍 | 审核: 已审核</div>
+            </div>
+            <div class="illustration-content-body">
+                <p>保罗·布兰德医生（Dr. Paul Brand）是20世纪最杰出的医学宣教士之一。他在印度和美国致力于麻风病研究和治疗，彻底改变了人们对这种疾病的理解。然而，他的事奉之路并非一帆风顺。</p>
+                
+                <p>1946年，布兰德医生和他的妻子玛格丽特来到印度南部的韦洛尔基督教医学院工作。当时，麻风病被视为不治之症，患者遭受严重歧视，被社会排斥。许多人相信麻风病是神的惩罚或诅咒。</p>
+                
+                <p>布兰德医生很快发现，麻风病患者丧失手指和脚趾并非因为疾病直接"吃掉"他们的肢体，如人们所普遍认为的那样，而是因为神经损伤导致患者失去痛觉，无意识地伤害自己。这一发现彻底改变了麻风病的治疗方法。</p>
+                
+                <div class="illustration-quote">
+                    痛苦不是敌人，而是朋友。痛苦像一个忠实的守望者，警告我们危险的存在。麻风病患者的悲剧在于他们失去了这个警告系统。在研究麻风病时，我学到的最大功课就是痛苦的礼物。
+                    <span class="illustration-source">----保罗·布兰德医生，《痛苦：人体中的警钟》</span>
+                </div>
+                
+                <p>布兰德医生开发了革命性的手术技术，使麻风病患者残缺的手恢复功能。他不仅医治病人的身体，也恢复他们的尊严。他经常说："外科医生可以修复手，但只有爱才能医治心灵对被拒绝的伤害。"</p>
+                
+                <p>在印度服务14年后，布兰德医生于1966年被邀请到美国路易斯安那州的卡维尔分院继续他的工作。在那里，他帮助建立了世界一流的麻风病研究和康复中心。</p>
+                
+                <p>布兰德医生虽然是杰出的科学家和外科医生，但他从不将科学与信仰分开。他常说："在我手术室里，我看到神的创造奇迹。每一根肌腱、每一条神经都在讲述创造者的故事。"</p>
+                
+                <p>他的一生致力于服侍那些被社会遗忘的人，不仅体现了基督的爱，也证明了专业技能如何成为服侍神和他人的工具。2003年，布兰德医生在享年89岁高龄时安息主怀。他生前常说："当我们接触那些被社会视为不可接触的人时，我们就是在触摸耶稣的手。"</p>
+            </div>
+            <div class="illustration-buttons">
+                <button class="illustration-copy-btn" data-id="14">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    复制例证
+                </button>
+                <span class="illustration-copy-indicator" id="copyIndicator14">复制成功!</span>
+            </div>
+            <div class="related-resources">
+                <h4>相关资源推荐</h4>
+                <div class="resource-list">
+                    <a href="https://www.cmf.org.uk/resources/publications/content/?context=article&id=26028" target="_blank" class="resource-item">基督徒医学团契 - 保罗·布兰德的遗产</a>
+                    <a href="https://www.christianitytoday.com/ct/2003/julyweb-only/7-28-43.0.html" target="_blank" class="resource-item">今日基督教 - 保罗·布兰德医生悼文</a>
+                    <a href="https://www.leprosymission.org/about-us/our-history" target="_blank" class="resource-item">麻风病传教团 - 历史与服务</a>
+                </div>
+            </div>`
+        },
+        {
+            id: 15,
+            title: "杨腓力的灵修之旅",
+            category: "piety",
+            shortDesc: "畅销书作家如何从怀疑论者转变为信心的代言人...",
+            content: `<div class="illustration-content-header">
+                <h3 class="illustration-content-title">杨腓力的灵修之旅</h3>
+                <div class="illustration-content-meta">类别: 敬虔 | 审核: 已审核</div>
+            </div>
+            <div class="illustration-content-body">
+                <p>杨腓力（Philip Yancey）是当代最有影响力的基督教作家之一，《活出色彩》、《恩典多奇异》等著作影响了全球数百万读者。然而，他的灵修之旅并非一帆风顺，而是充满了怀疑、挣扎和重新发现。</p>
+                
+                <p>杨腓力在美国南方一个极其保守的基要派家庭和教会环境中长大。他的父亲在他一岁时就去世，母亲是一位严厉的教会学校老师。这个教会环境对种族隔离持支持态度，宣扬一种严苛的、缺乏喜乐的信仰观念。</p>
+                
+                <p>青少年时期的杨腓力对这种信仰充满怀疑，甚至一度完全放弃了信仰。他曾说："我离开教会时，以为我也离开了上帝。实际上，我只是离开了一种关于上帝的扭曲观念。"</p>
+                
+                <div class="illustration-quote">
+                    我花了大半生时间试图摆脱我童年信仰的毒素。与其说我是在从信仰中恢复过来，不如说我是在恢复对信仰本身的理解。上帝不是我想象中那个随时准备惩罚我的严厉法官，而是那位爱我们、愿意与我们同行的慈父。
+                    <span class="illustration-source">----杨腓力，《恩典多奇异》第13页</span>
+                </div>
+                
+                <p>就读惠顿学院期间，杨腓力开始重新思考信仰。通过阅读C.S.路易斯、多萝西·塞耶斯等作家的作品，以及与几位有智慧的导师交流，他发现了一种更加真实、更有活力的信仰。他认识到恩典的深度和广度，这彻底改变了他对基督教的看法。</p>
+                
+                <p>杨腓力的写作生涯开始于为《校园生活》杂志撰写文章，后来他成为该杂志的编辑。1977年，他与人合著了第一本书《不平凡的爱》，此后出版了20多本书，在全球售出超过1500万册。</p>
+                
+                <p>他的作品之所以如此有影响力，部分原因在于他从不回避基督教信仰中的难题----痛苦、怀疑、失望。正如他在《恩典多奇异》中所写："恩典意味着没有什么我们能做的能使上帝更爱我们，也没有什么我们做的能使上帝少爱我们。"</p>
+                
+                <p>杨腓力的灵修之旅提醒我们，信仰的真实成长往往包含疑惑和挣扎。正如他所言："怀疑不是信仰的反面；它是信仰的一部分。"他的经历鼓励我们追求一种超越宗教外表、直达信仰核心的生活----一种扎根于恩典、充满真实关系的属灵生活。</p>
+            </div>
+            <div class="illustration-buttons">
+                <button class="illustration-copy-btn" data-id="15">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    复制例证
+                </button>
+                <span class="illustration-copy-indicator" id="copyIndicator15">复制成功!</span>
+            </div>
+            <div class="related-resources">
+                <h4>相关资源推荐</h4>
+                <div class="resource-list">
+                    <a href="https://philipyancey.com/" target="_blank" class="resource-item">杨腓力官方网站</a>
+                    <a href="https://www.ivpress.com/philip-yancey" target="_blank" class="resource-item">校园出版社 - 杨腓力作品集</a>
+                    <a href="https://www.faithgateway.com/author/philip-yancey/" target="_blank" class="resource-item">信仰之门 - 杨腓力专栏</a>
+                </div>
+            </div>`
+        },
+        {
+            id: 16,
+            title: "李爱锐的信仰决定",
+            category: "faith",
+            shortDesc: "奥运冠军如何放弃金牌机会坚守自己的信仰原则...",
+            content: `<div class="illustration-content-header">
+                <h3 class="illustration-content-title">李爱锐的信仰决定</h3>
+                <div class="illustration-content-meta">类别: 信心 | 审核: 已审核</div>
+            </div>
+            <div class="illustration-content-body">
+                <p>李爱锐（Eric Liddell）是苏格兰著名的奥运短跑冠军，他的故事在电影《烈火战车》（Chariots of Fire）中得到了生动展现。然而，他真正的伟大不在于他获得的金牌，而在于他为信仰所做的抉择。</p>
+                
+                <p>1924年巴黎奥运会前，李爱锐发现他最擅长的100米短跑比赛安排在星期日举行。作为一名虔诚的基督徒，李爱锐相信星期日应当分别为圣，专心敬拜上帝，而不是参加比赛。尽管面临巨大压力----包括来自英国奥委会和皇室的压力----他依然坚持自己的信念。</p>
+                
+                <div class="illustration-quote">
+                    上帝使我速度快，我跑步时能感受到祂的喜悦。但如果我在主日跑步，我就感受不到那种喜悦了。
+                    <span class="illustration-source">----李爱锐，1924年巴黎奥运会前</span>
+                </div>
+                
+                <p>这个决定在当时引起了巨大轰动。许多人认为他辜负了国家的期望，但李爱锐坚定地说："我相信上帝让我有速度，也为我创造了一个使用这速度的目的。但如果我不能保持对祂的忠诚，我就无法履行祂对我的计划。"</p>
+                
+                <p>令人惊讶的是，李爱锐转而参加了他不太擅长的400米比赛，这个项目没有安排在星期日。尽管他在这个项目上的世界排名很低，但他不仅赢得了金牌，还创造了新的世界纪录。</p>
+                
+                <p>然而，李爱锐的故事并未结束于奥运赛场。1925年，在事业巅峰时期，他选择放弃运动生涯和英国的舒适生活，前往中国成为一名宣教士。他在中国服务了近二十年，教书育人，服侍当地社区。</p>
+                
+                <p>1943年，在第二次世界大战期间，李爱锐被日军关押在山东的一个集中营。即使在集中营中，他仍然帮助组织活动鼓舞囚犯士气，照顾老人和病人。1945年2月，就在战争结束前几个月，李爱锐因脑瘤去世，年仅43岁。</p>
+                
+                <p>李爱锐的一生告诉我们，信心不仅仅是一种信念，更是一种行动。当他说"上帝呼召我到了中国"时，他不仅是说说而已，而是愿意放下一切，包括奥运明星的荣耀和地位，去回应这个呼召。正如他在写给妹妹的信中所说："我们进入基督的国度不是为了安全，而是为了服务；不是为了获得地位，而是为了牺牲。"</p>
+            </div>
+            <div class="illustration-buttons">
+                <button class="illustration-copy-btn" data-id="16">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    复制例证
+                </button>
+                <span class="illustration-copy-indicator" id="copyIndicator16">复制成功!</span>
+            </div>
+            <div class="related-resources">
+                <h4>相关资源推荐</h4>
+                <div class="resource-list">
+                    <a href="https://www.ericliddell.org/" target="_blank" class="resource-item">李爱锐中心官方网站</a>
+                    <a href="https://www.christianitytoday.com/history/people/missionaries/eric-liddell.html" target="_blank" class="resource-item">今日基督教 - 李爱锐传记</a>
+                    <a href="https://www.biblesociety.org.uk/what-we-do/england-and-wales/eric-liddell/" target="_blank" class="resource-item">圣经公会 - 李爱锐的信仰遗产</a>
+                </div>
+            </div>`
+        }
+    ];
+
+    // 在DOM加载完成后执行初始化和事件处理
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('例证宝库初始化开始');
+        
+        // 初始化例证列表
+        initIllustrationList();
+        
+        // 为分类按钮添加点击事件
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                console.log('分类按钮点击:', this.getAttribute('data-category'));
+                
+                // 移除所有按钮的active类
+                document.querySelectorAll('.category-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                
+                // 添加当前按钮的active类
+                this.classList.add('active');
+                
+                // 根据类别筛选例证
+                const category = this.getAttribute('data-category');
+                filterIllustrations(category);
+            });
+        });
+        
+        // 搜索功能
+        document.getElementById('illustrationSearchBtn').addEventListener('click', function() {
+            const searchTerm = document.getElementById('illustrationSearchInput').value.trim().toLowerCase();
+            if (!searchTerm) {
+                alert('请输入搜索关键词');
+                return;
             }
             
-            if (loadingEl) loadingEl.style.display = 'none';
+            searchIllustrations(searchTerm);
+        });
+        
+        // 为搜索框添加回车事件
+        document.getElementById('illustrationSearchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('illustrationSearchBtn').click();
+            }
+        });
+        
+        // 表单提交
+        document.getElementById('illustrationSubmissionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            // 滚动到顶部
-            const contentEl = document.getElementById('illustrationContent');
-            if (contentEl) contentEl.scrollTop = 0;
-        } else {
-            console.error(`未找到ID为 ${id} 的例证内容`);
-            if (loadingEl) loadingEl.style.display = 'none';
-            if (welcomeEl) welcomeEl.style.display = 'block';
-        }
-    }, 500);
-}
-
-// 筛选例证
-function filterIllustrations(category) {
-    console.log('筛选例证, 类别:', category);
-    const items = document.querySelectorAll('.illustration-list-item');
-    let count = 0;
-    
-    items.forEach(item => {
-        const itemCategory = item.getAttribute('data-category');
-        if (category === 'all' || itemCategory === category) {
-            item.style.display = '';
-            count++;
-        } else {
-            item.style.display = 'none';
-        }
+            const title = document.getElementById('illustrationTitle').value.trim();
+            const category = document.getElementById('illustrationCategory').value;
+            const content = document.getElementById('illustrationContentInput').value.trim();
+            const source = document.getElementById('illustrationSource').value.trim();
+            
+            if (!title || !content || !source) {
+                alert('请填写完整的例证信息，尤其是出处/来源');
+                return;
+            }
+            
+            alert('感谢您的分享！您的例证已提交，我们会尽快审核并添加到例证库中。');
+            this.reset();
+        });
+        
+        console.log('例证宝库初始化完成');
     });
-    
-    // 更新计数
-    const countElem = document.getElementById('itemCount');
-    if (countElem) {
-        countElem.textContent = count;
-        console.log('筛选后计数:', count);
-    }
-    
-    // 重置内容区域显示欢迎信息
-    const welcomeEl = document.getElementById('illustrationWelcome');
-    const resultEl = document.getElementById('illustrationResult');
-    const loadingEl = document.getElementById('illustrationLoading');
-    
-    if (welcomeEl) welcomeEl.style.display = 'block';
-    if (resultEl) resultEl.style.display = 'none';
-    if (loadingEl) loadingEl.style.display = 'none';
-}
 
-// 搜索例证
-function searchIllustrations(term) {
-    console.log('搜索例证, 关键词:', term);
-    
-    // 显示加载状态
-    const welcomeEl = document.getElementById('illustrationWelcome');
-    const resultEl = document.getElementById('illustrationResult');
-    const loadingEl = document.getElementById('illustrationLoading');
-    
-    if (welcomeEl) welcomeEl.style.display = 'none';
-    if (resultEl) resultEl.style.display = 'none';
-    if (loadingEl) loadingEl.style.display = 'flex';
-    
-    // 模拟搜索延迟
-    setTimeout(() => {
+    // 初始化例证列表
+    function initIllustrationList() {
+        console.log('开始初始化例证列表');
+        const listContainer = document.getElementById('illustrationList');
+        
+        if (!listContainer) {
+            console.error('找不到列表容器元素!');
+            return;
+        }
+        
+        listContainer.innerHTML = '';
+        
+        // 创建列表项
+        let count = 0;
+        illustrationData.forEach(item => {
+            const listItem = document.createElement('div');
+            listItem.className = 'illustration-list-item';
+            listItem.setAttribute('data-illustration-id', item.id);
+            listItem.setAttribute('data-category', item.category);
+            listItem.innerHTML = `
+                <h4>${item.title}</h4>
+                <p>${item.shortDesc}</p>
+            `;
+            
+            // 点击事件处理
+            listItem.addEventListener('click', function() {
+                const id = this.getAttribute('data-illustration-id');
+                console.log('点击例证:', id);
+                showIllustration(id);
+            });
+            
+            listContainer.appendChild(listItem);
+            count++;
+        });
+        
+        // 更新计数
+        document.getElementById('itemCount').textContent = count;
+        console.log(`列表初始化完成，共 ${count} 项`);
+    }
+
+    // 显示例证内容
+    function showIllustration(id) {
+        console.log('显示例证 ID:', id);
+        
+        // 移除所有active类
+        document.querySelectorAll('.illustration-list-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // 添加active类到当前选中项
+        const selectedItem = document.querySelector(`.illustration-list-item[data-illustration-id="${id}"]`);
+        if (selectedItem) {
+            selectedItem.classList.add('active');
+            
+            // 如果在移动设备上，确保选中项可见
+            if (window.innerWidth <= 768) {
+                selectedItem.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // 显示加载状态
+        document.getElementById('illustrationWelcome').style.display = 'none';
+        document.getElementById('illustrationResult').style.display = 'none';
+        document.getElementById('illustrationLoading').style.display = 'flex';
+        
+        // 找到对应例证
+        const illustration = illustrationData.find(item => item.id == id);
+        
+        // 模拟加载时间
+        setTimeout(() => {
+            if (illustration) {
+                const resultContainer = document.getElementById('illustrationResult');
+                resultContainer.innerHTML = illustration.content;
+                resultContainer.style.display = 'block';
+                
+                // 绑定复制按钮事件
+                const copyBtn = resultContainer.querySelector('.illustration-copy-btn');
+                if (copyBtn) {
+                    copyBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log('复制按钮被点击');
+                        
+                        // 复制功能
+                        const contentToBecopied = resultContainer.querySelector('.illustration-content-body').innerText;
+                        copyToClipboard(contentToBecopied, id);
+                    });
+                }
+                
+                document.getElementById('illustrationLoading').style.display = 'none';
+            } else {
+                console.error(`未找到ID为 ${id} 的例证`);
+                document.getElementById('illustrationLoading').style.display = 'none';
+                document.getElementById('illustrationWelcome').style.display = 'block';
+            }
+        }, 500);
+    }
+
+    // 筛选例证
+    function filterIllustrations(category) {
+        console.log('筛选类别:', category);
         const items = document.querySelectorAll('.illustration-list-item');
         let count = 0;
-        let firstMatchId = null;
         
         items.forEach(item => {
-            const text = item.textContent.toLowerCase();
-            const id = item.getAttribute('data-illustration-id');
-            const content = illustrationContents[id].toLowerCase();
-            
-            if (text.includes(term) || content.includes(term)) {
+            if (category === 'all' || item.getAttribute('data-category') === category) {
                 item.style.display = '';
                 count++;
-                
-                if (!firstMatchId) {
-                    firstMatchId = id;
-                }
             } else {
                 item.style.display = 'none';
             }
         });
         
         // 更新计数
-        const countElem = document.getElementById('itemCount');
-        if (countElem) {
-            countElem.textContent = count;
-            console.log('搜索结果计数:', count);
-        }
+        document.getElementById('itemCount').textContent = count;
         
-        if (count > 0 && firstMatchId) {
-            // 显示第一个匹配结果
-            console.log('显示第一个匹配结果:', firstMatchId);
-            showIllustration(firstMatchId);
-        } else {
-            // 显示无结果提示
-            if (welcomeEl) welcomeEl.style.display = 'block';
-            if (loadingEl) loadingEl.style.display = 'none';
-            alert('未找到符合条件的例证，请尝试其他关键词。');
-        }
-    }, 600);
-}
+        // 重置内容区域显示欢迎信息
+        document.getElementById('illustrationWelcome').style.display = 'block';
+        document.getElementById('illustrationResult').style.display = 'none';
+        document.getElementById('illustrationLoading').style.display = 'none';
+    }
 
-// 复制例证
-function copyIllustration(id) {
-    console.log('复制例证 ID:', id);
-    try {
-        const contentElement = document.querySelector(`#illustrationResult .illustration-content-body`);
-        if (!contentElement) {
-            throw new Error('无法找到要复制的内容元素');
-        }
+    // 搜索例证
+    function searchIllustrations(term) {
+        console.log('搜索例证:', term);
         
-        const content = contentElement.innerText || contentElement.textContent;
+    // 显示加载状态
+        document.getElementById('illustrationWelcome').style.display = 'none';
+        document.getElementById('illustrationResult').style.display = 'none';
+        document.getElementById('illustrationLoading').style.display = 'flex';
+        
+        // 模拟搜索延迟
+        setTimeout(() => {
+            const items = document.querySelectorAll('.illustration-list-item');
+            let count = 0;
+            let firstMatchId = null;
+            
+            items.forEach(item => {
+                const itemText = item.textContent.toLowerCase();
+                const id = item.getAttribute('data-illustration-id');
+                // 查找匹配项 - 在标题、描述中查找
+                if (itemText.includes(term)) {
+                    item.style.display = '';
+                    count++;
+                    
+                    // 记录第一个匹配的ID
+                    if (firstMatchId === null) {
+                        firstMatchId = id;
+                    }
+                } else {
+                    // 在内容中搜索
+                    const illustration = illustrationData.find(data => data.id == id);
+                    if (illustration && illustration.content.toLowerCase().includes(term)) {
+                        item.style.display = '';
+                        count++;
+                        
+                        // 记录第一个匹配的ID
+                        if (firstMatchId === null) {
+                            firstMatchId = id;
+                        }
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+            });
+            
+            // 更新计数
+            document.getElementById('itemCount').textContent = count;
+            
+            // 显示第一个匹配项
+            if (count > 0 && firstMatchId) {
+                showIllustration(firstMatchId);
+            } else {
+                // 无匹配项
+                document.getElementById('illustrationLoading').style.display = 'none';
+                document.getElementById('illustrationWelcome').style.display = 'block';
+                alert('未找到符合条件的例证，请尝试其他关键词。');
+            }
+        }, 600);
+    }
+
+    // 复制到剪贴板
+    function copyToClipboard(text, id) {
+        console.log('正在复制到剪贴板...');
         
         // 尝试使用现代API
         if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(content)
+            navigator.clipboard.writeText(text)
                 .then(() => {
-                    console.log('复制成功 (现代API)');
                     showCopySuccess(id);
                 })
                 .catch(err => {
                     console.error('剪贴板API失败:', err);
-                    fallbackCopy(content, id);
+                    fallbackCopy(text, id);
                 });
         } else {
             // 回退到传统方法
-            fallbackCopy(content, id);
+            fallbackCopy(text, id);
         }
-    } catch (err) {
-        console.error('复制失败:', err);
-        alert('复制失败，请手动选择内容复制。');
     }
-}
 
-// 传统复制方法
-function fallbackCopy(text, id) {
-    console.log('使用传统复制方法');
-    const textarea = document.createElement('textarea');
-    textarea.value = text;
-    textarea.style.position = 'fixed';
-    textarea.style.opacity = '0';
-    document.body.appendChild(textarea);
-    
-    try {
-        textarea.select();
-        const success = document.execCommand('copy');
-        if (success) {
-            console.log('复制成功 (传统方法)');
-            showCopySuccess(id);
-        } else {
-            throw new Error('execCommand返回false');
-        }
-    } catch (err) {
-        console.error('传统复制方法失败:', err);
-        alert('无法复制文本。请手动选择并复制。');
-    } finally {
-        document.body.removeChild(textarea);
-    }
-}
-
-// 显示复制成功提示
-function showCopySuccess(id) {
-    console.log('显示复制成功提示, ID:', id);
-    const indicator = document.getElementById(`copyIndicator${id}`);
-    if (indicator) {
-        indicator.style.opacity = '1';
+    // 传统复制方法
+    function fallbackCopy(text, id) {
+        console.log('使用传统复制方法...');
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
         
-        setTimeout(() => {
-            indicator.style.opacity = '0';
-        }, 2000);
-    } else {
-        // 如果找不到特定ID的指示器，尝试查找通用指示器
-        console.log('未找到特定ID的复制指示器，尝试查找通用指示器');
-        const generalIndicator = document.querySelector('.illustration-copy-indicator');
-        if (generalIndicator) {
-            generalIndicator.style.opacity = '1';
+        try {
+            textarea.select();
+            const success = document.execCommand('copy');
+            if (success) {
+                showCopySuccess(id);
+            } else {
+                alert('复制失败，请手动选择内容复制。');
+            }
+        } catch (err) {
+            console.error('复制失败:', err);
+            alert('复制失败，请手动选择内容复制。');
+        } finally {
+            document.body.removeChild(textarea);
+        }
+    }
+
+    // 显示复制成功提示
+    function showCopySuccess(id) {
+        console.log('显示复制成功提示');
+        const indicator = document.getElementById(`copyIndicator${id}`);
+        if (indicator) {
+            indicator.style.opacity = '1';
+            
             setTimeout(() => {
-                generalIndicator.style.opacity = '0';
+                indicator.style.opacity = '0';
             }, 2000);
         } else {
-            // 如果都找不到，显示一个简单的提示
-            console.log('未找到任何复制指示器，使用alert');
+            // 无法找到特定ID的提示元素，使用通用的提示
             alert('例证已复制到剪贴板！');
         }
     }
-}
-</script>
+})(); // 立即执行函数结束
+</script>  
 
     <footer>
         <p>&copy; 2025 牧者智囊 | 技术支持信仰，信仰引导技术</p>
