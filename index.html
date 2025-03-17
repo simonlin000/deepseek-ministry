@@ -1099,6 +1099,7 @@
         </div>
     </section>
 <!-- 例证宝库部分（重构版） -->
+<!-- 例证宝库部分 -->
 <section class="illustration-section">
     <div class="illustration-container">
         <div class="illustration-header">
@@ -2382,6 +2383,14 @@ const illustrationData = [
     }
 ];
 document.addEventListener('DOMContentLoaded', function() {
+    // 初始化例证内容对象
+    window.illustrationContents = {};
+    
+    // 从illustrationData构建illustrationContents对象
+    illustrationData.forEach(item => {
+        illustrationContents[item.id] = item.content;
+    });
+    
     // 初始化例证列表
     initIllustrationList();
     
@@ -2444,76 +2453,30 @@ function initIllustrationList() {
     const listContainer = document.getElementById('illustrationList');
     listContainer.innerHTML = '';
     
-    // 从illustrationContents对象中获取例证ID
-    const illustrationIds = Object.keys(illustrationContents);
+    // 直接使用illustrationData来填充列表
     let count = 0;
     
-    // 根据例证ID创建列表项
-    illustrationIds.forEach(id => {
-        // 从HTML内容中提取标题和分类
-        const htmlContent = illustrationContents[id];
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = htmlContent;
+    illustrationData.forEach(item => {
+        const listItem = document.createElement('div');
+        listItem.className = 'illustration-list-item';
+        listItem.setAttribute('data-illustration-id', item.id);
+        listItem.setAttribute('data-category', item.category);
+        listItem.innerHTML = `
+            <h4>${item.title || '无标题例证'}</h4>
+            <p>${item.shortDesc || '点击查看详情'}</p>
+        `;
         
-        // 提取标题和分类
-        const titleElement = tempDiv.querySelector('.illustration-content-title');
-        const metaElement = tempDiv.querySelector('.illustration-content-meta');
+        // 添加点击事件
+        listItem.addEventListener('click', function() {
+            showIllustration(item.id);
+        });
         
-        if (titleElement && metaElement) {
-            const title = titleElement.textContent.trim();
-            const metaText = metaElement.textContent.trim();
-            const categoryMatch = metaText.match(/类别:\s*([^|]+)/);
-            const category = categoryMatch ? categoryMatch[1].trim().toLowerCase() : '';
-            
-            // 创建摘要
-            let summary = '';
-            const firstP = tempDiv.querySelector('.illustration-content-body p');
-            if (firstP) {
-                summary = firstP.textContent.trim();
-                if (summary.length > 120) {
-                    summary = summary.substring(0, 120) + '...';
-                }
-            }
-            
-            // 创建列表项
-            const listItem = document.createElement('div');
-            listItem.className = 'illustration-list-item';
-            listItem.setAttribute('data-illustration-id', id);
-            listItem.setAttribute('data-category', translateCategory(category));
-            listItem.innerHTML = `
-                <h4>${title || '无标题例证'}</h4>
-                <p>${summary || '点击查看详情'}</p>
-            `;
-            
-            // 添加点击事件
-            listItem.addEventListener('click', function() {
-                showIllustration(this.getAttribute('data-illustration-id'));
-            });
-            
-            listContainer.appendChild(listItem);
-            count++;
-        } else {
-            console.warn(`例证ID ${id} 缺少标题或分类信息`);
-        }
+        listContainer.appendChild(listItem);
+        count++;
     });
     
     // 更新计数
     document.getElementById('itemCount').textContent = count;
-}
-
-// 翻译类别为英文分类名
-function translateCategory(category) {
-    const categoryMap = {
-        '信心': 'faith',
-        '祷告': 'prayer',
-        '敬虔': 'piety',
-        '爱': 'love',
-        '苦难与盼望': 'suffering',
-        '服侍': 'service',
-        '传福音': 'evangelism'
-    };
-    
-    return categoryMap[category] || 'other';
 }
 
 // 显示例证内容
@@ -2539,7 +2502,7 @@ function showIllustration(id) {
     document.getElementById('illustrationResult').style.display = 'none';
     document.getElementById('illustrationLoading').style.display = 'flex';
     
-    // 找到对应的例证
+    // 找到对应的例证内容
     const illustrationContent = illustrationContents[id];
     
     // 模拟加载时间
@@ -2554,7 +2517,8 @@ function showIllustration(id) {
             if (copyBtns && copyBtns.length > 0) {
                 copyBtns.forEach(btn => {
                     btn.addEventListener('click', function() {
-                        copyIllustration(id);
+                        const itemId = this.getAttribute('data-id');
+                        copyIllustration(itemId);
                     });
                 });
             }
@@ -2696,12 +2660,9 @@ function showCopySuccess(id) {
     const indicator = document.getElementById(`copyIndicator${id}`);
     if (indicator) {
         indicator.style.opacity = '1';
-        // 或者使用类名切换
-        // indicator.classList.add('show');
         
         setTimeout(() => {
             indicator.style.opacity = '0';
-            // indicator.classList.remove('show');
         }, 2000);
     } else {
         // 如果找不到特定ID的指示器，尝试查找通用指示器
@@ -2717,7 +2678,6 @@ function showCopySuccess(id) {
         }
     }
 }
-
 </script>
     <footer>
         <p>&copy; 2025 牧者智囊 | 技术支持信仰，信仰引导技术</p>
