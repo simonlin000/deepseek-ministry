@@ -2381,8 +2381,6 @@ const illustrationData = [
         </div>`
     }
 ];
-
-// 当页面加载完成时执行
 document.addEventListener('DOMContentLoaded', function() {
     // 初始化例证列表
     initIllustrationList();
@@ -2447,7 +2445,7 @@ function initIllustrationList() {
     listContainer.innerHTML = '';
     
     // 从illustrationContents对象中获取例证ID
-    const illustrationIds = Object.keys(illustrationContents).map(id => parseInt(id));
+    const illustrationIds = Object.keys(illustrationContents);
     let count = 0;
     
     // 根据例证ID创建列表项
@@ -2464,8 +2462,8 @@ function initIllustrationList() {
         if (titleElement && metaElement) {
             const title = titleElement.textContent.trim();
             const metaText = metaElement.textContent.trim();
-            const category = metaText.includes('类别:') ? 
-                metaText.split('类别:')[1].split('|')[0].trim().toLowerCase() : '';
+            const categoryMatch = metaText.match(/类别:\s*([^|]+)/);
+            const category = categoryMatch ? categoryMatch[1].trim().toLowerCase() : '';
             
             // 创建摘要
             let summary = '';
@@ -2483,17 +2481,19 @@ function initIllustrationList() {
             listItem.setAttribute('data-illustration-id', id);
             listItem.setAttribute('data-category', translateCategory(category));
             listItem.innerHTML = `
-                <h4>${title}</h4>
-                <p>${summary}</p>
+                <h4>${title || '无标题例证'}</h4>
+                <p>${summary || '点击查看详情'}</p>
             `;
             
             // 添加点击事件
             listItem.addEventListener('click', function() {
-                showIllustration(id);
+                showIllustration(this.getAttribute('data-illustration-id'));
             });
             
             listContainer.appendChild(listItem);
             count++;
+        } else {
+            console.warn(`例证ID ${id} 缺少标题或分类信息`);
         }
     });
     
@@ -2550,17 +2550,23 @@ function showIllustration(id) {
             resultContainer.style.display = 'block';
             
             // 重新绑定复制按钮事件
-            const copyBtn = resultContainer.querySelector('.illustration-copy-btn');
-            if (copyBtn) {
-                copyBtn.onclick = function() {
-                    copyIllustration(id);
-                };
+            const copyBtns = resultContainer.querySelectorAll('.illustration-copy-btn');
+            if (copyBtns && copyBtns.length > 0) {
+                copyBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        copyIllustration(id);
+                    });
+                });
             }
             
             document.getElementById('illustrationLoading').style.display = 'none';
             
             // 滚动到顶部
             document.getElementById('illustrationContent').scrollTop = 0;
+        } else {
+            console.error(`未找到ID为 ${id} 的例证内容`);
+            document.getElementById('illustrationLoading').style.display = 'none';
+            document.getElementById('illustrationWelcome').style.display = 'block';
         }
     }, 500);
 }
@@ -2633,25 +2639,85 @@ function searchIllustrations(term) {
     }, 600);
 }
 
-// 复制功能保持使用您原先的实现，以确保兼容性
+// 复制例证
 function copyIllustration(id) {
     try {
-        const content = document.querySelector(`#illustrationResult .illustration-content-body`).innerText;
-        navigator.clipboard.writeText(content).then(() => {
-            // 显示复制成功提示
-            const indicator = document.getElementById(`copyIndicator${id}`);
-            if (indicator) {
-                indicator.classList.add('show');
-                setTimeout(() => {
-                    indicator.classList.remove('show');
-                }, 2000);
-            }
-        });
+        const contentElement = document.querySelector(`#illustrationResult .illustration-content-body`);
+        if (!contentElement) {
+            throw new Error('无法找到要复制的内容元素');
+        }
+        
+        const content = contentElement.innerText || contentElement.textContent;
+        
+        // 尝试使用现代API
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(content)
+                .then(() => showCopySuccess(id))
+                .catch(err => {
+                    console.error('剪贴板API失败:', err);
+                    fallbackCopy(content, id);
+                });
+        } else {
+            // 回退到传统方法
+            fallbackCopy(content, id);
+        }
     } catch (err) {
         console.error('复制失败:', err);
         alert('复制失败，请手动选择内容复制。');
     }
 }
+
+// 传统复制方法
+function fallbackCopy(text, id) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    
+    try {
+        textarea.select();
+        const success = document.execCommand('copy');
+        if (success) {
+            showCopySuccess(id);
+        } else {
+            throw new Error('execCommand返回false');
+        }
+    } catch (err) {
+        console.error('传统复制方法失败:', err);
+        alert('无法复制文本。请手动选择并复制。');
+    } finally {
+        document.body.removeChild(textarea);
+    }
+}
+
+// 显示复制成功提示
+function showCopySuccess(id) {
+    const indicator = document.getElementById(`copyIndicator${id}`);
+    if (indicator) {
+        indicator.style.opacity = '1';
+        // 或者使用类名切换
+        // indicator.classList.add('show');
+        
+        setTimeout(() => {
+            indicator.style.opacity = '0';
+            // indicator.classList.remove('show');
+        }, 2000);
+    } else {
+        // 如果找不到特定ID的指示器，尝试查找通用指示器
+        const generalIndicator = document.querySelector('.illustration-copy-indicator');
+        if (generalIndicator) {
+            generalIndicator.style.opacity = '1';
+            setTimeout(() => {
+                generalIndicator.style.opacity = '0';
+            }, 2000);
+        } else {
+            // 如果都找不到，显示一个简单的提示
+            alert('例证已复制到剪贴板！');
+        }
+    }
+}
+
 </script>
     <footer>
         <p>&copy; 2025 牧者智囊 | 技术支持信仰，信仰引导技术</p>
